@@ -18,8 +18,11 @@ function preload() {
 
     game.load.image('tiles','src/sprites/tiles.png');
     game.load.tilemap('mapData', 'src/map/testMap.json', null, Phaser.Tilemap.TILED_JSON);
-    game.load.json('map', 'src/map/testMap.json', null, Phaser.Tilemap.TILED_JSON);
     game.load.image('ghost', 'src/sprites/ghost.png');
+
+/*    var jsonData = JSON.parse('mapData');
+    var text = game.add.text(100, 100, "data:" + jsonData, { fill: '#ffffff' });
+    text.setShadow(2, 2, 'rgba(0,0,0,0.5)', 0);*/
 
     //Load the plugin
     game.add.plugin(Phaser.Plugin.Debug);
