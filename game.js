@@ -18,31 +18,16 @@ function preload() {
 
     game.load.image('tiles','src/sprites/tiles.png');
     game.load.tilemap('mapData', 'src/map/testMap.json', null, Phaser.Tilemap.TILED_JSON);
+    game.load.json('version', 'src/map/testMap.json');
     game.load.image('ghost', 'src/sprites/ghost.png');
 
-/*    var jsonData = JSON.parse('mapData');
-    var text = game.add.text(100, 100, "data:" + jsonData, { fill: '#ffffff' });
-    text.setShadow(2, 2, 'rgba(0,0,0,0.5)', 0);*/
+   //game.load.json('version', 'http://phaser.io/version.json');
 
     //Load the plugin
     game.add.plugin(Phaser.Plugin.Debug);
     game.add.plugin(Phaser.Plugin.Inspector);
 
-    var data = {
-        "0": "1",
-        "1": "2",
-        "2": "3",
-        "3": "4"
-    };
-    var arr = [];
-    for (var prop in data) {
-        arr.push(data[prop]);
-    }
-    console.log(arr);
 }
-
-var loadingLabel;
-var response = 'Check console for pathfinding';
 
 var mapData;
 var background_layer;
@@ -58,6 +43,7 @@ function create() {
 
     game.physics.startSystem(Phaser.Physics.P2JS);
 
+    var phaserJSON = game.cache.getJSON('version');
     mapData = game.add.tilemap('mapData');
     mapData.addTilesetImage('tiles');
 
@@ -100,7 +86,17 @@ function create() {
 
     easystar.calculate();
 
-    loadingLabel = game.add.text(200, 150, 'PATHFINDING: ' + response, {font: '22px Courier', fill: '#fff'});
+
+    // - grab the Json Data
+
+
+    var data = phaserJSON.data;
+    var arr = [];
+    for (var prop in data) {
+        arr.push(data[prop]);
+    }
+    console.log(arr);
+    var text = game.add.text(100, 100, "Current Phaser version: " + phaserJSON.height, { fill: '#ffffff' });
 }
 
     function update(){
