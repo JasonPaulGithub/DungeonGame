@@ -1,3 +1,21 @@
+    var game = new Phaser.Game(800, 600, Phaser.AUTO, 'phaser-example', { preload: preload, create: create, update:update });
+
+    function preload()
+    {
+
+        //TODO: Find out how to make th map 16x16, or just blow up the tileset.
+        game.load.image('tiles','src/sprites/tiles.png');
+        game.load.tilemap('mapData', 'src/map/testMap.json', null, Phaser.Tilemap.TILED_JSON);
+        game.load.json('version', 'src/map/testMap.json');
+        game.load.image('ghost', 'src/sprites/ghost.png');
+       //game.load.json('version', 'http://phaser.io/version.json');
+
+        //Load the plugin
+        game.add.plugin(Phaser.Plugin.Debug);
+        game.add.plugin(Phaser.Plugin.Inspector);
+
+    }
+
     // Easy Star JS setup::
     var easystar = new EasyStar.js();
 
@@ -11,23 +29,6 @@
     easystar.setAcceptableTiles([0]);
     easystar.enableDiagonals();
     easystar.enableCornerCutting();
-
-    var game = new Phaser.Game(800, 600, Phaser.AUTO, 'phaser-example', { preload: preload, create: create, update:update });
-
-    function preload()
-    {
-
-        game.load.image('tiles','src/sprites/tiles.png');
-        game.load.tilemap('mapData', 'src/map/testMap.json', null, Phaser.Tilemap.TILED_JSON);
-        game.load.json('version', 'src/map/testMap.json');
-        game.load.image('ghost', 'src/sprites/ghost.png');
-       //game.load.json('version', 'http://phaser.io/version.json');
-
-        //Load the plugin
-        game.add.plugin(Phaser.Plugin.Debug);
-        game.add.plugin(Phaser.Plugin.Inspector);
-
-    }
 
     var mapData;
     var background_layer;
@@ -58,7 +59,7 @@
         floor_decor.debug = false;
         wall_layer = mapData.createLayer('wall');
         wall_layer.resizeWorld();
-        wall_layer.debug = true;
+        wall_layer.debug = false;
         wall_decor = mapData.createLayer('wall_decor');
         wall_decor.resizeWorld();
         wall_decor.debug = false;
@@ -87,8 +88,17 @@
         easystar.calculate();
 
 
-        // - grab the Json Data
-        var data = phaserJSON.layers[3].data;
+        // TODO: Grab the x and Y values from the JSON file and pump out a grid for the pathfinder.
+        var data = phaserJSON.layers[3].data; //grab the wall layer
+        var x = phaserJSON.layers[3].width;
+        var y = phaserJSON.layers[3].height;
+
+
+
+
+
+
+
         var arr = [];
 
         for (var prop in data)
