@@ -103,8 +103,8 @@
         console.log(arr3);
 
         var arr = [];
-        for (var i = 0; i < 10; i++) {
-            arr.push(i);
+        for (var i = 0; i < 30; i++) {
+            arr.push(data[i]);
         }
         console.log(arr);
 
