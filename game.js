@@ -90,22 +90,24 @@
 
         // TODO: Grab the x and Y values from the JSON file and pump out a grid for the pathfinder.
         var data = phaserJSON.layers[3].data; //grab the wall layer
-        var x = phaserJSON.layers[3].width;
-        var y = phaserJSON.layers[3].height;
+        var width = phaserJSON.layers[3].width;
+        var height = phaserJSON.layers[3].height;
 
+        var arr1 = data[0];
+        console.log(arr1);
 
+        var arr2 = data.length;
+        console.log(arr2);
 
-
-
-
+        var arr3 = [data[2],data[2]];
+        console.log(arr3);
 
         var arr = [];
-
-        for (var prop in data)
-        {
-            arr.push(data[prop]);
+        for (var i = 0; i < 10; i++) {
+            arr.push(i);
         }
         console.log(arr);
+
     }
 
     function update()
