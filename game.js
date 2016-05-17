@@ -115,7 +115,10 @@
         console.log(arr5);
 
         // Splice, slice, pop the arrays. functions...
+        // could reverse the list and 'pop' off 30 each time into an array.
         // Mess around see what's possible.
+
+
 
     }
 
