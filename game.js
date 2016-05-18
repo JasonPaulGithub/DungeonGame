@@ -10,20 +10,6 @@
         game.add.plugin(Phaser.Plugin.Inspector);
     }
 
-    // Easy Star JS setup::
-    var easystar = new EasyStar.js();
-
-    var level = [[0,0,1,0,0],
-        [1,0,1,0,1],
-        [0,0,1,0,0],
-        [0,0,1,1,0],
-        [0,0,0,0,0]];
-
-    easystar.setGrid(level);
-    easystar.setAcceptableTiles([0]);
-    easystar.enableDiagonals();
-    easystar.enableCornerCutting();
-
     var mapData;
     var background_layer;
     var floor_layer;
@@ -57,25 +43,11 @@
         roof_layer.resizeWorld();
         roof_layer.debug = false;
 
-        easystar.findPath(0, 0, 4, 0, function( path ) {
-            if (path === null) {
-                console.log("Pathfinder: DORMANT");
-            }
-            else {
-                for (var i = 0; i < path.length; i++)
-                {
-                    //console.log("P: " + i + ", X: " + path[i].x + ", Y: " + path[i].y);
-                    console.log('Pathfinder: ON');
-                }
-            }
-        });
-        easystar.calculate();
-
         var phaserJSON = game.cache.getJSON('version');
         var data = phaserJSON.layers[3].data; //grab the wall layer
         var arr4 = [];
         var arr5 = [];
-        var total =[];
+        var level =[];
 
         for (var i=0; i<data.length; i++) {
             arr4.push(data[i]);
@@ -84,13 +56,31 @@
         var dcv = Math.sqrt(data.length); //DataCrunchValue: the setup means all maps must remain square.
         for (var x=0; x<data.length; x+=dcv) {
             arr5 = arr4.slice(0,30);
-            total.push(arr5);
+            level.push(arr5);
             arr4.splice(0,30);
         }
-
-        console.log(total);
         console.log(level);
 
+        var easystar = new EasyStar.js();
+        easystar.setGrid(level);
+        easystar.setAcceptableTiles([0]);
+        easystar.enableDiagonals();
+        easystar.enableCornerCutting();
+
+      //easystar.findPath(startX, startY, endX, endY, callback);
+        easystar.findPath(0, 0, 29, 29, function( path ) {
+            if (path === null) {
+                console.log("Pathfinder: DORMANT");
+            }
+            else {
+                console.log('Pathfinder: ON');
+                for (var i = 0; i < path.length; i++)
+                {
+                    console.log("P: " + i + ", X: " + path[i].x + ", Y: " + path[i].y);
+                }
+            }
+        });
+        easystar.calculate();
     }
 
     function update()
