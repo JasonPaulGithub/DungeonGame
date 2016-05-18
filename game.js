@@ -96,21 +96,20 @@
         var arr4 = [];
         var arr5;
         var arr6;
-        var arr7;
+        var total =[];
 
 
         for (var i=0; i<data.length; i++) {
             arr4.push(data[i]);
         }
 
-        arr5 = arr4.slice(0,30);
-        console.log(arr5);
-        arr6 = arr4.slice(30,60);
-        console.log(arr6);
-        arr7 = arr4.slice(60,90); //...up to 900. See a pattern here?
-        console.log(arr7);
+        var dcv = Math.sqrt(data.length); //DataCrunchValue
+        for (var x=0; x<data.length; x+=dcv) {
+            arr5 = arr4.slice(0,30);
+            total.push(arr5);
+            arr4.splice(0,30);
+        }
 
-        var total = [arr5,arr6,arr7];
         console.log(total);
 
 
