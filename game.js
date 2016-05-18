@@ -107,7 +107,7 @@
         console.log(arr5);
         arr6 = arr4.slice(30,60);
         console.log(arr6);
-        arr7 = arr4.slice(60,90);
+        arr7 = arr4.slice(60,90); //...up to 900. See a pattern here?
         console.log(arr7);
 
         var total = [arr5,arr6,arr7];
