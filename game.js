@@ -95,7 +95,6 @@
 
         var arr4 = [];
         var arr5;
-        var arr6;
         var total =[];
 
 
@@ -103,7 +102,7 @@
             arr4.push(data[i]);
         }
 
-        var dcv = Math.sqrt(data.length); //DataCrunchValue
+        var dcv = Math.sqrt(data.length); //DataCrunchValue: the setup means all maps must remain square, for now.
         for (var x=0; x<data.length; x+=dcv) {
             arr5 = arr4.slice(0,30);
             total.push(arr5);
@@ -111,6 +110,7 @@
         }
 
         console.log(total);
+        console.log(level);
 
 
 
