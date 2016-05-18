@@ -45,30 +45,25 @@
 
         var phaserJSON = game.cache.getJSON('version');
         var data = phaserJSON.layers[3].data; //grab the wall layer
-        var arr4 = [];
-        var arr5 = [];
+        var preArray = [];
+        var postArray = [];
         var level =[];
-
         for (var i=0; i<data.length; i++) {
-            arr4.push(data[i]);
+            preArray.push(data[i]);
         }
-
         var dcv = Math.sqrt(data.length); //DataCrunchValue: the setup means all maps must remain square.
         for (var x=0; x<data.length; x+=dcv) {
-            arr5 = arr4.slice(0,30);
-            level.push(arr5);
-            arr4.splice(0,30);
+            postArray = preArray.slice(0,30);
+            level.push(postArray);
+            preArray.splice(0,30);
         }
-        console.log(level);
 
         var easystar = new EasyStar.js();
         easystar.setGrid(level);
         easystar.setAcceptableTiles([0]);
         easystar.enableDiagonals();
         easystar.enableCornerCutting();
-
-      //easystar.findPath(startX, startY, endX, endY, callback);
-        easystar.findPath(0, 0, 29, 29, function( path ) {
+        easystar.findPath(0, 0, 29, 29, function( path ) { //easystar.findPath(startX, startY, endX, endY, callback);
             if (path === null) {
                 console.log("Pathfinder: DORMANT");
             }
@@ -88,4 +83,8 @@
 
     }
 
+    //TODO: Insert the cowboy code:
+    //      +   recreate the sprite pathfinding.
+    //      +   Copy the STOP animation for movement.
 
+    //TODO: Insert the keyboard controls from pls_work then Integrate with the cowboy controls.
