@@ -96,22 +96,13 @@
         var width = phaserJSON.layers[3].width;
         var height = phaserJSON.layers[3].height;
 
-        var arr1 = data.length;
-        console.log(arr1);
-
-        var arr2 = data[0];
-        console.log(arr2);
-
-        var arr3 = [data[0],data[1],data[2]];
-        console.log(arr3);
-
         var arr4 = [];
-        var arr5 = [];
-        for (var i=0; i<30; i++) {
+        var arr5;
+
+        for (var i=0; i<data.length; i++) {
             arr4.push(data[i]);
-            arr5.push(data[i+30]);
         }
-        console.log(arr4);
+        arr5 = arr4.slice(0,30);
         console.log(arr5);
 
         // Splice, slice, pop the arrays. functions...
