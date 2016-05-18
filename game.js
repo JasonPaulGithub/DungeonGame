@@ -69,18 +69,15 @@
 
         easystar.findPath(0, 0, 4, 0, function( path ) {
             if (path === null) {
-                console.log("The path to the destination point was not found.");
-                response = "DORMANT";
+                console.log("Pathfinder: DORMANT");
             }
 
             else {
-
                 for (var i = 0; i < path.length; i++)
                 {
-                    console.log("P: " + i + ", X: " + path[i].x + ", Y: " + path[i].y);
+                    //console.log("P: " + i + ", X: " + path[i].x + ", Y: " + path[i].y);
+                    console.log('Pathfinder: ON');
                 }
-
-                response = 'RUNNING';
             }
 
         });
@@ -98,12 +95,25 @@
 
         var arr4 = [];
         var arr5;
+        var arr6;
+        var arr7;
+
 
         for (var i=0; i<data.length; i++) {
             arr4.push(data[i]);
         }
+
         arr5 = arr4.slice(0,30);
         console.log(arr5);
+        arr6 = arr4.slice(30,60);
+        console.log(arr6);
+        arr7 = arr4.slice(60,90);
+        console.log(arr7);
+
+        var total = [arr5,arr6,arr7];
+        console.log(total);
+
+
 
         // Splice, slice, pop the arrays. functions...
         // could reverse the list and 'pop' off 30 each time into an array.
