@@ -3,7 +3,7 @@
     function preload()
     {
         //TODO: Find out how to make th map 16x16, or just blow up the tileset.
-        game.load.image('tiles','src/sprites/tiles.png');
+        game.load.spritesheet('tiles','src/sprites/tilemap.png');
         game.load.tilemap('mapData', 'src/map/testMap.json', null, Phaser.Tilemap.TILED_JSON);
         game.load.json('version', 'src/map/testMap.json');
         game.add.plugin(Phaser.Plugin.Debug);
@@ -71,7 +71,7 @@
                 console.log('Pathfinder: ON');
                 for (var i = 0; i < path.length; i++)
                 {
-                    console.log("P: " + i + ", X: " + path[i].x + ", Y: " + path[i].y);
+                    //console.log("P: " + i + ", X: " + path[i].x + ", Y: " + path[i].y);
                 }
             }
         });
