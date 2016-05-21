@@ -2,7 +2,6 @@
 
     function preload()
     {
-        //TODO: Find out how to make th map 16x16, or just blow up the tileset.
         game.load.spritesheet('tiles','src/sprites/tiles.png');
         game.load.tilemap('mapData', 'src/map/testMap.json', null, Phaser.Tilemap.TILED_JSON);
         game.load.json('version', 'src/map/testMap.json');
@@ -65,7 +64,7 @@
         easystar.setAcceptableTiles([0]);
         easystar.enableDiagonals();
         easystar.enableCornerCutting();
-        easystar.findPath(5, 5, 10, 10, function( path ) { //easystar.findPath(startX, startY, endX, endY, callback);
+        easystar.findPath(5, 5, 10, 10, function( path ) {
             if (path === null) {
                 console.log("Pathfinder: DORMANT");
             }
