@@ -8,6 +8,8 @@
         game.load.json('version', 'src/map/testMap.json');
         game.add.plugin(Phaser.Plugin.Debug);
         game.add.plugin(Phaser.Plugin.Inspector);
+
+        this.game.world.scale.setTo(1.8,1.8);
     }
 
     var mapData;
@@ -22,7 +24,7 @@
 
         game.physics.startSystem(Phaser.Physics.P2JS);
 
-        mapData = game.add.tilemap('mapData');
+        mapData = game.add.tilemap('mapData',32,32);
         mapData.addTilesetImage('tiles');
         background_layer = mapData.createLayer('background');
         background_layer.resizeWorld();
@@ -63,7 +65,7 @@
         easystar.setAcceptableTiles([0]);
         easystar.enableDiagonals();
         easystar.enableCornerCutting();
-        easystar.findPath(0, 0, 29, 29, function( path ) { //easystar.findPath(startX, startY, endX, endY, callback);
+        easystar.findPath(5, 5, 10, 10, function( path ) { //easystar.findPath(startX, startY, endX, endY, callback);
             if (path === null) {
                 console.log("Pathfinder: DORMANT");
             }
@@ -71,7 +73,7 @@
                 console.log('Pathfinder: ON');
                 for (var i = 0; i < path.length; i++)
                 {
-                    //console.log("P: " + i + ", X: " + path[i].x + ", Y: " + path[i].y);
+                    console.log("P: " + i + ", X: " + path[i].x + ", Y: " + path[i].y);
                 }
             }
         });
