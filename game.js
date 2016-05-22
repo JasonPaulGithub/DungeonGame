@@ -5,6 +5,9 @@
         game.load.spritesheet('tiles','src/sprites/tiles.png');
         game.load.tilemap('mapData', 'src/map/testMap.json', null, Phaser.Tilemap.TILED_JSON);
         game.load.json('version', 'src/map/testMap.json');
+
+        game.load.spritesheet('cleric', 'src/sprites/cleric.png', 32, 32);
+
         game.add.plugin(Phaser.Plugin.Debug);
         game.add.plugin(Phaser.Plugin.Inspector);
 
@@ -19,10 +22,22 @@
     var wall_decor;
     var roof_layer;
 
+    var cursors;
+    var upKey;
+    var downKey;
+    var leftKey;
+    var rightKey;
+    var player_entity;
+    var player_animation;
+
+    var text = 'Debug text.';
+
+
+
     function create() {
 
         game.physics.startSystem(Phaser.Physics.P2JS);
-
+/////// MapData
         mapData = game.add.tilemap('mapData',32,32);
         mapData.addTilesetImage('tiles');
         background_layer = mapData.createLayer('background');
@@ -44,6 +59,7 @@
         roof_layer.resizeWorld();
         roof_layer.debug = false;
 
+/////// EasyStar
         var phaserJSON = game.cache.getJSON('version');
         var data = phaserJSON.layers[3].data; //grab the wall layer
         var preArray = [];
@@ -72,20 +88,71 @@
                 console.log('Pathfinder: ON');
                 for (var i = 0; i < path.length; i++)
                 {
-                    console.log("P: " + i + ", X: " + path[i].x + ", Y: " + path[i].y);
+                    //console.log("P: " + i + ", X: " + path[i].x + ", Y: " + path[i].y);
                 }
             }
         });
         easystar.calculate();
+
+/////// Player, Controls, and Animation
+
+        cursors = game.input.keyboard.createCursorKeys();
+
+        upKey = game.input.keyboard.addKey(Phaser.Keyboard.UP);
+        downKey = game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
+        leftKey = game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
+        rightKey = game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
+
+        player_entity = game.add.sprite(100,200, null);
+        game.physics.p2.enable(player_entity, false);
+        player_animation = game.add.sprite(null, null, 'cleric');
+        player_animation.anchor.setTo(0.5,0.5);
+
+        // TODO: Figure out the animations, tidy them up a bit, and label them.
+        player_animation.animations.add('walk_down',  [1,2,3,4,5,6,7,8,9,10],   10, false);
+        player_animation.animations.add('walk_right', [11,12,13,14,15,16,,17,18,19,20],   10,  false);
+        player_animation.animations.add('walk_up',    [21,22,23,24,25,26,27,28,29,30],   10, false);
+        player_animation.animations.add('walk_left',  [31,32,33,35,36,37,38,39,40],   10,  false);
+        player_animation.bringToTop();
+
     }
 
     function update()
     {
+        player_animation.x = player_entity.x;
+        player_animation.y = player_entity.y;
 
+        game.camera.follow(player_entity);
+
+        //TODO: Implement the smooth movement system from the 'ghost' source code.
+        movement();
     }
 
-    //TODO: Insert the cowboy code:
-    //      +   recreate the sprite pathfinding.
-    //      +   Copy the STOP animation for movement.
+    function movement(){
 
-    //TODO: Insert the keyboard controls from pls_work then Integrate with the cowboy controls.
+        player_entity.body.setZeroVelocity();
+        var spd = 200;
+
+        if (upKey.isDown)
+        {
+            player_animation.animations.play('walk_up');
+            player_entity.body.moveUp(spd)
+        }
+        else if (downKey.isDown)
+        {
+            player_animation.animations.play('walk_down');
+            player_entity.body.moveDown(spd);
+        }
+        if (leftKey.isDown)
+        {
+            player_animation.animations.play('walk_left');
+            player_entity.body.moveLeft(spd);
+        }
+        else if (rightKey.isDown)
+        {
+
+            player_animation.animations.play('walk_right');
+            player_entity.body.moveRight(spd);
+        }
+
+    }
