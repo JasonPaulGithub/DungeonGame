@@ -109,11 +109,16 @@
         player_animation.anchor.setTo(0.5,0.5);
 
         // TODO: Figure out the animations, tidy them up a bit, and label them.
-        player_animation.animations.add('walk_down',  [1,2,3,4,5,6,7,8,9,10],   10, false);
-        player_animation.animations.add('walk_right', [11,12,13,14,15,16,,17,18,19,20],   10,  false);
-        player_animation.animations.add('walk_up',    [21,22,23,24,25,26,27,28,29,30],   10, false);
-        player_animation.animations.add('walk_left',  [31,32,33,35,36,37,38,39,40],   10,  false);
+        var spd = 20;
+
+        player_animation.animations.add('idle',  [1,2,3,4,5,6,7,8,9,10],   5, false);
+        player_animation.animations.add('walk',    [21,22,23,24,25,26,27,28,29,30],   spd, false);
+
+        player_animation.animations.add('walk_down',  [1,2,3,4,5,6,7,8,9,10],   spd, false);
+        player_animation.animations.add('walk_right', [11,12,13,14,15,16,,17,18,19,20],   spd,  false);
+        player_animation.animations.add('walk_left',  [31,32,33,35,36,37,38,39,40],   spd,  false);
         player_animation.bringToTop();
+        roof_layer.bringToTop();
 
     }
 
@@ -124,35 +129,37 @@
 
         game.camera.follow(player_entity);
 
-        //TODO: Implement the smooth movement system from the 'ghost' source code.
+        //TODO: Implement the smooth movement system.
         movement();
     }
 
     function movement(){
 
-        player_entity.body.setZeroVelocity();
-        var spd = 200;
+        var speed = 60;
 
-        if (upKey.isDown)
+        if (rightKey.isDown === true)
         {
-            player_animation.animations.play('walk_up');
-            player_entity.body.moveUp(spd)
+            player_animation.animations.play('walk');
+            player_entity.body.velocity.x = speed;
         }
-        else if (downKey.isDown)
+        else if (leftKey.isDown === true)
         {
-            player_animation.animations.play('walk_down');
-            player_entity.body.moveDown(spd);
+            player_animation.animations.play('walk');
+            player_entity.body.velocity.x = -speed;
         }
-        if (leftKey.isDown)
+        else if (downKey.isDown === true)
         {
-            player_animation.animations.play('walk_left');
-            player_entity.body.moveLeft(spd);
+            player_animation.animations.play('walk');
+            player_entity.body.velocity.y = speed;
         }
-        else if (rightKey.isDown)
+        else if (upKey.isDown === true)
         {
-
-            player_animation.animations.play('walk_right');
-            player_entity.body.moveRight(spd);
+            player_animation.animations.play('walk');
+            player_entity.body.velocity.y = -speed;
+        }
+        else {
+            player_entity.body.setZeroVelocity();
+            player_animation.animations.play('idle');
         }
 
     }
