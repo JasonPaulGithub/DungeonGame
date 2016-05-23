@@ -164,7 +164,7 @@
             }
             else if (leftKey.isDown == true)
             {
-                player_animation.scale.x *=-1; // This flips many times over because its in the loop.
+                player_animation.scale.x *=-1;
                 player_animation.animations.play('walk');
             }
             else if (rightKey.isDown == true)
