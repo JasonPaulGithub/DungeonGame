@@ -129,30 +129,36 @@
 
         game.camera.follow(player_entity);
 
-        //TODO: Implement the smooth movement system.
-        movement();
+        //TODO: Implement the smooth direction system.
+        direction();
     }
 
-    function movement(){
+    function direction(){
 
         var speed = 60;
 
-        if (rightKey.isDown === true)
+        // pass direction value into a "movement control" function
+        // if (rightKey.isDown == true) && (upKey.isDown === true){
+        //  direction(NORTHEAST);
+        // }
+        // repeat for all 8 directions.
+        if (rightKey.isDown == true)
         {
+            //direction(right)
             player_animation.animations.play('walk');
             player_entity.body.velocity.x = speed;
         }
-        else if (leftKey.isDown === true)
+        else if (leftKey.isDown == true)
         {
             player_animation.animations.play('walk');
             player_entity.body.velocity.x = -speed;
         }
-        else if (downKey.isDown === true)
+        else if (downKey.isDown == true)
         {
             player_animation.animations.play('walk');
             player_entity.body.velocity.y = speed;
         }
-        else if (upKey.isDown === true)
+        else if (upKey.isDown == true)
         {
             player_animation.animations.play('walk');
             player_entity.body.velocity.y = -speed;
