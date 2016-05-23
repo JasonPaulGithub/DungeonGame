@@ -129,7 +129,6 @@
 
         game.camera.follow(player_entity);
 
-        //TODO: Implement the smooth direction system.
         direction();
     }
 
@@ -141,22 +140,18 @@
         if (upKey.isDown == true)
         {
             player_entity.body.velocity.y = -speed;
-            text = 'North';
         }
             else if (downKey.isDown == true)
             {
                 player_entity.body.velocity.y = speed;
-                text = 'South';
             }
         if (leftKey.isDown == true)
         {
             player_entity.body.velocity.x = -speed;
-            text = 'East';
         }
             else if (rightKey.isDown == true)
             {
                 player_entity.body.velocity.x = speed;
-                text = 'West';
             }
 
         if (upKey.isDown == true)
@@ -169,6 +164,8 @@
             }
             else if (leftKey.isDown == true)
             {
+                player_animation.scale.x *=-1;
+                // This flips many times over because its in the loop.
                 player_animation.animations.play('walk');
             }
             else if (rightKey.isDown == true)
