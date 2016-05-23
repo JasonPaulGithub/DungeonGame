@@ -1,4 +1,4 @@
-    var game = new Phaser.Game(800, 600, Phaser.AUTO, 'phaser-example', { preload: preload, create: create, update:update });
+    var game = new Phaser.Game(800, 600, Phaser.AUTO, 'phaser-example', { preload: preload, create: create, update: update, render: render });
 
     function preload()
     {
@@ -30,7 +30,7 @@
     var player_entity;
     var player_animation;
 
-    var text = 'Debug text.';
+    var text;
 
 
 
@@ -135,37 +135,51 @@
 
     function direction(){
 
+        player_entity.body.setZeroVelocity();
         var speed = 60;
 
-        // pass direction value into a "movement control" function
-        // if (rightKey.isDown == true) && (upKey.isDown === true){
-        //  direction(NORTHEAST);
-        // }
-        // repeat for all 8 directions.
-        if (rightKey.isDown == true)
+        if (upKey.isDown == true)
         {
-            //direction(right)
-            player_animation.animations.play('walk');
-            player_entity.body.velocity.x = speed;
-        }
-        else if (leftKey.isDown == true)
-        {
-            player_animation.animations.play('walk');
-            player_entity.body.velocity.x = -speed;
-        }
-        else if (downKey.isDown == true)
-        {
-            player_animation.animations.play('walk');
-            player_entity.body.velocity.y = speed;
-        }
-        else if (upKey.isDown == true)
-        {
-            player_animation.animations.play('walk');
             player_entity.body.velocity.y = -speed;
+            text = 'North';
         }
-        else {
-            player_entity.body.setZeroVelocity();
+            else if (downKey.isDown == true)
+            {
+                player_entity.body.velocity.y = speed;
+                text = 'South';
+            }
+        if (leftKey.isDown == true)
+        {
+            player_entity.body.velocity.x = -speed;
+            text = 'East';
+        }
+            else if (rightKey.isDown == true)
+            {
+                player_entity.body.velocity.x = speed;
+                text = 'West';
+            }
+
+        if (upKey.isDown == true)
+        {
+            player_animation.animations.play('walk');
+            }
+            else if (downKey.isDown == true)
+            {
+                player_animation.animations.play('walk');
+            }
+            else if (leftKey.isDown == true)
+            {
+                player_animation.animations.play('walk');
+            }
+            else if (rightKey.isDown == true)
+            {
+                player_animation.animations.play('walk');
+            }
+        else{
             player_animation.animations.play('idle');
         }
+    }
 
+    function render(){
+        game.debug.text('Debug text: ' + text, 32, 32);
     }
