@@ -38,6 +38,7 @@
     function create() {
 
         game.physics.startSystem(Phaser.Physics.P2JS);
+
 /////// MapData
         mapData = game.add.tilemap('mapData',32,32);
         mapData.addTilesetImage('tiles');
@@ -96,7 +97,6 @@
         easystar.calculate();
 
 /////// Player, Controls, and Animation
-
         cursors = game.input.keyboard.createCursorKeys();
 
         upKey = game.input.keyboard.addKey(Phaser.Keyboard.UP);
@@ -105,7 +105,10 @@
         rightKey = game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
 
         player_entity = game.add.sprite(100,200, null);
-        game.physics.p2.enable(player_entity, false);
+        game.physics.p2.enable(player_entity, true);
+        player_entity.body.setRectangle(16,32);
+        player_entity.body.fixedRotation = true;
+
         player_animation = game.add.sprite(null, null, 'cleric');
         player_animation.anchor.setTo(0.5,0.5);
 
@@ -116,7 +119,7 @@
         player_animation.animations.add('walk',    [21,22,23,24,25,26,27,28,29,30],   spd, false);
 
         player_animation.animations.add('walk_down',  [1,2,3,4,5,6,7,8,9,10],   spd, false);
-        player_animation.animations.add('walk_right', [11,12,13,14,15,16,,17,18,19,20],   spd,  false);
+        player_animation.animations.add('walk_right', [11,12,13,14,15,16,17,18,19,20],   spd,  false);
         player_animation.animations.add('walk_left',  [31,32,33,35,36,37,38,39,40],   spd,  false);
         player_animation.bringToTop();
         roof_layer.bringToTop();
