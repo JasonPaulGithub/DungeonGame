@@ -28,7 +28,6 @@
     var leftKey;
     var rightKey;
     var player_entity;
-    var player_animation;
 
     var text;
     var flipped = false;
@@ -53,13 +52,15 @@
         floor_decor.debug = false;
         wall_layer = mapData.createLayer('wall');
         wall_layer.resizeWorld();
-        wall_layer.debug = false;
+        wall_layer.debug = true;
         wall_decor = mapData.createLayer('wall_decor');
         wall_decor.resizeWorld();
         wall_decor.debug = false;
         roof_layer = mapData.createLayer('roof');
         roof_layer.resizeWorld();
         roof_layer.debug = false;
+
+        game.physics.p2.convertTilemap(mapData, wall_layer);
 
 /////// EasyStar
         var phaserJSON = game.cache.getJSON('version');
@@ -104,33 +105,28 @@
         leftKey = game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
         rightKey = game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
 
-        player_entity = game.add.sprite(100,200, null);
+        player_entity = game.add.sprite(100, 100, 'cleric');
         game.physics.p2.enable(player_entity, true);
         player_entity.body.setRectangle(16,32);
         player_entity.body.fixedRotation = true;
-
-        player_animation = game.add.sprite(null, null, 'cleric');
-        player_animation.anchor.setTo(0.5,0.5);
+        player_entity.anchor.setTo(0.5,0.5);
 
         // TODO: Figure out the animations, tidy them up a bit, and label them.
         var spd = 20;
 
-        player_animation.animations.add('idle',  [1,2,3,4,5,6,7,8,9,10],   5, false);
-        player_animation.animations.add('walk',    [21,22,23,24,25,26,27,28,29,30],   spd, false);
+        player_entity.animations.add('idle',  [1,2,3,4,5,6,7,8,9,10],   5, false);
+        player_entity.animations.add('walk',    [21,22,23,24,25,26,27,28,29,30],   spd, false);
 
-        player_animation.animations.add('walk_down',  [1,2,3,4,5,6,7,8,9,10],   spd, false);
-        player_animation.animations.add('walk_right', [11,12,13,14,15,16,17,18,19,20],   spd,  false);
-        player_animation.animations.add('walk_left',  [31,32,33,35,36,37,38,39,40],   spd,  false);
-        player_animation.bringToTop();
+        player_entity.animations.add('walk_down',  [1,2,3,4,5,6,7,8,9,10],   spd, false);
+        player_entity.animations.add('walk_right', [11,12,13,14,15,16,17,18,19,20],   spd,  false);
+        player_entity.animations.add('walk_left',  [31,32,33,35,36,37,38,39,40],   spd,  false);
+        player_entity.bringToTop();
         roof_layer.bringToTop();
 
     }
 
     function update()
     {
-        player_animation.x = player_entity.x;
-        player_animation.y = player_entity.y;
-
         game.camera.follow(player_entity);
 
         direction();
@@ -160,32 +156,32 @@
 
         if (upKey.isDown == true)
         {
-            player_animation.animations.play('walk');
+            player_entity.animations.play('walk');
         }
         else if (downKey.isDown == true)
         {
-            player_animation.animations.play('walk');
+            player_entity.animations.play('walk');
         }
         else if (leftKey.isDown == true)
         {
-            player_animation.animations.play('walk');
+            player_entity.animations.play('walk');
         }
         else if (rightKey.isDown == true)
         {
-            player_animation.animations.play('walk');
+            player_entity.animations.play('walk');
             if (flipped == true){
-                player_animation.scale.x *=-1;
+                player_entity.scale.x *=-1;
                 flipped = false;
             }
         }
         else
         {
-            player_animation.animations.play('idle');
+            player_entity.animations.play('idle');
         }
 
         if (leftKey.isDown){
             if (flipped == false){
-                player_animation.scale.x *=-1;
+                player_entity.scale.x *=-1;
                 flipped = true;
             }
         }
