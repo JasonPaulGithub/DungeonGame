@@ -1,4 +1,4 @@
-    var game = new Phaser.Game(800, 600, Phaser.AUTO, 'phaser-example', { preload: preload, create: create, update: update, render: render });
+    var game = new Phaser.Game(480, 480, Phaser.AUTO, 'phaser-example', { preload: preload, create: create, update: update, render: render });
 
     function preload()
     {
@@ -11,7 +11,15 @@
         game.add.plugin(Phaser.Plugin.Debug);
         game.add.plugin(Phaser.Plugin.Inspector);
 
-        this.game.world.scale.setTo(1.8,1.8);
+        //this.game.world.scale.setTo(1.8,1.8); << this is causing problems
+/*
+        game.scale.maxWidth = 800;
+        game.scale.maxHeight = 600;
+
+        //  Then we tell Phaser that we want it to scale up to whatever the browser can handle, but to do it proportionally
+        game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;*/
+
+
     }
 
     var mapData;
@@ -39,7 +47,7 @@
         game.physics.startSystem(Phaser.Physics.P2JS);
 
 /////// MapData
-        mapData = game.add.tilemap('mapData',32,32);
+        mapData = game.add.tilemap('mapData');
         mapData.addTilesetImage('tiles');
         background_layer = mapData.createLayer('background');
         background_layer.resizeWorld();
@@ -60,6 +68,7 @@
         roof_layer.resizeWorld();
         roof_layer.debug = false;
 
+        mapData.setCollisionBetween(1,2000,true,'wall');
         game.physics.p2.convertTilemap(mapData, wall_layer);
 
 /////// EasyStar
@@ -111,47 +120,44 @@
         player_entity.body.fixedRotation = true;
         player_entity.anchor.setTo(0.5,0.5);
 
-        // TODO: Figure out the animations, tidy them up a bit, and label them.
+        // TODO: Figure out the animations.
         var spd = 20;
-
         player_entity.animations.add('idle',  [1,2,3,4,5,6,7,8,9,10],   5, false);
         player_entity.animations.add('walk',    [21,22,23,24,25,26,27,28,29,30],   spd, false);
-
         player_entity.animations.add('walk_down',  [1,2,3,4,5,6,7,8,9,10],   spd, false);
         player_entity.animations.add('walk_right', [11,12,13,14,15,16,17,18,19,20],   spd,  false);
         player_entity.animations.add('walk_left',  [31,32,33,35,36,37,38,39,40],   spd,  false);
+
         player_entity.bringToTop();
         roof_layer.bringToTop();
-
     }
 
     function update()
     {
         game.camera.follow(player_entity);
-
         direction();
     }
 
     function direction(){
 
         player_entity.body.setZeroVelocity();
-        var speed = 60;
+        var speed = 200;
 
         if (upKey.isDown == true)
         {
-            player_entity.body.velocity.y = -speed;
+            player_entity.body.moveUp(speed);
         }
             else if (downKey.isDown == true)
             {
-                player_entity.body.velocity.y = speed;
+                player_entity.body.moveDown(speed);
             }
         if (leftKey.isDown == true)
         {
-            player_entity.body.velocity.x = -speed;
+            player_entity.body.moveLeft(speed);
         }
             else if (rightKey.isDown == true)
             {
-                player_entity.body.velocity.x = speed;
+                player_entity.body.moveRight(speed);
             }
 
         if (upKey.isDown == true)
