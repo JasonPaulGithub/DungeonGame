@@ -31,6 +31,7 @@
     var player_animation;
 
     var text;
+    var flipped = false;
 
 
 
@@ -157,22 +158,33 @@
         if (upKey.isDown == true)
         {
             player_animation.animations.play('walk');
-            }
-            else if (downKey.isDown == true)
-            {
-                player_animation.animations.play('walk');
-            }
-            else if (leftKey.isDown == true)
-            {
+        }
+        else if (downKey.isDown == true)
+        {
+            player_animation.animations.play('walk');
+        }
+        else if (leftKey.isDown == true)
+        {
+            player_animation.animations.play('walk');
+        }
+        else if (rightKey.isDown == true)
+        {
+            player_animation.animations.play('walk');
+            if (flipped == true){
                 player_animation.scale.x *=-1;
-                player_animation.animations.play('walk');
+                flipped = false;
             }
-            else if (rightKey.isDown == true)
-            {
-                player_animation.animations.play('walk');
-            }
-        else{
+        }
+        else
+        {
             player_animation.animations.play('idle');
+        }
+
+        if (leftKey.isDown){
+            if (flipped == false){
+                player_animation.scale.x *=-1;
+                flipped = true;
+            }
         }
     }
 
