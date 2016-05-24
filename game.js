@@ -1,4 +1,4 @@
-    var game = new Phaser.Game(480, 480, Phaser.AUTO, 'phaser-example', { preload: preload, create: create, update: update, render: render });
+    var game = new Phaser.Game(520, 520, Phaser.AUTO, 'phaser-example', { preload: preload, create: create, update: update, render: render });
 
     function preload()
     {
@@ -11,16 +11,13 @@
         game.add.plugin(Phaser.Plugin.Debug);
         game.add.plugin(Phaser.Plugin.Inspector);
 
-        //this.game.world.scale.setTo(1.8,1.8); //<< this is causing problems
+        this.game.world.scale.set(2); //<< this is causing problems
 
-        /*
-        game.scale.maxWidth = 800;
-        game.scale.maxHeight = 600;
-
-        //  Then we tell Phaser that we want it to scale up to whatever the browser can handle, but to do it proportionally
-        game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-        */
-
+        //TODO: This:
+        // ^ Blowing up the entire sprite set to a visual scale of '1.8' and from a pixel size of 16x32 to 32x64 may be the only option to fix this.
+        // This will help to fix the little animation bug, while physics could take advantage of vectors
+        // Decide betwen x2 or x3 size. Choose wisely.
+        // While on the subject of graphics, add a drop shadow too.
 
     }
 
@@ -41,8 +38,6 @@
 
     var text;
     var flipped = false;
-
-
 
     function create() {
 
@@ -117,8 +112,8 @@
         rightKey = game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
 
         player_entity = game.add.sprite(100, 100, 'cleric');
-        game.physics.p2.enable(player_entity, true);
-        player_entity.body.setRectangle(16,32);
+        game.physics.p2.enable(player_entity, false);
+        player_entity.body.setRectangle(14,30); // Exact sprite collision sizes don't agree with the engine . Set them 2 pixels smaller.
         player_entity.body.fixedRotation = true;
         player_entity.anchor.setTo(0.5,0.5);
 
