@@ -11,13 +11,15 @@
         game.add.plugin(Phaser.Plugin.Debug);
         game.add.plugin(Phaser.Plugin.Inspector);
 
-        //this.game.world.scale.setTo(1.8,1.8); << this is causing problems
-/*
+        //this.game.world.scale.setTo(1.8,1.8); //<< this is causing problems
+
+        /*
         game.scale.maxWidth = 800;
         game.scale.maxHeight = 600;
 
         //  Then we tell Phaser that we want it to scale up to whatever the browser can handle, but to do it proportionally
-        game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;*/
+        game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+        */
 
 
     }
