@@ -52,6 +52,8 @@
         TODO:
         Take the top beam of the door into the roof layer, darken the screen upon collision, play openDoor.mp3
         load a new map, then brighten the screen.
+
+        //Distant future: Combat system. Skill trees. Classes. Menus. Sound. Projectiles. Magic.
          */
 
         mapData = game.add.tilemap('mapData');
