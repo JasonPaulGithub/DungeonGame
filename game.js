@@ -101,7 +101,7 @@
 
         player_entity = game.add.sprite(200, 250, 'cleric');
         game.physics.p2.enable(player_entity, true);
-        player_entity.body.setRectangle(14,30); // Exact sprite collision sizes don't agree with the engine . Set them 2 pixels smaller.
+        player_entity.body.setCircle(10);
         player_entity.body.fixedRotation = true;
         player_entity.anchor.setTo(0.5,0.5);
 
@@ -118,7 +118,7 @@
         game.physics.p2.enable(ratnbat,true);
         ratnbat.body.setCircle(10);
         ratnbat.body.fixedRotation = true;
-        ratnbat.anchor.setTo(0.5,0.5);
+        ratnbat.anchor.setTo(0.4,0.8);
         //Expand on available enemy physics:
 
 /////// EasyStar
@@ -144,8 +144,8 @@
         var easystar = new EasyStar.js();
         easystar.setGrid(level);
         easystar.setAcceptableTiles([0]);
-        easystar.enableDiagonals();
-        easystar.enableCornerCutting();
+        //easystar.enableDiagonals();
+        //easystar.enableCornerCutting();
 
         setInterval(function(){
 
