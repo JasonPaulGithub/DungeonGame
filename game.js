@@ -132,8 +132,6 @@
             preArray.push(data[i]);
         }
 
-        var mapx;
-        var mayy;
         var dcv = Math.sqrt(data.length); //DataCrunchValue: the setup means all maps must remain square.
         var dataLength = data.length;
 
