@@ -54,6 +54,7 @@
         load a new map, then brighten the screen.
 
         //Distant future: Combat system. Skill trees. Classes. Menus. Sound. Projectiles. Magic. A story.
+        Lighting. Stats on items.
          */
 
         mapData = game.add.tilemap('mapData');
