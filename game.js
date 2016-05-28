@@ -120,7 +120,6 @@
 
 /////// Player, Controls, and Animation
         cursors = game.input.keyboard.createCursorKeys();
-
         upKey = game.input.keyboard.addKey(Phaser.Keyboard.UP);
         downKey = game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
         leftKey = game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
@@ -146,6 +145,10 @@
         ratnbat.body.setCircle(10);
         ratnbat.body.fixedRotation = true;
         ratnbat.anchor.setTo(0.5,0.5);
+        //Expand on optional physics:
+        ratnbat.body.bounce.set(1,1);
+
+
 
 /////// Misc
         player_entity.bringToTop();
