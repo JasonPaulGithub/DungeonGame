@@ -29,8 +29,13 @@
     var downKey;
     var leftKey;
     var rightKey;
+
     var player_entity;
+    var pex;
+    var pey;
     var ratnbat;
+    var rnbx;
+    var rnby;
 
     var text;
     var flipped = false;
@@ -135,33 +140,37 @@
         easystar.setAcceptableTiles([0]);
         easystar.enableDiagonals();
         easystar.enableCornerCutting();
-        easystar.findPath(5, 5, 10, 10, function( path ) {
 
-            if (path === null) {
-                console.log("Pathfinder: DORMANT");
-            }
+        setInterval(function(){
 
-            else {
-                console.log('Pathfinder: ON');
-                for (var i = 0; i < path.length; i++)
-                {
-                    //console.log("P: " + i + ", X: " + path[i].x + ", Y: " + path[i].y);
+            pex = player_entity.body.x;
+            pey = player_entity.body.y;
+            rnbx = ratnbat.body.x;
+            rnby = ratnbat.body.y;
+
+            easystar.findPath(5, 5, 10, 10, function( path ) {
+
+                if (path === null) {
+                    console.log("Pathfinder: DORMANT");
                 }
-            }
 
-        });
-        easystar.calculate();
+                else {
+                    console.log('Pathfinder: ON');
+                    for (var i = 0; i < path.length; i++)
+                    {
+                        console.log("P: " + i + ", X: " + path[i].x + ", Y: " + path[i].y);
+                    }
+                }
+
+            });
+            easystar.calculate();
+
+        }, 400);
 
 /////// Misc
         player_entity.bringToTop();
         roof_layer.bringToTop();
 
-    }
-
-    function update()
-    {
-        game.camera.follow(player_entity);
-        direction();
     }
 
     function direction(){
@@ -219,6 +228,13 @@
         }
     }
 
+    function update()
+    {
+        game.camera.follow(player_entity);
+        direction();
+    }
+
     function render(){
+        text = player_entity.body.x;
         game.debug.text('Debug text: ' + text, 32, 32);
     }
