@@ -83,41 +83,6 @@
         mapData.setCollisionBetween(1,2000,true,'wall');
         game.physics.p2.convertTilemap(mapData, wall_layer);
 
-/////// EasyStar
-        var phaserJSON = game.cache.getJSON('version');
-        var data = phaserJSON.layers[3].data; //grab the wall layer
-        var preArray = [];
-        var postArray = [];
-        var level =[];
-        for (var i=0; i<data.length; i++) {
-            preArray.push(data[i]);
-        }
-        var dcv = Math.sqrt(data.length); //DataCrunchValue: the setup means all maps must remain square.
-        for (var x=0; x<data.length; x+=dcv) {
-            postArray = preArray.slice(0,30);
-            level.push(postArray);
-            preArray.splice(0,30);
-        }
-
-        var easystar = new EasyStar.js();
-        easystar.setGrid(level);
-        easystar.setAcceptableTiles([0]);
-        easystar.enableDiagonals();
-        easystar.enableCornerCutting();
-        easystar.findPath(5, 5, 10, 10, function( path ) {
-            if (path === null) {
-                console.log("Pathfinder: DORMANT");
-            }
-            else {
-                console.log('Pathfinder: ON');
-                for (var i = 0; i < path.length; i++)
-                {
-                    //console.log("P: " + i + ", X: " + path[i].x + ", Y: " + path[i].y);
-                }
-            }
-        });
-        easystar.calculate();
-
 /////// Player, Controls, and Animation
         cursors = game.input.keyboard.createCursorKeys();
         upKey = game.input.keyboard.addKey(Phaser.Keyboard.UP);
@@ -147,9 +112,50 @@
         ratnbat.anchor.setTo(0.5,0.5);
         //Expand on available enemy physics:
 
+/////// EasyStar
+        var phaserJSON = game.cache.getJSON('version');
+        var data = phaserJSON.layers[3].data; //grab the wall layer
+        var preArray = [];
+        var postArray = [];
+        var level =[];
+
+        for (var i=0; i<data.length; i++) {
+            preArray.push(data[i]);
+        }
+
+        var dcv = Math.sqrt(data.length); //DataCrunchValue: the setup means all maps must remain square.
+        for (var x=0; x<data.length; x+=dcv) {
+            postArray = preArray.slice(0,30);
+            level.push(postArray);
+            preArray.splice(0,30);
+        }
+
+        var easystar = new EasyStar.js();
+        easystar.setGrid(level);
+        easystar.setAcceptableTiles([0]);
+        easystar.enableDiagonals();
+        easystar.enableCornerCutting();
+        easystar.findPath(5, 5, 10, 10, function( path ) {
+
+            if (path === null) {
+                console.log("Pathfinder: DORMANT");
+            }
+
+            else {
+                console.log('Pathfinder: ON');
+                for (var i = 0; i < path.length; i++)
+                {
+                    //console.log("P: " + i + ", X: " + path[i].x + ", Y: " + path[i].y);
+                }
+            }
+
+        });
+        easystar.calculate();
+
 /////// Misc
         player_entity.bringToTop();
         roof_layer.bringToTop();
+
     }
 
     function update()
