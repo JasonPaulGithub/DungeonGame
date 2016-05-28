@@ -145,10 +145,7 @@
         ratnbat.body.setCircle(10);
         ratnbat.body.fixedRotation = true;
         ratnbat.anchor.setTo(0.5,0.5);
-        //Expand on optional physics:
-        ratnbat.body.bounce.set(1,1);
-
-
+        //Expand on available enemy physics:
 
 /////// Misc
         player_entity.bringToTop();
