@@ -52,7 +52,7 @@
         floor_decor.debug = false;
         wall_layer = mapData.createLayer('wall');
         wall_layer.resizeWorld();
-        wall_layer.debug = true;
+        wall_layer.debug = false;
         wall_decor = mapData.createLayer('wall_decor');
         wall_decor.resizeWorld();
         wall_decor.debug = false;
