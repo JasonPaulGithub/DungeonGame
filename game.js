@@ -143,8 +143,8 @@
 
         var easystar = new EasyStar.js();
         easystar.setGrid(level);
-        easystar.setAcceptableTiles([0]);
-        //easystar.enableDiagonals();
+        easystar.setAcceptableTiles(0);
+        easystar.enableDiagonals();
         //easystar.enableCornerCutting();
 
         setInterval(function(){
@@ -292,7 +292,7 @@
         // Move the ENEMY
         var enemySpeed = 120;
 
-        //TODO: Fix the cone of direction for the enemy in persuit.
+        //TODO: It still gets stuck in corners. Perhaps fix the cone of direction for the enemy in persuit.
 
         if (enemyDirection == "N") {
             ratnbat.body.moveUp(enemySpeed);
