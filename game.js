@@ -7,6 +7,7 @@
         game.load.json('version', 'src/map/testMap.json');
 
         game.load.spritesheet('cleric', 'src/sprites/cleric.png', 64, 64);
+        game.load.spritesheet('ratnbat', 'src/sprites/ratnbat.png', 64, 64);
 
         game.add.plugin(Phaser.Plugin.Debug);
         game.add.plugin(Phaser.Plugin.Inspector);
@@ -29,6 +30,7 @@
     var leftKey;
     var rightKey;
     var player_entity;
+    var ratnbat;
 
     var text;
     var flipped = false;
@@ -138,6 +140,17 @@
         player_entity.animations.add('walk_right', [30,31,32,33,34,35,36,37,38,39],  spd,  false);
         player_entity.animations.add('walk_left',  [40,41,42,43,44,45,46,47,48,49],   spd,  false);
 
+/////// Enemies
+
+        ratnbat = game.add.sprite(400,400,'ratnbat');
+        game.physics.p2.enable(ratnbat,true);
+        ratnbat.body.setCircle(10);
+        ratnbat.body.fixedRotation = true;
+        ratnbat.anchor.setTo(0.5,0.5);
+
+
+
+/////// Misc
         player_entity.bringToTop();
         roof_layer.bringToTop();
     }
@@ -151,7 +164,7 @@
     function direction(){
 
         player_entity.body.setZeroVelocity();
-        var speed = 200;
+        var speed = 250;
 
         if (upKey.isDown == true)
         {
