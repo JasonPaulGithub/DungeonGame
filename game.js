@@ -134,21 +134,18 @@
 
         // TODO: Figure out the animations.
         var spd = 20;
-        player_entity.animations.add('idle',  [0,1,2,3,4,5,6,7,8,9],   5, false);
+        player_entity.animations.add('idle',         [0,1,2,3,4,5,6,7,8,9],               5, false);
         player_entity.animations.add('walk_down',    [10,11,12,13,14,15,16,17,18,19],   spd, false);
-        player_entity.animations.add('walk',  [20,21,22,23,24,25,26,27,28,29],   spd, false);
-        player_entity.animations.add('walk_right', [30,31,32,33,34,35,36,37,38,39],  spd,  false);
-        player_entity.animations.add('walk_left',  [40,41,42,43,44,45,46,47,48,49],   spd,  false);
+        player_entity.animations.add('walk',         [20,21,22,23,24,25,26,27,28,29],   spd, false);
+        player_entity.animations.add('walk_right',   [30,31,32,33,34,35,36,37,38,39],   spd, false);
+        player_entity.animations.add('walk_left',    [40,41,42,43,44,45,46,47,48,49],   spd,  false);
 
 /////// Enemies
-
         ratnbat = game.add.sprite(400,400,'ratnbat');
         game.physics.p2.enable(ratnbat,true);
         ratnbat.body.setCircle(10);
         ratnbat.body.fixedRotation = true;
         ratnbat.anchor.setTo(0.5,0.5);
-
-
 
 /////// Misc
         player_entity.bringToTop();
