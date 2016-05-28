@@ -6,18 +6,13 @@
         game.load.tilemap('mapData', 'src/map/testMap.json', null, Phaser.Tilemap.TILED_JSON);
         game.load.json('version', 'src/map/testMap.json');
 
-        game.load.spritesheet('cleric', 'src/sprites/cleric.png', 32, 32);
+        game.load.spritesheet('cleric', 'src/sprites/cleric.png', 64, 64);
 
         game.add.plugin(Phaser.Plugin.Debug);
         game.add.plugin(Phaser.Plugin.Inspector);
 
-        this.game.world.scale.set(2); //<< this is causing problems
-
         //TODO: This:
-        // ^ Blowing up the entire sprite set to a visual scale of '1.8' and from a pixel size of 16x32 to 32x64 may be the only option to fix this.
-        // This will help to fix the little animation bug, while physics could take advantage of vectors
-        // Decide betwen x2 or x3 size. Choose wisely.
-        // While on the subject of graphics, add a drop shadow too.
+        // Graphics: Add a drop shadow.
 
     }
 
