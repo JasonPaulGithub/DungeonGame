@@ -130,9 +130,10 @@
 
         var mapx;
         var mayy;
-
         var dcv = Math.sqrt(data.length); //DataCrunchValue: the setup means all maps must remain square.
-        for (var x=0; x<data.length; x+=dcv) {
+        var dataLength = data.length;
+
+        for (var x = 0; x < dataLength; x += dcv) {
             postArray = preArray.slice(0,30);
             level.push(postArray);
             preArray.splice(0,30);
@@ -146,12 +147,12 @@
 
         setInterval(function(){
 
-            pex = player_entity.body.x;
-            pey = player_entity.body.y;
-            rnbx = ratnbat.body.x;
-            rnby = ratnbat.body.y;
+            pex = Math.floor(player_entity.position.x / 30);
+            pey = Math.floor(player_entity.position.y / 30);
+            rnbx = Math.floor(ratnbat.position.x / 30);
+            rnby = Math.floor(ratnbat.position.y / 30);
 
-            easystar.findPath(5, 5, 10, 10, function( path ) {
+            easystar.findPath(pex, pey, rnbx, rnby, function( path ) {
 
                 if (path === null) {
                     console.log("Pathfinder: DORMANT");
@@ -238,6 +239,5 @@
     }
 
     function render(){
-        text = player_entity.body.x;
         game.debug.text('Debug text: ' + text, 32, 32);
     }
