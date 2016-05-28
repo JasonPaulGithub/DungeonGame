@@ -106,7 +106,7 @@
         leftKey = game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
         rightKey = game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
 
-        player_entity = game.add.sprite(100, 100, 'cleric');
+        player_entity = game.add.sprite(200, 250, 'cleric');
         game.physics.p2.enable(player_entity, true);
         player_entity.body.setRectangle(14,30); // Exact sprite collision sizes don't agree with the engine . Set them 2 pixels smaller.
         player_entity.body.fixedRotation = true;
@@ -115,10 +115,10 @@
         // TODO: Figure out the animations.
         var spd = 20;
         player_entity.animations.add('idle',  [0,1,2,3,4,5,6,7,8,9],   5, false);
-        player_entity.animations.add('walk',    [21,22,23,24,25,26,27,28,29,30],   spd, false);
-        player_entity.animations.add('walk_down',  [1,2,3,4,5,6,7,8,9,10],   spd, false);
-        player_entity.animations.add('walk_right', [11,12,13,14,15,16,17,18,19,20],   spd,  false);
-        player_entity.animations.add('walk_left',  [31,32,33,35,36,37,38,39,40],   spd,  false);
+        player_entity.animations.add('walk_down',    [10,11,12,13,14,15,16,17,18,19],   spd, false);
+        player_entity.animations.add('walk',  [20,21,22,23,24,25,26,27,28,29],   spd, false);
+        player_entity.animations.add('walk_right', [30,31,32,33,34,35,36,37,38,39],  spd,  false);
+        player_entity.animations.add('walk_left',  [40,41,42,43,44,45,46,47,48,49],   spd,  false);
 
         player_entity.bringToTop();
         roof_layer.bringToTop();
