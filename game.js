@@ -13,7 +13,6 @@
 
         //TODO: This:
         // Graphics: Add a drop shadow.
-
     }
 
     var mapData;
@@ -39,6 +38,22 @@
         game.physics.startSystem(Phaser.Physics.P2JS);
 
 /////// MapData
+
+        /*
+        TODO:
+        Arrange the layering for the character sprites. Dynamically moving them in front or behind.
+        http://phaser.io/examples/v2/groups/depth-sort
+        TODO:
+        Carpets: Include a dark fog sprite to mix with the carpet sprites to decorate the dungeon.
+        TODO:
+        The chest that you touch and the barrel that you bash and the bag that opens at any angle.
+        TODO:
+        Hook path finding up with the enemy objects.
+        TODO:
+        Take the top beam of the door into the roof layer, darken the screen upon collision, play openDoor.mp3
+        load a new map, then brighten the screen.
+         */
+
         mapData = game.add.tilemap('mapData');
         mapData.addTilesetImage('tiles');
         background_layer = mapData.createLayer('background');
