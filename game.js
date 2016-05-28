@@ -37,6 +37,10 @@
     var rnbx;
     var rnby;
 
+    var enemyDirection;
+    var currentNextPointX;
+    var currentNextPointY;
+
     var text;
     var flipped = false;
 
@@ -166,6 +170,60 @@
                     }
                 }
 
+                if (path) {
+                    currentNextPointX = path[1].x;
+                    currentNextPointY = path[1].y;
+                }
+
+                if (currentNextPointX < rnbx && currentNextPointY < rnby)
+                {
+                    console.log("NORTH WEST OF ENEMY");
+                    enemyDirection = "NW";
+                }
+
+                else if (currentNextPointX == rnbx && currentNextPointY < rnby)
+                {
+                    console.log("GO UP");
+                    enemyDirection = "N";
+
+                }
+                else if (currentNextPointX > rnbx && currentNextPointY < rnby)
+                {
+                    console.log("GO RIGHT UP");
+                    enemyDirection = "NE";
+                }
+                else if (currentNextPointX < rnbx && currentNextPointY == rnby)
+                {
+                    console.log("GO LEFT");
+                    enemyDirection = "W";
+                }
+                else if (currentNextPointX > rnbx && currentNextPointY == rnby)
+                {
+                    console.log("GO RIGHT");
+                    enemyDirection = "E";
+                }
+                else if (currentNextPointX > rnbx && currentNextPointY > rnby)
+                {
+                    console.log("GO RIGHT DOWN");
+                    enemyDirection = "SE";
+                }
+                else if (currentNextPointX == rnbx && currentNextPointY > rnby)
+                {
+                    console.log("GO DOWN");
+                    enemyDirection = "S";
+                }
+                else if (currentNextPointX < rnbx && currentNextPointY > rnby)
+                {
+                    console.log("GO LEFT DOWN");
+                    enemyDirection = "SW";
+                }
+                else
+                {
+                    enemyDirection = "STOP";
+                }
+
+                //if (enemyDirection != "STOP") ratnbat.animations.play(enemyDirection);
+
             });
             easystar.calculate();
 
@@ -231,13 +289,69 @@
             }
         }
     }
+    
+    function moveEnemy(){
+        // Move the ENEMY
+        var enemySpeed = 120;
+
+        if (enemyDirection == "N") {
+            ratnbat.body.velocity.x = -enemySpeed;
+            ratnbat.body.velocity.y = -enemySpeed;
+        }
+        else if (enemyDirection == "S")
+        {
+            ratnbat.body.velocity.x = enemySpeed;
+            ratnbat.body.velocity.y = enemySpeed;
+        }
+        else if (enemyDirection == "E") {
+            ratnbat.body.velocity.x = enemySpeed;
+            ratnbat.body.velocity.y = -enemySpeed;
+        }
+        else if (enemyDirection == "W")
+        {
+            ratnbat.body.velocity.x = -enemySpeed;
+            ratnbat.body.velocity.y = enemySpeed;
+        }
+        else if (enemyDirection == "SE")
+        {
+            ratnbat.body.velocity.x = enemySpeed;
+            ratnbat.body.velocity.y = 0;
+        }
+        else if (enemyDirection == "NW")
+        {
+            ratnbat.body.velocity.x = -enemySpeed;
+            ratnbat.body.velocity.y = 0;
+        }
+        else if (enemyDirection == "SW")
+        {
+            ratnbat.body.velocity.x = 0;
+            ratnbat.body.velocity.y = enemySpeed;
+        }
+
+        else if (enemyDirection == "NE")
+        {
+            ratnbat.body.velocity.x = 0;
+            ratnbat.body.velocity.y = -enemySpeed;
+        }
+        else if (enemyDirection == "STOP")
+        {
+            ratnbat.body.velocity.x = 0;
+            ratnbat.body.velocity.y = 0;
+        }
+        else // JUST IN CASE IF enemyDirection wouldnt exist we stop the ratnbat movement
+        {
+            ratnbat.body.velocity.x = 0;
+            ratnbat.body.velocity.y = 0;
+        }
+    }
 
     function update()
     {
         game.camera.follow(player_entity);
         direction();
+        moveEnemy();
     }
 
     function render(){
-        game.debug.text('Debug text: ' + text, 32, 32);
+        game.debug.text('Debug text: ' + enemyDirection, 32, 32);
     }
