@@ -292,44 +292,41 @@
         // Move the ENEMY
         var enemySpeed = 120;
 
+        //TODO: Fix the cone of direction for the enemy in persuit.
+
         if (enemyDirection == "N") {
-            ratnbat.body.velocity.x = -enemySpeed;
-            ratnbat.body.velocity.y = -enemySpeed;
+            ratnbat.body.moveUp(enemySpeed);
         }
         else if (enemyDirection == "S")
         {
-            ratnbat.body.velocity.x = enemySpeed;
-            ratnbat.body.velocity.y = enemySpeed;
+            ratnbat.body.moveDown(enemySpeed);
         }
         else if (enemyDirection == "E") {
-            ratnbat.body.velocity.x = enemySpeed;
-            ratnbat.body.velocity.y = -enemySpeed;
+            ratnbat.body.moveRight(enemySpeed);
         }
         else if (enemyDirection == "W")
         {
-            ratnbat.body.velocity.x = -enemySpeed;
-            ratnbat.body.velocity.y = enemySpeed;
+            ratnbat.body.moveLeft(enemySpeed);
         }
         else if (enemyDirection == "SE")
         {
-            ratnbat.body.velocity.x = enemySpeed;
-            ratnbat.body.velocity.y = 0;
+            ratnbat.body.moveDown(enemySpeed);
+            ratnbat.body.moveRight(enemySpeed);
         }
         else if (enemyDirection == "NW")
         {
-            ratnbat.body.velocity.x = -enemySpeed;
-            ratnbat.body.velocity.y = 0;
+            ratnbat.body.moveUp(enemySpeed);
+            ratnbat.body.moveLeft(enemySpeed);
         }
         else if (enemyDirection == "SW")
         {
-            ratnbat.body.velocity.x = 0;
-            ratnbat.body.velocity.y = enemySpeed;
+            ratnbat.body.moveDown(enemySpeed);
+            ratnbat.body.moveLeft(enemySpeed);
         }
-
         else if (enemyDirection == "NE")
         {
-            ratnbat.body.velocity.x = 0;
-            ratnbat.body.velocity.y = -enemySpeed;
+            ratnbat.body.moveUp(enemySpeed);
+            ratnbat.body.moveRight(enemySpeed);
         }
         else if (enemyDirection == "STOP")
         {
