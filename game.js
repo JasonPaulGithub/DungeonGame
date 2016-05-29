@@ -102,9 +102,9 @@
 
         player_entity = game.add.sprite((15*30),(15*30), 'cleric');
         game.physics.p2.enable(player_entity, true);
-        player_entity.body.setCircle(10);
+        player_entity.body.setCircle(5);
         player_entity.body.fixedRotation = true;
-        //player_entity.anchor.setTo(0.5,0.5);
+        player_entity.anchor.setTo(0.5,0.5);
 
         // TODO: Figure out the animations.
         var spd = 20;
@@ -146,16 +146,17 @@
         easystar.setGrid(level);
         easystar.setAcceptableTiles([0]);
         //easystar.enableDiagonals();
-        //easystar.enableCornerCutting();
+        easystar.enableCornerCutting();
 
 
         setInterval(function(){
 
-            pex = Math.floor(player_entity.position.x / 30-1);
-            pey = Math.floor(player_entity.position.y / 30-1);
+            pex = Math.floor(player_entity.position.x / 30);
+            pey = Math.floor(player_entity.position.y / 30);
+            //TODO: a legit bug. The pathfinder halts when they players stands next to the right side of the map.
+            // the array does not like high numbers?
             ratx = Math.floor(ratnbat.position.x / 30)-1;//gotta minus for the offset(iguess?)
-            raty = Math.floor(ratnbat.position.y / 30)-1;
-
+            raty = Math.floor(ratnbat.position.y / 30)-1;//think about rounding down/up to imporve accuracy for the pathfinder.
             easystar.findPath(ratx, raty, pex, pey, function( path ) {
 
                 if (path) {
@@ -170,7 +171,7 @@
                 else {
                     console.log('Pathfinder: ON');
                     for (var i = 0; i < path.length; i++) {
-                        console.log("P: " + i + ", X: " + path[i].x + ", Y: " + path[i].y + " Ratx: " + ratx + " Raty: " + raty);
+                        console.log("X: " + path[i].x + " Y: " + path[i].y + " Rx: " + ratx + " Ry: " + raty);
                         if (nextPointX == ratx && nextPointY < raty)
                         {
                             console.log("GO UP");
