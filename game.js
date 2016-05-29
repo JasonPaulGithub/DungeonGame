@@ -34,12 +34,13 @@
     var pex;
     var pey;
     var ratnbat;
-    var rnbx;
-    var rnby;
+    var ratx;
+    var raty;
+    var movePath = [];
 
     var enemyDirection;
-    var currentNextPointX;
-    var currentNextPointY;
+    var nextPointX;
+    var nextPointY;
 
     var text;
     var flipped = false;
@@ -81,7 +82,7 @@
         floor_decor.debug = false;
         wall_layer = mapData.createLayer('wall');
         wall_layer.resizeWorld();
-        wall_layer.debug = false;
+        wall_layer.debug = true;
         wall_decor = mapData.createLayer('wall_decor');
         wall_decor.resizeWorld();
         wall_decor.debug = false;
@@ -99,11 +100,11 @@
         leftKey = game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
         rightKey = game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
 
-        player_entity = game.add.sprite(200, 250, 'cleric');
+        player_entity = game.add.sprite((15*30),(15*30), 'cleric');
         game.physics.p2.enable(player_entity, true);
         player_entity.body.setCircle(10);
         player_entity.body.fixedRotation = true;
-        player_entity.anchor.setTo(0.5,0.5);
+        //player_entity.anchor.setTo(0.5,0.5);
 
         // TODO: Figure out the animations.
         var spd = 20;
@@ -114,11 +115,11 @@
         player_entity.animations.add('walk_left',    [40,41,42,43,44,45,46,47,48,49],   spd,  false);
 
 /////// Enemies
-        ratnbat = game.add.sprite(400,400,'ratnbat');
+        ratnbat = game.add.sprite((8*30),(15*30),'cleric');
         game.physics.p2.enable(ratnbat,true);
         ratnbat.body.setCircle(10);
         ratnbat.body.fixedRotation = true;
-        ratnbat.anchor.setTo(0.4,0.8);
+        //ratnbat.anchor.setTo(1.2,1);
         //Expand on available enemy physics:
 
 /////// EasyStar
@@ -143,18 +144,24 @@
 
         var easystar = new EasyStar.js();
         easystar.setGrid(level);
-        easystar.setAcceptableTiles(0);
-        easystar.enableDiagonals();
+        easystar.setAcceptableTiles([0]);
+        //easystar.enableDiagonals();
         //easystar.enableCornerCutting();
+
 
         setInterval(function(){
 
-            pex = Math.floor(player_entity.position.x / 30);
-            pey = Math.floor(player_entity.position.y / 30);
-            rnbx = Math.floor(ratnbat.position.x / 30);
-            rnby = Math.floor(ratnbat.position.y / 30);
+            pex = Math.floor(player_entity.position.x / 30-1);
+            pey = Math.floor(player_entity.position.y / 30-1);
+            ratx = Math.floor(ratnbat.position.x / 30)-1;//gotta minus for the offset(iguess?)
+            raty = Math.floor(ratnbat.position.y / 30)-1;
 
-            easystar.findPath(pex, pey, rnbx, rnby, function( path ) {
+            easystar.findPath(ratx, raty, pex, pey, function( path ) {
+
+                if (path) {
+                    nextPointX = path[1].x;
+                    nextPointY = path[1].y;
+                }
 
                 if (path === null) {
                     console.log("Pathfinder: DORMANT");
@@ -162,70 +169,58 @@
 
                 else {
                     console.log('Pathfinder: ON');
-                    for (var i = 0; i < path.length; i++)
-                    {
-                        console.log("P: " + i + ", X: " + path[i].x + ", Y: " + path[i].y);
+                    for (var i = 0; i < path.length; i++) {
+                        console.log("P: " + i + ", X: " + path[i].x + ", Y: " + path[i].y + " Ratx: " + ratx + " Raty: " + raty);
+                        if (nextPointX == ratx && nextPointY < raty)
+                        {
+                            console.log("GO UP");
+                            enemyDirection = "N";
+                        }
+                        else if (nextPointX < ratx && nextPointY < raty)
+                        {
+                            console.log("NORTH WEST OF ENEMY");
+                            enemyDirection = "NW";
+                        }
+                        else if (nextPointX > ratx && nextPointY < raty)
+                        {
+                            console.log("GO RIGHT UP");
+                            enemyDirection = "E";
+                        }
+                        else if (nextPointX < ratx && nextPointY == raty) {
+                            console.log("GO LEFT");
+                            enemyDirection = "W";
+                        }
+                        else if (nextPointX > ratx && nextPointY == raty)
+                        {
+                            console.log("GO RIGHT");
+                            enemyDirection = "E";
+                        }
+                        else if (nextPointX > ratx && nextPointY > raty)
+                        {
+                            console.log("GO RIGHT DOWN");
+                            enemyDirection = "E";
+                        }
+                        else if (nextPointX == ratx && nextPointY > raty)
+                        {
+                            console.log("GO DOWN");
+                            enemyDirection = "S"
+                        }
+                        else if (nextPointX < ratx && nextPointY > raty)
+                        {
+                            console.log("GO LEFT DOWN");
+                            enemyDirection = "W";
+                        }
+                        else
+                        {
+                            enemyDirection = "STOP";
+                        }
+                        moveEnemy();
                     }
                 }
-
-                if (path) {
-                    currentNextPointX = path[1].x;
-                    currentNextPointY = path[1].y;
-                }
-
-                if (currentNextPointX < rnbx && currentNextPointY < rnby)
-                {
-                    console.log("NORTH WEST OF ENEMY");
-                    enemyDirection = "NW";
-                }
-
-                else if (currentNextPointX == rnbx && currentNextPointY < rnby)
-                {
-                    console.log("GO UP");
-                    enemyDirection = "N";
-
-                }
-                else if (currentNextPointX > rnbx && currentNextPointY < rnby)
-                {
-                    console.log("GO RIGHT UP");
-                    enemyDirection = "NE";
-                }
-                else if (currentNextPointX < rnbx && currentNextPointY == rnby)
-                {
-                    console.log("GO LEFT");
-                    enemyDirection = "W";
-                }
-                else if (currentNextPointX > rnbx && currentNextPointY == rnby)
-                {
-                    console.log("GO RIGHT");
-                    enemyDirection = "E";
-                }
-                else if (currentNextPointX > rnbx && currentNextPointY > rnby)
-                {
-                    console.log("GO RIGHT DOWN");
-                    enemyDirection = "SE";
-                }
-                else if (currentNextPointX == rnbx && currentNextPointY > rnby)
-                {
-                    console.log("GO DOWN");
-                    enemyDirection = "S";
-                }
-                else if (currentNextPointX < rnbx && currentNextPointY > rnby)
-                {
-                    console.log("GO LEFT DOWN");
-                    enemyDirection = "SW";
-                }
-                else
-                {
-                    enemyDirection = "STOP";
-                }
-
-                //if (enemyDirection != "STOP") ratnbat.animations.play(enemyDirection);
-
             });
             easystar.calculate();
 
-        }, 400);
+        }, 50);
 
 /////// Misc
         player_entity.bringToTop();
@@ -287,12 +282,10 @@
             }
         }
     }
-    
-    function moveEnemy(){
-        // Move the ENEMY
-        var enemySpeed = 120;
 
-        //TODO: It still gets stuck in corners. Perhaps fix the cone of direction for the enemy in persuit.
+    function moveEnemy(){
+
+        var enemySpeed = 251;
 
         if (enemyDirection == "N") {
             ratnbat.body.moveUp(enemySpeed);
@@ -344,7 +337,6 @@
     {
         game.camera.follow(player_entity);
         direction();
-        moveEnemy();
     }
 
     function render(){
