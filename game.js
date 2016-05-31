@@ -7,7 +7,9 @@ function preload()
     game.load.json('version', 'src/map/testMap.json');
 
     game.load.spritesheet('cleric', 'src/sprites/cleric.png', 64, 64);
-    game.load.spritesheet('ratnbat', 'src/sprites/ratnbat.png', 64, 64);
+    game.load.spritesheet('orc', 'src/sprites/orc.png', 64, 64);
+    game.load.spritesheet('orc', 'src/sprites/orc.png', 64, 64);
+    game.load.spritesheet('orcThief', 'src/sprites/orcThief.png', 64, 64);
 
     game.add.plugin(Phaser.Plugin.Debug);
     game.add.plugin(Phaser.Plugin.Inspector);
@@ -33,7 +35,7 @@ var rightKey;
 var player_entity;
 var pex;
 var pey;
-var ratnbat;
+var orc;
 var ratx;
 var raty;
 
@@ -42,8 +44,11 @@ var nextPointX;
 var nextPointY;
 
 var text;
-var flipped = false;
+var flip = false;
+var flipEnemy = false;
 var group1;
+
+var stopPathFinder = false;
 
 function create() {
 
@@ -63,8 +68,8 @@ function create() {
      //Distant future: Combat system. Skill trees. Classes. Menus. Sound. Projectiles. Magic. A story.
      Lighting. Stats on items.
      */
-
     game.physics.startSystem(Phaser.Physics.P2JS);
+
 /////// MapData
     mapData = game.add.tilemap('mapData');
     mapData.addTilesetImage('tiles');
@@ -80,7 +85,7 @@ function create() {
     floor_decor.debug = false;
     wall_layer = mapData.createLayer('wall');
     wall_layer.resizeWorld();
-    wall_layer.debug = true;
+    wall_layer.debug = false;
     wall_decor = mapData.createLayer('wall_decor');
     wall_decor.resizeWorld();
     wall_decor.debug = false;
@@ -93,33 +98,38 @@ function create() {
 /////// Depth Sort
     group1 = game.add.group();
 
-/////// Player, Controls, and Animation
+/////// Controls
     cursors = game.input.keyboard.createCursorKeys();
     upKey = game.input.keyboard.addKey(Phaser.Keyboard.UP);
     downKey = game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
     leftKey = game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
     rightKey = game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
 
+////// Player
     player_entity = group1.create(333,333, 'cleric');
     game.physics.p2.enable(player_entity, true);
-    player_entity.body.setCircle(10);
+    player_entity.body.setRectangle(32,35);
     player_entity.body.fixedRotation = true;
-    player_entity.anchor.setTo(0.5,0.5);
-
-    // TODO: Figure out the animations.
+    player_entity.anchor.setTo(0.5,0.75);
     var spd = 20;
-    player_entity.animations.add('idle',         [0,1,2,3,4,5,6,7,8,9],               5, false);
-    player_entity.animations.add('walk_down',    [10,11,12,13,14,15,16,17,18,19],   spd, false);
-    player_entity.animations.add('walk',         [20,21,22,23,24,25,26,27,28,29],   spd, false);
-    player_entity.animations.add('walk_right',   [30,31,32,33,34,35,36,37,38,39],   spd, false);
-    player_entity.animations.add('walk_left',    [40,41,42,43,44,45,46,47,48,49],   spd,  false);
+    player_entity.animations.add('idle',   [0,1,2,3,4,5,6,7,8,9],               5, false);
+    player_entity.animations.add('cast',   [10,11,12,13,14,15,16,17,18,19],   spd, false);
+    player_entity.animations.add('walk',   [20,21,22,23,24,25,26,27,28,29],   spd, false);
+    player_entity.animations.add('attack', [30,31,32,33,34,35,36,37,38,39],   spd, false);
+    player_entity.animations.add('die',    [40,41,42,43,44,45,46,47,48,49],   spd, false);
 
-/////// Enemies
-    ratnbat = group1.create(433,333,'cleric');
-    game.physics.p2.enable(ratnbat,true);
-    ratnbat.body.setCircle(10);
-    ratnbat.body.fixedRotation = true;
-    //Expand on available enemy physics:
+/////// Enemies: Note: Expand on available enemy physics:
+    orc = group1.create(433,333,'orc');
+    game.physics.p2.enable(orc,true);
+    orc.body.setCircle(16);
+    orc.body.fixedRotation = true;
+    orc.anchor.setTo(0.5,0.75);
+    orc.animations.add('idle',   [0,1,2,3,4,5,6,7,8,9],               5, false);
+    orc.animations.add('cast',  [10,11,12,13,14,15,16,17,18,19],   spd, false);
+    orc.animations.add('walk',    [20,21,22,23,24,25,26,27,28,29],   spd, false);
+    orc.animations.add('attack', [30,31,32,33,34,35,36,37,38,39],   spd, false);
+    orc.animations.add('die',    [40,41,42,43,44,45,46,47,48,49],   spd, false);
+
 
 /////// EasyStar
     var phaserJSON = game.cache.getJSON('version');
@@ -144,7 +154,12 @@ function create() {
     var easystar = new EasyStar.js();
     easystar.setGrid(level);
     easystar.setAcceptableTiles([0]);
+    //easystar.enableDiagonals();
 
+    /* use enableDiagonals on small enemies, make their collision radius smaller, and
+    /  allow them to slow or halt the player
+    /  allow for large enemies to have trouble moving around the map
+    */
 
     setInterval(function(){
 
@@ -155,7 +170,7 @@ function create() {
                 nextPointY = path[1].y;
             }
 
-            if (path === null) {
+            if (path === null || stopPathFinder == true) {
                 console.log("Pathfinder: DORMANT");
             }
 
@@ -210,7 +225,6 @@ function create() {
 
 /////// Misc
     roof_layer.bringToTop();
-    group1.sort();
 }
 
 function direction(){
@@ -250,9 +264,9 @@ function direction(){
     else if (rightKey.isDown == true)
     {
         player_entity.animations.play('walk');
-        if (flipped == true){
+        if (flip == true){
             player_entity.scale.x *=-1;
-            flipped = false;
+            flip = false;
         }
     }
     else
@@ -261,66 +275,62 @@ function direction(){
     }
 
     if (leftKey.isDown){
-        if (flipped == false){
+        if (flip == false){
             player_entity.scale.x *=-1;
-            flipped = true;
+            flip = true;
         }
     }
 }
 
 function moveEnemy(){
 
+    orc.animations.play('walk');
+    orc.body.setZeroVelocity();
     var enemySpeed = 151;
 
     if (enemyDirection == "N") {
-        ratnbat.body.setZeroVelocity();
-        ratnbat.body.moveUp(enemySpeed);
+        orc.body.moveUp(enemySpeed);
     }
     else if (enemyDirection == "S")
     {
-        ratnbat.body.setZeroVelocity();
-        ratnbat.body.moveDown(enemySpeed);
+        orc.body.moveDown(enemySpeed);
     }
     else if (enemyDirection == "E") {
-        ratnbat.body.setZeroVelocity();
-        ratnbat.body.moveRight(enemySpeed);
+        orc.body.moveRight(enemySpeed);
     }
     else if (enemyDirection == "W")
     {
-        ratnbat.body.setZeroVelocity();
-        ratnbat.body.moveLeft(enemySpeed);
+        orc.body.moveLeft(enemySpeed);
     }
     else if (enemyDirection == "SE")
     {
-        ratnbat.body.setZeroVelocity();
-        ratnbat.body.moveDown(enemySpeed);
-        ratnbat.body.moveRight(enemySpeed);
+        orc.body.moveDown(enemySpeed);
+        orc.body.moveRight(enemySpeed);
     }
     else if (enemyDirection == "NW")
     {
-        ratnbat.body.setZeroVelocity();
-        ratnbat.body.moveUp(enemySpeed);
-        ratnbat.body.moveLeft(enemySpeed);
+        orc.body.moveUp(enemySpeed);
+        orc.body.moveLeft(enemySpeed);
     }
     else if (enemyDirection == "SW")
     {
-        ratnbat.body.setZeroVelocity();
-        ratnbat.body.moveDown(enemySpeed);
-        ratnbat.body.moveLeft(enemySpeed);
+        orc.body.moveDown(enemySpeed);
+        orc.body.moveLeft(enemySpeed);
     }
     else if (enemyDirection == "NE")
     {
-        ratnbat.body.setZeroVelocity();
-        ratnbat.body.moveUp(enemySpeed);
-        ratnbat.body.moveRight(enemySpeed);
+        orc.body.moveUp(enemySpeed);
+        orc.body.moveRight(enemySpeed);
     }
     else if (enemyDirection == "STOP")
     {
-        ratnbat.body.setZeroVelocity()
+        orc.body.setZeroVelocity()
+        orc.animations.play('idle');
     }
     else
     {
-        ratnbat.body.setZeroVelocity()
+        orc.body.setZeroVelocity()
+        orc.animations.play('idle');
     }
 }
 
@@ -336,8 +346,8 @@ function render(){
     //Snap from the pixel co-ordinate to the grid co-ordinate.
     pex = this.math.snapToFloor(Math.floor(player_entity.position.x), 32) / 32;
     pey = this.math.snapToFloor(Math.floor(player_entity.position.y), 32) / 32;
-    ratx = this.math.snapToFloor(Math.floor(ratnbat.position.x), 32) / 32;
-    raty = this.math.snapToFloor(Math.floor(ratnbat.position.y), 32) / 32;
+    ratx = this.math.snapToFloor(Math.floor(orc.position.x), 32) / 32;
+    raty = this.math.snapToFloor(Math.floor(orc.position.y), 32) / 32;
 
     game.debug.text('Enemy Direction: ' + enemyDirection, 32, 32);
     game.debug.text('Player X: ' + pex, 32, 62);
