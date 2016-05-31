@@ -43,12 +43,9 @@ var nextPointY;
 
 var text;
 var flipped = false;
+var group1;
 
 function create() {
-
-    game.physics.startSystem(Phaser.Physics.P2JS);
-
-/////// MapData
 
     /*
      TODO:
@@ -63,13 +60,15 @@ function create() {
      TODO:
      Take the top beam of the door into the roof layer, darken the screen upon collision, play openDoor.mp3
      load a new map, then brighten the screen.
-
      //Distant future: Combat system. Skill trees. Classes. Menus. Sound. Projectiles. Magic. A story.
      Lighting. Stats on items.
      */
 
+    game.physics.startSystem(Phaser.Physics.P2JS);
+/////// MapData
     mapData = game.add.tilemap('mapData');
     mapData.addTilesetImage('tiles');
+
     background_layer = mapData.createLayer('background');
     background_layer.resizeWorld();
     background_layer.debug = false;
@@ -88,9 +87,11 @@ function create() {
     roof_layer = mapData.createLayer('roof');
     roof_layer.resizeWorld();
     roof_layer.debug = false;
-
     mapData.setCollisionBetween(1,2000,true,'wall');
     game.physics.p2.convertTilemap(mapData, wall_layer);
+
+/////// Depth Sort
+    group1 = game.add.group();
 
 /////// Player, Controls, and Animation
     cursors = game.input.keyboard.createCursorKeys();
@@ -99,9 +100,9 @@ function create() {
     leftKey = game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
     rightKey = game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
 
-    player_entity = game.add.sprite(333,333, 'cleric');
+    player_entity = group1.create(333,333, 'cleric');
     game.physics.p2.enable(player_entity, true);
-    player_entity.body.setCircle(5);
+    player_entity.body.setCircle(10);
     player_entity.body.fixedRotation = true;
     player_entity.anchor.setTo(0.5,0.5);
 
@@ -114,7 +115,7 @@ function create() {
     player_entity.animations.add('walk_left',    [40,41,42,43,44,45,46,47,48,49],   spd,  false);
 
 /////// Enemies
-    ratnbat = game.add.sprite(433,333,'cleric');
+    ratnbat = group1.create(433,333,'cleric');
     game.physics.p2.enable(ratnbat,true);
     ratnbat.body.setCircle(10);
     ratnbat.body.fixedRotation = true;
@@ -208,9 +209,8 @@ function create() {
     }, 80);
 
 /////// Misc
-    player_entity.bringToTop();
     roof_layer.bringToTop();
-
+    group1.sort();
 }
 
 function direction(){
@@ -273,44 +273,44 @@ function moveEnemy(){
     var enemySpeed = 151;
 
     if (enemyDirection == "N") {
-        ratnbat.body.setZeroVelocity()
+        ratnbat.body.setZeroVelocity();
         ratnbat.body.moveUp(enemySpeed);
     }
     else if (enemyDirection == "S")
     {
-        ratnbat.body.setZeroVelocity()
+        ratnbat.body.setZeroVelocity();
         ratnbat.body.moveDown(enemySpeed);
     }
     else if (enemyDirection == "E") {
-        ratnbat.body.setZeroVelocity()
+        ratnbat.body.setZeroVelocity();
         ratnbat.body.moveRight(enemySpeed);
     }
     else if (enemyDirection == "W")
     {
-        ratnbat.body.setZeroVelocity()
+        ratnbat.body.setZeroVelocity();
         ratnbat.body.moveLeft(enemySpeed);
     }
     else if (enemyDirection == "SE")
     {
-        ratnbat.body.setZeroVelocity()
+        ratnbat.body.setZeroVelocity();
         ratnbat.body.moveDown(enemySpeed);
         ratnbat.body.moveRight(enemySpeed);
     }
     else if (enemyDirection == "NW")
     {
-        ratnbat.body.setZeroVelocity()
+        ratnbat.body.setZeroVelocity();
         ratnbat.body.moveUp(enemySpeed);
         ratnbat.body.moveLeft(enemySpeed);
     }
     else if (enemyDirection == "SW")
     {
-        ratnbat.body.setZeroVelocity()
+        ratnbat.body.setZeroVelocity();
         ratnbat.body.moveDown(enemySpeed);
         ratnbat.body.moveLeft(enemySpeed);
     }
     else if (enemyDirection == "NE")
     {
-        ratnbat.body.setZeroVelocity()
+        ratnbat.body.setZeroVelocity();
         ratnbat.body.moveUp(enemySpeed);
         ratnbat.body.moveRight(enemySpeed);
     }
@@ -326,6 +326,7 @@ function moveEnemy(){
 
 function update()
 {
+    group1.sort('y', Phaser.Group.SORT_ASCENDING);
     game.camera.follow(player_entity);
     direction();
 }
