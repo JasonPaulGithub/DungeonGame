@@ -292,10 +292,18 @@ function moveEnemy(){
     }
     else if (enemyDirection == "E") {
         orc.body.moveRight(enemySpeed);
+        if (flipEnemy == true){
+            orc.scale.x *=-1;
+            flipEnemy = false;
+        }
     }
     else if (enemyDirection == "W")
     {
         orc.body.moveLeft(enemySpeed);
+        if (flipEnemy == false){
+            orc.scale.x *=-1;
+            flipEnemy = true;
+        }
     }
     else if (enemyDirection == "SE")
     {
