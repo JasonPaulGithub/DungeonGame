@@ -221,17 +221,25 @@ function create() {
 /////// Misc
     roof_layer.bringToTop();
     player_entity.body.onBeginContact.add(blockHit, this);
+    orc.body.onBeginContact.add(orcAttack,this);
+}
+
+function orcAttack(body){
+    if (body){
+        stopPathFinder = true;
+        orc.animations.play('attack');
+    }
 }
 
 function blockHit (body, bodyB, shapeA, shapeB, equation) {
 
     if (body == null)
     {
-        text = 'You bumped into the world bounds :)';
+        text = 'You bumped into the world bounds';
     }
     else if (body.sprite == null)
     {
-        text = 'You bumped into the wall :)';
+        text = 'You bumped into a wall';
     }
     else if (body)
     {
