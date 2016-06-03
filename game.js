@@ -178,6 +178,7 @@ function create() {
     / it's all about the shop! play for money, items, & spells that mess with game mechanics.
 
     / with all this in mind start off with the basics, obvs...
+    /  + a story needed too
     */
 
     setInterval(function(){
