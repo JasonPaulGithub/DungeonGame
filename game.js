@@ -43,7 +43,7 @@ var enemyDirection;
 var nextPointX;
 var nextPointY;
 
-var text;
+var text = '';
 var flip = false;
 var flipEnemy = false;
 var group1;
@@ -220,6 +220,28 @@ function create() {
 
 /////// Misc
     roof_layer.bringToTop();
+    player_entity.body.onBeginContact.add(blockHit, this);
+}
+
+function blockHit (body, bodyB, shapeA, shapeB, equation) {
+
+    if (body == null)
+    {
+        text = 'You bumped into the world bounds :)';
+    }
+    else if (body.sprite == null)
+    {
+        text = 'You bumped into the wall :)';
+    }
+    else if (body)
+    {
+        text = 'You last hit: ' + body.sprite.key;
+    }
+    else
+    {
+        text = 'You hit a un-identified object';
+    }
+
 }
 
 function direction(){
@@ -355,5 +377,5 @@ function render(){
     game.debug.text('Enemy Direction: ' + enemyDirection, 32, 32);
     game.debug.text('Player X: ' + pex, 32, 62);
     game.debug.text('Player Y: ' + pey  , 32, 92);
-    //game.debug.text('DEBUG: ' + text  , 32, 122);
+    game.debug.text('DEBUG: ' + text  , 32, 122);
 }
