@@ -254,13 +254,33 @@ function create() {
 }
 
 function attackOn(body){
-    if (body){
+    if (body == null)
+    {
+    }
+    else if (body.sprite == null)
+    {
+    }
+    else if (body.sprite.key = 'cleric')
+    {
         text2 = 'attack on';
+    }
+    else
+    {
     }
 }
 function attackOff(body){
-    if (body){
+    if (body == null)
+    {
+    }
+    else if (body.sprite == null)
+    {
+    }
+    else if (body.sprite.key = 'cleric')
+    {
         text2 = 'attack off';
+    }
+    else
+    {
     }
 }
 
@@ -305,7 +325,6 @@ function blockHit (body, bodyB, shapeA, shapeB, equation) {
     {
         text = 'You hit a un-identified object';
     }
-
 }
 
 function direction(){
