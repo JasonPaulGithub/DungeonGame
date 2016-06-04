@@ -295,7 +295,7 @@ function animateOrc(x){
     }
 }
 
-function blockHit (body, bodyB, shapeA, shapeB, equation) {
+function blockHit (body) {
 
     if (body == null)
     {
