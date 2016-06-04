@@ -179,6 +179,9 @@ function create() {
 
     / with all this in mind start off with the basics, obvs...
     /  + a story needed too
+     //this will fire even if the orc hits a wall.
+     //on a side note, enemies might fight amogst themselves
+     //even a 'rage' style spell might work.
     */
 
     setInterval(function(){
@@ -251,9 +254,7 @@ function create() {
 
 function orcAttack(body){
     if (body){
-        //this will fire even if the orc hits a wall.
-        //ona side note, enemies might fight amogst themselves
-        //even a 'rage' style spell might work.
+
         stopPathFinder = true;
         orc.animations.play('attack');
     }
