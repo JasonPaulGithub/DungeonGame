@@ -376,57 +376,54 @@ function moveEnemy(){
     orc.body.setZeroVelocity();
     var enemySpeed = 151;
 
-    if (enemyDirection == "N") {
-        orc.body.moveUp(enemySpeed);
+    if (debug1 == 'attack on'){
+        orc.body.setZeroVelocity();
     }
-    else if (enemyDirection == "S")
-    {
-        orc.body.moveDown(enemySpeed);
-    }
-    else if (enemyDirection == "E") {
-        orc.body.moveRight(enemySpeed);
-        if (flipEnemy == true){
-            orc.scale.x *=-1;
-            flipEnemy = false;
+    else {
+        if (enemyDirection == "N") {
+            orc.body.moveUp(enemySpeed);
         }
-    }
-    else if (enemyDirection == "W")
-    {
-        orc.body.moveLeft(enemySpeed);
-        if (flipEnemy == false){
-            orc.scale.x *=-1;
-            flipEnemy = true;
+        else if (enemyDirection == "S") {
+            orc.body.moveDown(enemySpeed);
         }
-    }
-    else if (enemyDirection == "SE")
-    {
-        orc.body.moveDown(enemySpeed);
-        orc.body.moveRight(enemySpeed);
-    }
-    else if (enemyDirection == "NW")
-    {
-        orc.body.moveUp(enemySpeed);
-        orc.body.moveLeft(enemySpeed);
-    }
-    else if (enemyDirection == "SW")
-    {
-        orc.body.moveDown(enemySpeed);
-        orc.body.moveLeft(enemySpeed);
-    }
-    else if (enemyDirection == "NE")
-    {
-        orc.body.moveUp(enemySpeed);
-        orc.body.moveRight(enemySpeed);
-    }
-    else if (enemyDirection == "STOP")
-    {
-        orc.body.setZeroVelocity()
-        orc.animations.play('idle');
-    }
-    else
-    {
-        orc.body.setZeroVelocity()
-        orc.animations.play('idle');
+        else if (enemyDirection == "E") {
+            orc.body.moveRight(enemySpeed);
+            if (flipEnemy == true) {
+                orc.scale.x *= -1;
+                flipEnemy = false;
+            }
+        }
+        else if (enemyDirection == "W") {
+            orc.body.moveLeft(enemySpeed);
+            if (flipEnemy == false) {
+                orc.scale.x *= -1;
+                flipEnemy = true;
+            }
+        }
+        else if (enemyDirection == "SE") {
+            orc.body.moveDown(enemySpeed);
+            orc.body.moveRight(enemySpeed);
+        }
+        else if (enemyDirection == "NW") {
+            orc.body.moveUp(enemySpeed);
+            orc.body.moveLeft(enemySpeed);
+        }
+        else if (enemyDirection == "SW") {
+            orc.body.moveDown(enemySpeed);
+            orc.body.moveLeft(enemySpeed);
+        }
+        else if (enemyDirection == "NE") {
+            orc.body.moveUp(enemySpeed);
+            orc.body.moveRight(enemySpeed);
+        }
+        else if (enemyDirection == "STOP") {
+            orc.body.setZeroVelocity()
+            orc.animations.play('idle');
+        }
+        else {
+            orc.body.setZeroVelocity()
+            orc.animations.play('idle');
+        }
     }
 }
 
