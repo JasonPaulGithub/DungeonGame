@@ -81,13 +81,13 @@ var pey;
 var orc;
 var ratx;
 var raty;
-var orcAttacking = false;
 
 var enemyDirection;
 var nextPointX;
 var nextPointY;
 
 var text = '';
+var text2 = 'attack off'; // this now needs to become the enemy attack variable
 var flip = false;
 var flipEnemy = false;
 var group1;
@@ -249,25 +249,29 @@ function create() {
 /////// Misc
     roof_layer.bringToTop();
     player_entity.body.onBeginContact.add(blockHit, this);
-    orc.body.onBeginContact.add(orcAttack,this);
+    orc.body.onBeginContact.add(attackOn,this);
+    orc.body.onEndContact.add(attackOff,this);
 }
 
-function orcAttack(body){
+function attackOn(body){
     if (body){
-        animateOrc('attack');
+        text2 = 'attack on';
+    }
+}
+function attackOff(body){
+    if (body){
+        text2 = 'attack off';
     }
 }
 
 function animateOrc(x){
-    if (orcAttacking == false)
+
+    if (text2 == 'attack on'){
+        orc.animations.play('attack', 20, true);
+    }
+
+    if (text2 == 'attack off')
     {
-        if (x == 'attack'){
-            orc.animations.play('attack',20,true);
-/*            orcAttacking=true;
-            orc.animations.currentAnim.onComplete.add(function () {
-                orcAttacking=false;
-            }, this);*/
-        }
         if (x == 'walk'){
             orc.animations.play('walk');
         }
@@ -328,27 +332,27 @@ function direction(){
 
     if (upKey.isDown == true)
     {
-        //animateOrc('walk');
+        player_entity.animations.play('walk');
     }
     else if (downKey.isDown == true)
     {
-        //animateOrc('walk');
+        player_entity.animations.play('walk');
     }
     else if (leftKey.isDown == true)
     {
-        //animateOrc('walk');
+        player_entity.animations.play('walk');
     }
     else if (rightKey.isDown == true)
     {
+        player_entity.animations.play('walk');
         if (flip == true){
             player_entity.scale.x *=-1;
             flip = false;
         }
-        //animateOrc('walk');
     }
     else
     {
-        //animateOrc('idle');
+        player_entity.animations.play('idle');
     }
 
     if (leftKey.isDown){
@@ -360,6 +364,8 @@ function direction(){
 }
 
 function moveEnemy(){
+
+    animateOrc('walk');
     orc.body.setZeroVelocity();
     var enemySpeed = 151;
 
@@ -408,10 +414,12 @@ function moveEnemy(){
     else if (enemyDirection == "STOP")
     {
         orc.body.setZeroVelocity()
+        orc.animations.play('idle');
     }
     else
     {
         orc.body.setZeroVelocity()
+        orc.animations.play('idle');
     }
 }
 
@@ -434,4 +442,5 @@ function render(){
     game.debug.text('Player X: ' + pex, 32, 62);
     game.debug.text('Player Y: ' + pey  , 32, 92);
     game.debug.text('DEBUG: ' + text  , 32, 122);
+    game.debug.text('DEBUG: ' + text2  , 32, 152);
 }
