@@ -76,18 +76,18 @@ var leftKey;
 var rightKey;
 
 var player_entity;
-var pex;
-var pey;
+var player_x;
+var player_y;
 var orc;
-var ratx;
-var raty;
+var enemy_x;
+var enemy_y;
 
 var enemyDirection;
 var nextPointX;
 var nextPointY;
 
-var text = '';
-var text2 = 'attack off'; // this now needs to become the enemy attack variable
+var debug1 = 'attack off'; // this now needs to become the enemy attack variable
+var debug2 = '';
 var flip = false;
 var flipEnemy = false;
 var group1;
@@ -186,7 +186,7 @@ function create() {
 
     setInterval(function(){
 
-        easystar.findPath(ratx, raty, pex, pey, function( path ) {
+        easystar.findPath(enemy_x, enemy_y, player_x, player_y, function( path ) {
 
             if (path) {
                 nextPointX = path[1].x;
@@ -200,37 +200,37 @@ function create() {
             else {
                 console.log('Pathfinder: ON');
                 for (var i = 0; i < path.length; i++) {
-                    //console.log("X: " + path[i].x + " Y: " + path[i].y + " Rx: " + ratx + " Ry: " + raty);
+                    //console.log("X: " + path[i].x + " Y: " + path[i].y + " Rx: " + enemy_x + " Ry: " + enemy_y);
 
-                    if (nextPointX < ratx && nextPointY < raty)
+                    if (nextPointX < enemy_x && nextPointY < enemy_y)
                     {
                         enemyDirection = "NW";
                     }
-                    else if (nextPointX == ratx && nextPointY < raty)
+                    else if (nextPointX == enemy_x && nextPointY < enemy_y)
                     {
                         enemyDirection = "N";
                     }
-                    else if (nextPointX > ratx && nextPointY < raty)
+                    else if (nextPointX > enemy_x && nextPointY < enemy_y)
                     {
                         enemyDirection = "NE";
                     }
-                    else if (nextPointX < ratx && nextPointY == raty)
+                    else if (nextPointX < enemy_x && nextPointY == enemy_y)
                     {
                         enemyDirection = "W";
                     }
-                    else if (nextPointX > ratx && nextPointY == raty)
+                    else if (nextPointX > enemy_x && nextPointY == enemy_y)
                     {
                         enemyDirection = "E";
                     }
-                    else if (nextPointX > ratx && nextPointY > raty)
+                    else if (nextPointX > enemy_x && nextPointY > enemy_y)
                     {
                         enemyDirection = "SE";
                     }
-                    else if (nextPointX == ratx && nextPointY > raty)
+                    else if (nextPointX == enemy_x && nextPointY > enemy_y)
                     {
                         enemyDirection = "S";
                     }
-                    else if (nextPointX < ratx && nextPointY > raty)
+                    else if (nextPointX < enemy_x && nextPointY > enemy_y)
                     {
                         enemyDirection = "SW";
                     }
@@ -254,43 +254,31 @@ function create() {
 }
 
 function attackOn(body){
-    if (body == null)
-    {
-    }
-    else if (body.sprite == null)
-    {
-    }
+    if (body == null) {}
+    else if (body.sprite == null) {}
     else if (body.sprite.key = 'cleric')
     {
-        text2 = 'attack on';
+        debug1 = 'attack on';
     }
-    else
-    {
-    }
+    else{}
 }
 function attackOff(body){
-    if (body == null)
-    {
-    }
-    else if (body.sprite == null)
-    {
-    }
+    if (body == null) {}
+    else if (body.sprite == null) {}
     else if (body.sprite.key = 'cleric')
     {
-        text2 = 'attack off';
+        debug1 = 'attack off';
     }
-    else
-    {
-    }
+    else{}
 }
 
 function animateOrc(x){
 
-    if (text2 == 'attack on'){
+    if (debug1 == 'attack on'){
         orc.animations.play('attack', 20, true);
     }
 
-    if (text2 == 'attack off')
+    if (debug1 == 'attack off')
     {
         if (x == 'walk'){
             orc.animations.play('walk');
@@ -311,19 +299,19 @@ function blockHit (body, bodyB, shapeA, shapeB, equation) {
 
     if (body == null)
     {
-        text = 'You bumped into the world bounds';
+        debug2 = 'You bumped into the world bounds';
     }
     else if (body.sprite == null)
     {
-        text = 'You bumped into a wall';
+        debug2 = 'You bumped into a wall';
     }
     else if (body)
     {
-        text = 'You last hit: ' + body.sprite.key;
+        debug2 = 'You last hit: ' + body.sprite.key;
     }
     else
     {
-        text = 'You hit a un-identified object';
+        debug2 = 'You hit a un-identified object';
     }
 }
 
@@ -452,14 +440,12 @@ function update()
 function render(){
 
     //Snap from the pixel co-ordinate to the grid co-ordinate.
-    pex = this.math.snapToFloor(Math.floor(player_entity.position.x), 32) / 32;
-    pey = this.math.snapToFloor(Math.floor(player_entity.position.y), 32) / 32;
-    ratx = this.math.snapToFloor(Math.floor(orc.position.x), 32) / 32;
-    raty = this.math.snapToFloor(Math.floor(orc.position.y), 32) / 32;
+    player_x = this.math.snapToFloor(Math.floor(player_entity.position.x), 32) / 32;
+    player_y = this.math.snapToFloor(Math.floor(player_entity.position.y), 32) / 32;
+    enemy_x = this.math.snapToFloor(Math.floor(orc.position.x), 32) / 32;
+    enemy_y = this.math.snapToFloor(Math.floor(orc.position.y), 32) / 32;
 
     game.debug.text('Enemy Direction: ' + enemyDirection, 32, 32);
-    game.debug.text('Player X: ' + pex, 32, 62);
-    game.debug.text('Player Y: ' + pey  , 32, 92);
-    game.debug.text('DEBUG: ' + text  , 32, 122);
-    game.debug.text('DEBUG: ' + text2  , 32, 152);
+    game.debug.text('Enemy Collision: ' + debug1  , 32, 62);
+    game.debug.text('Player Collision: ' + debug2  , 32, 92);
 }
