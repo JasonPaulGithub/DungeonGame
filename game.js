@@ -153,8 +153,8 @@ function create() {
     orc.body.fixedRotation = true;
     orc.anchor.setTo(0.5,0.75);
     orc.animations.add('idle',   [0,1,2,3,4,5,6,7,8,9],               5, false);
-    orc.animations.add('cast',  [10,11,12,13,14,15,16,17,18,19],   spd, false);
-    orc.animations.add('walk',    [20,21,22,23,24,25,26,27,28,29],   spd, false);
+    orc.animations.add('cast',   [10,11,12,13,14,15,16,17,18,19],   spd, false);
+    orc.animations.add('walk',   [20,21,22,23,24,25,26,27,28,29],   spd, false);
     orc.animations.add('attack', [30,31,32,33,34,35,36,37,38,39],   spd, false);
     orc.animations.add('die',    [40,41,42,43,44,45,46,47,48,49],   spd, false);
 
@@ -371,6 +371,9 @@ function direction(){
 }
 
 function moveEnemy(){
+
+    // Enemy physics:
+    // http://phaser.io/examples/v2/p2-physics/contact-material
 
     animateOrc('walk');
     orc.body.setZeroVelocity();
