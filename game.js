@@ -1,3 +1,48 @@
+/* use enableDiagonals on small enemies, make their collision radius smaller, and
+ /  allow them to slow or halt the player
+ /  allow for large enemies to have trouble moving around the map
+
+ /'choose your door.....'
+ /combat ideas: cleave. Rage. stun. charged attack. charge attack.
+ /defence spells. summons. pets. AOE damage system. projectiles.
+ /druid class (change into an animal?)
+ /smoke. invisibility. mixing toxins for cloud-based AOE attacks.
+ /attack combos! parry(combo breakers) enemies block distinct patterns
+ /beserker rage enemy. being flanked. chase mechanics.
+ /poisions, elemental damage, slow, and skill trees (perhaps only the mage can have this for now)
+ /stealth kills
+
+ / choose combo template: high, low, flanker, attack, block, parry (parry will relfect a percent of physical damage)
+ / enemies counter patterns, like consecutive attacks low to high to low, but not high, block, low
+ / opening attacks sets the base damage at %50, so an opening attack of 10 means the most damage made can be 5, crits hit up to 10, multipliers not included
+ / weapons dont crit but will pass on damage onto flanking enemies, or STORE for an ulti attack.
+ / more combos and abilties can be unlocked via the skill tree
+ / near-death combos / abilities can be unlocked
+
+ / mages can take down groups of weak eneimes and need XP to become better,
+ / the theif takes down large enemies and can escape well against groups
+ / fighters good all round but weak vs undead, clerics are tanks and speclaise against undead
+ / it's all about the shop! play for money, items, & spells that mess with game mechanics.
+
+ / with all this in mind start off with the basics, obvs...
+ /  + a story needed too
+ //this will fire even if the orc hits a wall.
+ //on a side note, enemies might fight amogst themselves
+ //even a 'rage' style spell might work.
+ */
+/*
+ TODO:
+ Carpets: Include a dark fog sprite to mix with the carpet sprites to decorate the dungeon.
+ TODO:
+ The chest that you touch and the barrel that you bash and the bag that opens at any angle.
+ TODO:
+ Take the top beam of the door into the roof layer, darken the screen upon collision, play openDoor.mp3
+ load a new map, then brighten the screen.
+ //Distant future: Combat system. Skill trees. Classes. Menus. Sound. Projectiles. Magic. A story.
+ Lighting. Stats on items.
+ //TODO: This: Graphics: Add a drop shadow.
+ */
+
 var game = new Phaser.Game(600, 600, Phaser.AUTO, 'phaser-example', { preload: preload, create: create, update: update, render: render });
 
 function preload()
@@ -14,8 +59,6 @@ function preload()
     game.add.plugin(Phaser.Plugin.Debug);
     game.add.plugin(Phaser.Plugin.Inspector);
 
-    //TODO: This:
-    // Graphics: Add a drop shadow.
 }
 
 var mapData;
@@ -38,6 +81,7 @@ var pey;
 var orc;
 var ratx;
 var raty;
+var orcAttacking = false;
 
 var enemyDirection;
 var nextPointX;
@@ -52,17 +96,6 @@ var stopPathFinder = false;
 
 function create() {
 
-    /*
-     TODO:
-     Carpets: Include a dark fog sprite to mix with the carpet sprites to decorate the dungeon.
-     TODO:
-     The chest that you touch and the barrel that you bash and the bag that opens at any angle.
-     TODO:
-     Take the top beam of the door into the roof layer, darken the screen upon collision, play openDoor.mp3
-     load a new map, then brighten the screen.
-     //Distant future: Combat system. Skill trees. Classes. Menus. Sound. Projectiles. Magic. A story.
-     Lighting. Stats on items.
-     */
     game.physics.startSystem(Phaser.Physics.P2JS);
 
 /////// MapData
@@ -151,39 +184,6 @@ function create() {
     easystar.setAcceptableTiles([0]);
     //easystar.enableDiagonals();
 
-    /* use enableDiagonals on small enemies, make their collision radius smaller, and
-    /  allow them to slow or halt the player
-    /  allow for large enemies to have trouble moving around the map
-
-     /'choose your door.....'
-    /combat ideas: cleave. Rage. stun. charged attack. charge attack.
-    /defence spells. summons. pets. AOE damage system. projectiles.
-    /druid class (change into an animal?)
-    /smoke. invisibility. mixing toxins for cloud-based AOE attacks.
-    /attack combos! parry(combo breakers) enemies block distinct patterns
-    /beserker rage enemy. being flanked. chase mechanics.
-    /poisions, elemental damage, slow, and skill trees (perhaps only the mage can have this for now)
-    /stealth kills
-
-    / choose combo template: high, low, flanker, attack, block, parry (parry will relfect a percent of physical damage)
-    / enemies counter patterns, like consecutive attacks low to high to low, but not high, block, low
-    / opening attacks sets the base damage at %50, so an opening attack of 10 means the most damage made can be 5, crits hit up to 10, multipliers not included
-    / weapons dont crit but will pass on damage onto flanking enemies, or STORE for an ulti attack.
-    / more combos and abilties can be unlocked via the skill tree
-    / near-death combos / abilities can be unlocked
-
-    / mages can take down groups of weak eneimes and need XP to become better,
-    / the theif takes down large enemies and can escape well against groups
-    / fighters good all round but weak vs undead, clerics are tanks and speclaise against undead
-    / it's all about the shop! play for money, items, & spells that mess with game mechanics.
-
-    / with all this in mind start off with the basics, obvs...
-    /  + a story needed too
-     //this will fire even if the orc hits a wall.
-     //on a side note, enemies might fight amogst themselves
-     //even a 'rage' style spell might work.
-    */
-
     setInterval(function(){
 
         easystar.findPath(ratx, raty, pex, pey, function( path ) {
@@ -200,7 +200,7 @@ function create() {
             else {
                 console.log('Pathfinder: ON');
                 for (var i = 0; i < path.length; i++) {
-                    console.log("X: " + path[i].x + " Y: " + path[i].y + " Rx: " + ratx + " Ry: " + raty);
+                    //console.log("X: " + path[i].x + " Y: " + path[i].y + " Rx: " + ratx + " Ry: " + raty);
 
                     if (nextPointX < ratx && nextPointY < raty)
                     {
@@ -254,9 +254,32 @@ function create() {
 
 function orcAttack(body){
     if (body){
+        animateOrc('attack');
+    }
+}
 
-        stopPathFinder = true;
-        orc.animations.play('attack');
+function animateOrc(x){
+    if (orcAttacking == false)
+    {
+        if (x == 'attack'){
+            orc.animations.play('attack',20,true);
+/*            orcAttacking=true;
+            orc.animations.currentAnim.onComplete.add(function () {
+                orcAttacking=false;
+            }, this);*/
+        }
+        if (x == 'walk'){
+            orc.animations.play('walk');
+        }
+        if (x == 'die'){
+            orc.animations.play('walk');
+        }
+        if (x == 'cast'){
+            orc.animations.play('walk');
+        }
+        if (x == 'idle'){
+            orc.animations.play('walk');
+        }
     }
 }
 
@@ -305,27 +328,27 @@ function direction(){
 
     if (upKey.isDown == true)
     {
-        player_entity.animations.play('walk');
+        //animateOrc('walk');
     }
     else if (downKey.isDown == true)
     {
-        player_entity.animations.play('walk');
+        //animateOrc('walk');
     }
     else if (leftKey.isDown == true)
     {
-        player_entity.animations.play('walk');
+        //animateOrc('walk');
     }
     else if (rightKey.isDown == true)
     {
-        player_entity.animations.play('walk');
         if (flip == true){
             player_entity.scale.x *=-1;
             flip = false;
         }
+        //animateOrc('walk');
     }
     else
     {
-        player_entity.animations.play('idle');
+        //animateOrc('idle');
     }
 
     if (leftKey.isDown){
@@ -337,8 +360,6 @@ function direction(){
 }
 
 function moveEnemy(){
-
-    orc.animations.play('walk');
     orc.body.setZeroVelocity();
     var enemySpeed = 151;
 
@@ -387,12 +408,10 @@ function moveEnemy(){
     else if (enemyDirection == "STOP")
     {
         orc.body.setZeroVelocity()
-        orc.animations.play('idle');
     }
     else
     {
         orc.body.setZeroVelocity()
-        orc.animations.play('idle');
     }
 }
 
