@@ -51,11 +51,15 @@
 
 var game = new Phaser.Game(600, 600, Phaser.AUTO, 'phaser-example', { preload: preload, create: create, update: update, render: render });
 
+var testmap = 'src/map/testMap.json';
+var map1    = 'src/map/map1.json';
+
 function preload()
 {
     game.load.spritesheet('tiles','src/sprites/tiles.png');
-    game.load.tilemap('mapData', 'src/map/testMap.json', null, Phaser.Tilemap.TILED_JSON);
-    game.load.json('version', 'src/map/testMap.json');
+
+    game.load.tilemap('mapData', map1, null, Phaser.Tilemap.TILED_JSON);
+    game.load.json('version', map1);
 
     game.load.spritesheet('cleric', 'src/sprites/cleric.png', 64, 64);
     game.load.spritesheet('orc', 'src/sprites/orc.png', 64, 64);
@@ -365,6 +369,10 @@ function direction(){
             player_entity.scale.x *=-1;
             flip = false;
         }
+    }
+    else if (spaceKey.isDown == true)
+    {
+        player_entity.animations.play('attack');
     }
     else
     {
