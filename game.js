@@ -24,11 +24,17 @@
  / fighters good all round but weak vs undead, clerics are tanks and speclaise against undead
  / it's all about the shop! play for money, items, & spells that mess with game mechanics.
 
- / with all this in mind start off with the basics, obvs...
- /  + a story needed too
- //this will fire even if the orc hits a wall.
- //on a side note, enemies might fight amogst themselves
- //even a 'rage' style spell might work.
+ // with all this in mind start off with the basics, obvs...
+ // + a story needed too
+ // this will fire even if the orc hits a wall.
+ // on a side note, enemies might fight amogst themselves
+ // even a 'rage' style spell might work.
+
+ // random room generation, random map generation, minimap,
+ // issac style room generation, zombies board game random room generation, diablo style room generation.
+ // each random style of generaion needs to consider physics/collision detection/pathfinding
+ //
+
  */
 /*
  TODO:
@@ -74,6 +80,7 @@ var upKey;
 var downKey;
 var leftKey;
 var rightKey;
+var spaceKey;
 
 var player_entity;
 var player_x;
@@ -132,6 +139,8 @@ function create() {
     downKey = game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
     leftKey = game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
     rightKey = game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
+    spaceKey = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+
 
 ////// Player
     player_entity = group1.create(333,333, 'cleric');
@@ -195,10 +204,10 @@ function create() {
 
             if (path === null || stopPathFinder == true) {
                 console.log("Pathfinder: DORMANT");
+                console.log('Pathfinder: ON');
             }
 
             else {
-                console.log('Pathfinder: ON');
                 for (var i = 0; i < path.length; i++) {
                     //console.log("X: " + path[i].x + " Y: " + path[i].y + " Rx: " + enemy_x + " Ry: " + enemy_y);
 
