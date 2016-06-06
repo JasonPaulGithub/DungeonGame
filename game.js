@@ -89,21 +89,21 @@ var spaceKey;
 var player_entity;
 var player_x;
 var player_y;
+var flip = false;
+
 var orc;
 var enemy_x;
 var enemy_y;
-
 var enemyDirection;
+var enemyAttack = 'attack off';
+var flipEnemy = false;
+
 var nextPointX;
 var nextPointY;
-
-var enemyAttack = 'attack off'; // this now needs to become the enemy attack variable
-var debug2 = '';
-var flip = false;
-var flipEnemy = false;
-var group1;
-
 var stopPathFinder = false;
+
+var debug2 = '';
+var sortDepthGroup;
 
 function create() {
 
@@ -135,7 +135,7 @@ function create() {
     game.physics.p2.convertTilemap(mapData, wall_layer);
 
 /////// Depth Sort
-    group1 = game.add.group();
+    sortDepthGroup = game.add.group();
 
 /////// Controls
     cursors = game.input.keyboard.createCursorKeys();
@@ -147,7 +147,7 @@ function create() {
 
 
 ////// Player
-    player_entity = group1.create(333,333, 'cleric');
+    player_entity = sortDepthGroup.create(333,333, 'cleric');
     game.physics.p2.enable(player_entity, true);
     player_entity.body.setRectangle(32,35);
     player_entity.body.fixedRotation = true;
@@ -160,7 +160,7 @@ function create() {
     player_entity.animations.add('die',    [40,41,42,43,44,45,46,47,48,49],   spd, false);
 
 /////// Enemies: Note: Expand on available enemy physics:
-    orc = group1.create(433,333,'orc');
+    orc = sortDepthGroup.create(433,333,'orc');
     game.physics.p2.enable(orc,true);
     orc.body.setCircle(16);
     orc.body.fixedRotation = true;
@@ -449,7 +449,7 @@ function moveEnemy(){
 
 function update()
 {
-    group1.sort('y', Phaser.Group.SORT_ASCENDING);
+    sortDepthGroup.sort('y', Phaser.Group.SORT_ASCENDING);
     game.camera.follow(player_entity);
     direction();
 }
