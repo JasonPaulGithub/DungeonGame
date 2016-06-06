@@ -51,8 +51,8 @@
 
 var game = new Phaser.Game(600, 600, Phaser.AUTO, 'phaser-example', { preload: preload, create: create, update: update, render: render });
 
-var testmap = 'src/map/testMap.json';
 var map1    = 'src/map/map1.json';
+var map2    = 'src/map/map2.json';
 
 function preload()
 {
