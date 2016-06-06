@@ -97,7 +97,7 @@ var enemyDirection;
 var nextPointX;
 var nextPointY;
 
-var debug1 = 'attack off'; // this now needs to become the enemy attack variable
+var enemyAttack = 'attack off'; // this now needs to become the enemy attack variable
 var debug2 = '';
 var flip = false;
 var flipEnemy = false;
@@ -271,7 +271,7 @@ function attackOn(body){
     else if (body.sprite == null) {}
     else if (body.sprite.key = 'cleric')
     {
-        debug1 = 'attack on';
+        enemyAttack = 'attack on';
     }
     else{}
 }
@@ -280,18 +280,18 @@ function attackOff(body){
     else if (body.sprite == null) {}
     else if (body.sprite.key = 'cleric')
     {
-        debug1 = 'attack off';
+        enemyAttack = 'attack off';
     }
     else{}
 }
 
 function animateOrc(x){
 
-    if (debug1 == 'attack on'){
+    if (enemyAttack == 'attack on'){
         orc.animations.play('attack', 20, true);
     }
 
-    if (debug1 == 'attack off')
+    if (enemyAttack == 'attack off')
     {
         if (x == 'walk'){
             orc.animations.play('walk');
@@ -396,7 +396,7 @@ function moveEnemy(){
     orc.body.setZeroVelocity();
     var enemySpeed = 151;
 
-    if (debug1 == 'attack on'){
+    if (enemyAttack == 'attack on'){
         orc.body.setZeroVelocity();
     }
     else {
@@ -463,6 +463,6 @@ function render(){
     enemy_y = this.math.snapToFloor(Math.floor(orc.position.y), 32) / 32;
 
     game.debug.text('Enemy Direction: ' + enemyDirection, 32, 32);
-    game.debug.text('Enemy Collision: ' + debug1  , 32, 62);
+    game.debug.text('Enemy Collision: ' + enemyAttack  , 32, 62);
     game.debug.text('Player Collision: ' + debug2  , 32, 92);
 }
