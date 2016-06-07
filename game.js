@@ -1,7 +1,14 @@
 //Literally the next thing to work on goes here:
 //TODO: Create a new enemy object alongside the existing one.
 
-enemyOrc = function (){
+enemyOrc = function (game){
+
+    var x = 333;
+    var y = 200;
+
+    this.game = game;
+    this.game.add.sprite (x,y,'orc');
+
 
 }
 
@@ -116,7 +123,7 @@ function create() {
     player_entity.animations.add('die',    [40,41,42,43,44,45,46,47,48,49],   spd, false);
 
 /////// Enemies: Note: Expand on available enemy physics:
-    orc = sortDepthGroup.create(433,333,'orc');
+    orc = sortDepthGroup.create(433,333,'orcThief');
     game.physics.p2.enable(orc,true);
     orc.body.setCircle(16);
     orc.body.fixedRotation = true;
@@ -220,6 +227,8 @@ function create() {
     player_entity.body.onBeginContact.add(blockHit, this);
     orc.body.onBeginContact.add(attackOn,this);
     orc.body.onEndContact.add(attackOff,this);
+
+    new enemyOrc(game);
 }
 
 function attackOn(body){
