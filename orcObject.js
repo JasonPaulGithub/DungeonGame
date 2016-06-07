@@ -15,7 +15,8 @@ orcObject = function (game){
     enemyOrc.anchor.setTo(0.5,0.75);
 }
 
-orcObject.getValue= function(){
+orcObject.getValue= function(){//<<<< note no .prototype. here<<<
     //we need to find a way to get a response out of this object so we can experiment with the easyStar.js file.
     return 'Implement me!';
+    //it might be worth just taking the code from the TANKS example to see if it works.
 }
