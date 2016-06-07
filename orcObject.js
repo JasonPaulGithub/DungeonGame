@@ -3,7 +3,7 @@ orcObject = function (game){
     this.game = game;
 
     var x = 333;
-    var y = 200;
+    var y = 295;
     var enemyOrc = game.add.sprite (x,y,'orc');
 
     game.physics.p2.enable(enemyOrc,true);
