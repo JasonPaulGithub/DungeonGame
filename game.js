@@ -1,15 +1,18 @@
 //Literally the next thing to work on goes here:
 //TODO: Create a new enemy object alongside the existing one.
 
-enemyOrc = function (game){
+orcObject = function (game){
+
+    this.game = game;
 
     var x = 333;
     var y = 200;
+    var enemyOrc = game.add.sprite (x,y,'orc');
 
-    this.game = game;
-    this.game.add.sprite (x,y,'orc');
-
-
+    game.physics.p2.enable(enemyOrc,true);
+    enemyOrc.body.setCircle(16);
+    enemyOrc.body.fixedRotation = true;
+    enemyOrc.anchor.setTo(0.5,0.75);
 }
 
 var game = new Phaser.Game(600, 600, Phaser.AUTO, 'phaser-example', { preload: preload, create: create, update: update, render: render });
@@ -25,7 +28,6 @@ function preload()
     game.load.json('version', map1);
 
     game.load.spritesheet('cleric', 'src/sprites/cleric.png', 64, 64);
-    game.load.spritesheet('orc', 'src/sprites/orc.png', 64, 64);
     game.load.spritesheet('orc', 'src/sprites/orc.png', 64, 64);
     game.load.spritesheet('orcThief', 'src/sprites/orcThief.png', 64, 64);
 
@@ -107,7 +109,6 @@ function create() {
     leftKey = game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
     rightKey = game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
     spaceKey = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-
 
 ////// Player
     player_entity = sortDepthGroup.create(333,333, 'cleric');
@@ -228,7 +229,7 @@ function create() {
     orc.body.onBeginContact.add(attackOn,this);
     orc.body.onEndContact.add(attackOff,this);
 
-    new enemyOrc(game);
+    new orcObject(game);
 }
 
 function attackOn(body){
