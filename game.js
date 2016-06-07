@@ -1,6 +1,10 @@
 //Literally the next thing to work on goes here:
 //TODO: Create a new enemy object alongside the existing one.
 
+enemyOrc = function (){
+
+}
+
 var game = new Phaser.Game(600, 600, Phaser.AUTO, 'phaser-example', { preload: preload, create: create, update: update, render: render });
 
 var map1    = 'src/map/map1.json';
