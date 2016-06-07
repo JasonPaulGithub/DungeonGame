@@ -4,7 +4,8 @@ orcObject = function (game){
 
     var x = 333;
     var y = 295;
-    var enemyOrc = game.add.sprite (x,y,'orc');
+
+    var enemyOrc = sortDepthGroup.create(x,y,'orc');
 
     game.physics.p2.enable(enemyOrc,true);
     enemyOrc.body.setCircle(16);
