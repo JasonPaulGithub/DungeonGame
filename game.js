@@ -1,20 +1,6 @@
 //Literally the next thing to work on goes here:
 //TODO: Create a new enemy object alongside the existing one.
 
-orcObject = function (game){
-
-    this.game = game;
-
-    var x = 333;
-    var y = 200;
-    var enemyOrc = game.add.sprite (x,y,'orc');
-
-    game.physics.p2.enable(enemyOrc,true);
-    enemyOrc.body.setCircle(16);
-    enemyOrc.body.fixedRotation = true;
-    enemyOrc.anchor.setTo(0.5,0.75);
-}
-
 var game = new Phaser.Game(600, 600, Phaser.AUTO, 'phaser-example', { preload: preload, create: create, update: update, render: render });
 
 var map1    = 'src/map/map1.json';
