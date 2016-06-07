@@ -414,7 +414,8 @@ function render(){
     enemy_x = this.math.snapToFloor(Math.floor(orc.position.x), 32) / 32;
     enemy_y = this.math.snapToFloor(Math.floor(orc.position.y), 32) / 32;
 
-    game.debug.text('Enemy Direction: ' + enemyDirection, 32, 32);
-    game.debug.text('Enemy Collision: ' + enemyAttack  , 32, 62);
-    game.debug.text('Player Collision: ' + debug2  , 32, 92);
+    var x = orcObject.getValue();
+    game.debug.text('Object Direction: ' + x, 32, 32);
+    //game.debug.text('Enemy Collision: ' + enemyAttack  , 32, 62);
+    //game.debug.text('Player Collision: ' + debug2  , 32, 92);
 }
