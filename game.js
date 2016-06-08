@@ -410,9 +410,6 @@ function update()
     player_y = this.math.snapToFloor(Math.floor(player_entity.position.y), 32) / 32;
     enemy_x = this.math.snapToFloor(Math.floor(orc.position.x), 32) / 32;
     enemy_y = this.math.snapToFloor(Math.floor(orc.position.y), 32) / 32;
-
-
-
 }
 
 function render(){
