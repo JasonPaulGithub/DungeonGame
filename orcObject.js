@@ -9,7 +9,7 @@
         var enemyAttackObj = 'attack off';
         var flipEnemyObj = false;
 
-        var orcObjNextPointX;
+        var nextPointXObj;
         var nextPointYObj;
         var orcObjStopPathFinder = false;
 
@@ -40,51 +40,56 @@
             preArray.splice(0, dcv);
         }
 
-        var easystar = new EasyStar.js();
-        easystar.setGrid(level);
-        easystar.setAcceptableTiles([0]);
-        //easystar.enableDiagonals();
+        var pathfinder = new EasyStar.js();
+        pathfinder.setGrid(level);
+        pathfinder.setAcceptableTiles([0]);
+        //pathfinder.enableDiagonals();
 
         setInterval(function () {
 
-            easystar.findPath(enemy_x, enemy_y, player_x, player_y, function (path) {
+            var enemy_xObj = game.math.snapToFloor(Math.floor(orcObj.position.x), 32) / 32;
+            var enemy_yObj = game.math.snapToFloor(Math.floor(orcObj.position.y), 32) / 32;
+
+            console.log(enemy_xObj);
+            console.log(enemy_yObj);
+
+            pathfinder.findPath(enemy_xObj, enemy_y, player_x, player_y, function (path) {
 
                 if (path) {
-                    orcObjNextPointX = path[1].x;
+                    nextPointXObj = path[1].x;
                     nextPointYObj = path[1].y;
                 }
 
                 if (path === null || orcObjStopPathFinder == true) {
                     console.log("Pathfinder: DORMANT");
-                    console.log('Pathfinder: ON');
                 }
 
                 else {
                     for (var i = 0; i < path.length; i++) {
-                        console.log("X: " + path[i].x + " Y: " + path[i].y + " Rx: " + enemy_x + " Ry: " + enemy_y);
-
-                        if (orcObjNextPointX < enemy_x && nextPointYObj < enemy_y) {
+                        //console.log("X: " + path[i].x + " Y: " + path[i].y + " Rx: " + enemy_x + " Ry: " + enemy_y);
+                        console.log("Obj console ON");
+                        if (nextPointXObj < enemy_xObj && nextPointYObj < enemy_yObj) {
                             directionObj = "NW";
                         }
-                        else if (orcObjNextPointX == enemy_x && nextPointYObj < enemy_y) {
+                        else if (nextPointXObj == enemy_xObj && nextPointYObj < enemy_yObj) {
                             directionObj = "N";
                         }
-                        else if (orcObjNextPointX > enemy_x && nextPointYObj < enemy_y) {
+                        else if (nextPointXObj > enemy_xObj && nextPointYObj < enemy_yObj) {
                             directionObj = "NE";
                         }
-                        else if (orcObjNextPointX < enemy_x && nextPointYObj == enemy_y) {
+                        else if (nextPointXObj < enemy_xObj && nextPointYObj == enemy_yObj) {
                             directionObj = "W";
                         }
-                        else if (orcObjNextPointX > enemy_x && nextPointYObj == enemy_y) {
+                        else if (nextPointXObj > enemy_xObj && nextPointYObj == enemy_yObj) {
                             directionObj = "E";
                         }
-                        else if (orcObjNextPointX > enemy_x && nextPointYObj > enemy_y) {
+                        else if (nextPointXObj > enemy_xObj && nextPointYObj > enemy_yObj) {
                             directionObj = "SE";
                         }
-                        else if (orcObjNextPointX == enemy_x && nextPointYObj > enemy_y) {
+                        else if (nextPointXObj == enemy_xObj && nextPointYObj > enemy_yObj) {
                             directionObj = "S";
                         }
-                        else if (orcObjNextPointX < enemy_x && nextPointYObj > enemy_y) {
+                        else if (nextPointXObj < enemy_xObj && nextPointYObj > enemy_yObj) {
                             directionObj = "SW";
                         }
                         else {
@@ -94,7 +99,7 @@
                     }
                 }
             });
-            easystar.calculate();
+            pathfinder.calculate();
 
         }, 80);
 
