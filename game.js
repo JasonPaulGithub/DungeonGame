@@ -404,9 +404,6 @@ function update()
     sortDepthGroup.sort('y', Phaser.Group.SORT_ASCENDING);
     game.camera.follow(player_entity);
     direction();
-}
-
-function render(){
 
     //Snap from the pixel co-ordinate to the grid co-ordinate.
     player_x = this.math.snapToFloor(Math.floor(player_entity.position.x), 32) / 32;
@@ -414,9 +411,9 @@ function render(){
     enemy_x = this.math.snapToFloor(Math.floor(orc.position.x), 32) / 32;
     enemy_y = this.math.snapToFloor(Math.floor(orc.position.y), 32) / 32;
 
+}
 
-    pathfinder.getPath();
-
+function render(){
     //game.debug.text('Object Direction: ' + x, 32, 32);
     //game.debug.text('Enemy Collision: ' + enemyAttack  , 32, 62);
     //game.debug.text('Player Collision: ' + debug2  , 32, 92);
