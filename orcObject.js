@@ -112,7 +112,7 @@
             }
             else if (body.sprite == null) {
             }
-            else if (body.sprite.key = 'cleric') {
+            else if (body.sprite.key == 'cleric') {
                 enemyAttackObj = 'attack on';
             }
             else {
@@ -124,7 +124,7 @@
             }
             else if (body.sprite == null) {
             }
-            else if (body.sprite.key = 'cleric') {
+            else if (body.sprite.key == 'cleric') {
                 enemyAttackObj = 'attack off';
             }
             else {

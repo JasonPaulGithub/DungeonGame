@@ -219,22 +219,36 @@ function create() {
 }
 
 function attackOn(body){
-    if (body == null) {}
-    else if (body.sprite == null) {}
-    else if (body.sprite.key ==' cleric')
+    if (body == null)
+    {
+
+    }
+    else if (body.sprite == null)
+    {
+
+    }
+    else if (body.sprite.key=="cleric")
     {
         enemyAttack = 'attack on';
     }
-    else{}
-}
-function attackOff(body){
-    if (body == null) {}
-    else if (body.sprite == null) {}
-    else if (body.sprite.key=='cleric')
+    else
     {
+
+    }
+}
+function attackOff(body) {
+    if (body == null) {
+
+    }
+    else if (body.sprite == null) {
+
+    }
+    else if (body.sprite.key == "cleric") {
         enemyAttack = 'attack off';
     }
-    else{}
+    else {
+
+    }
 }
 
 function animateOrc(x){
