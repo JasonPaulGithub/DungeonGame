@@ -95,7 +95,7 @@
                         else {
                             directionObj = "STOP";
                         }
-                        moveEnemy();
+                        moveEnemyObj();
                     }
                 }
             });
@@ -153,7 +153,7 @@
             }
         }
 
-        function moveEnemy() {
+        function moveEnemyObj() {
 
             // Enemy physics:
             // http://phaser.io/examples/v2/p2-physics/contact-material

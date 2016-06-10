@@ -221,7 +221,7 @@ function create() {
 function attackOn(body){
     if (body == null) {}
     else if (body.sprite == null) {}
-    else if (body.sprite.key = 'cleric')
+    else if (body.sprite.key ==' cleric')
     {
         enemyAttack = 'attack on';
     }
@@ -230,7 +230,7 @@ function attackOn(body){
 function attackOff(body){
     if (body == null) {}
     else if (body.sprite == null) {}
-    else if (body.sprite.key = 'cleric')
+    else if (body.sprite.key=='cleric')
     {
         enemyAttack = 'attack off';
     }
@@ -413,7 +413,7 @@ function update()
 }
 
 function render(){
-    //game.debug.text('Object Direction: ' + x, 32, 32);
-    //game.debug.text('Enemy Collision: ' + enemyAttack  , 32, 62);
-    //game.debug.text('Player Collision: ' + debug2  , 32, 92);
+    //  game.debug.text('Object Direction: ' + x, 32, 32);
+    game.debug.text('Enemy Collision: ' + enemyAttack  , 32, 62);
+    game.debug.text('Player Collision: ' + debug2  , 32, 92);
 }
