@@ -2,7 +2,12 @@
 //TODO: Create a new enemy object alongside the existing one.
 //TODO: Set a sight radius, and an attack radius, then put it into an object.
 
+//TODO:
 //DELETE TEH ALPHA-ORC
+
+//TODO:
+//THE OBSERVER PATTERN CAN BE USED TO ADVERTISE THE PLAYER LOCATION TO
+//ENEMY ORC INSTANCES!
 
 var game = new Phaser.Game(600, 600, Phaser.AUTO, 'phaser-example', { preload: preload, create: create, update: update, render: render });
 
