@@ -1,5 +1,6 @@
 //Literally the next thing to work on goes here:
 //TODO: Create a new enemy object alongside the existing one.
+//TODO: Set a sight radius, and an attack radius, then put it into an object.
 
 var game = new Phaser.Game(600, 600, Phaser.AUTO, 'phaser-example', { preload: preload, create: create, update: update, render: render });
 
@@ -99,7 +100,7 @@ function create() {
 ////// Player
     player_entity = sortDepthGroup.create(333,333, 'cleric');
     game.physics.p2.enable(player_entity, true);
-    player_entity.body.setRectangle(32,35);
+    player_entity.body.setRectangle(31,34);
     player_entity.body.fixedRotation = true;
     player_entity.anchor.setTo(0.5,0.75);
     var spd = 20;
@@ -112,7 +113,7 @@ function create() {
 /////// Enemies: Note: Expand on available enemy physics:
     orc = sortDepthGroup.create(433,333,'orcThief');
     game.physics.p2.enable(orc,true);
-    orc.body.setCircle(16);
+    orc.body.setCircle(12);
     orc.body.fixedRotation = true;
     orc.anchor.setTo(0.5,0.75);
     orc.animations.add('idle',   [0,1,2,3,4,5,6,7,8,9],               5, false);
@@ -215,7 +216,10 @@ function create() {
     orc.body.onBeginContact.add(attackOn,this);
     orc.body.onEndContact.add(attackOff,this);
 
-    new orcObject(game);
+    new orcObject(333, 363, game);
+    new orcObject(700, 700, game);
+    new orcObject(800, 800, game);
+
 }
 
 function attackOn(body){

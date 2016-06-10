@@ -1,8 +1,12 @@
-    orcObject = function (game) {
+    // TODO:
+    // PROBLEM: CREATURES FOLLOW THE SAME ROUTE AND BUMP INTO EACHOTHER.
+    // POSSIBLE SOLUTION: GET THE OBJET TO DECLARE ITS POSITION ON A SHARED TILEMAP.
+
+    orcObject = function (x,y,game) {
 
         this.game = game;
-        var x = 333;
-        var y = 295;
+        var x = x;
+        var y = y;
 
         ///
         var directionObj;
@@ -13,10 +17,16 @@
         var nextPointYObj;
         var orcObjStopPathFinder = false;
 
-        var orcObj = sortDepthGroup.create(x, y, 'orcThief');
+        var orcObj = sortDepthGroup.create(x, y, 'orc');
+        orcObj.animations.add('idle',   [0,1,2,3,4,5,6,7,8,9],               5, false);
+        orcObj.animations.add('cast',   [10,11,12,13,14,15,16,17,18,19],   20, false);
+        orcObj.animations.add('walk',   [20,21,22,23,24,25,26,27,28,29],   20, false);
+        orcObj.animations.add('attack', [30,31,32,33,34,35,36,37,38,39],   20, false);
+        orcObj.animations.add('die',    [40,41,42,43,44,45,46,47,48,49],   20, false);
+
 
         game.physics.p2.enable(orcObj, true);
-        orcObj.body.setCircle(16);
+        orcObj.body.setCircle(12);
         orcObj.body.fixedRotation = true;
         orcObj.anchor.setTo(0.5, 0.75);
 
