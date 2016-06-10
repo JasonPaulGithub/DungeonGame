@@ -2,6 +2,8 @@
 //TODO: Create a new enemy object alongside the existing one.
 //TODO: Set a sight radius, and an attack radius, then put it into an object.
 
+//DELETE TEH ALPHA-ORC
+
 var game = new Phaser.Game(600, 600, Phaser.AUTO, 'phaser-example', { preload: preload, create: create, update: update, render: render });
 
 var map1    = 'src/map/map1.json';
@@ -110,7 +112,7 @@ function create() {
     player_entity.animations.add('attack', [30,31,32,33,34,35,36,37,38,39],   spd, false);
     player_entity.animations.add('die',    [40,41,42,43,44,45,46,47,48,49],   spd, false);
 
-/////// Enemies: Note: Expand on available enemy physics:
+/////// ALPHA-ORC (TO BE DELETED!!)
     orc = sortDepthGroup.create(433,333,'orcThief');
     game.physics.p2.enable(orc,true);
     orc.body.setCircle(12);
