@@ -1,5 +1,5 @@
 //Literally the next thing to work on goes here:
-//TODO: Set a sight radius, and an attack radius, then put it into an object.
+//TODO: Set a sight radius, and an attack radius for player.
 //TODO: Save memory - Only run the pathfinder each time the player moves.
 //TODO: Figure out why the memory goes apeshit when the player moves - i.e: The framerate +50%!!
 
