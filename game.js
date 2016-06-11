@@ -1,6 +1,7 @@
 //Literally the next thing to work on goes here:
 //TODO: Set a sight radius, and an attack radius, then put it into an object.
 //TODO: Save memory - Only run the pathfinder each time the player moves.
+//TODO: Figure out why the memory goes apeshit when the player moves - i.e: The framerate +50%!!
 
 var game = new Phaser.Game(600, 600, Phaser.AUTO, 'phaser-example', { preload: preload, create: create, update: update, render: render });
 
@@ -164,36 +165,36 @@ function player_direction(){
     player_entity.body.setZeroVelocity();
     var speed = 150;
 
-    if (upKey.isDown == true)
+    if (upKey.isDown)
     {
         player_entity.body.moveUp(speed);
     }
-    else if (downKey.isDown == true)
+    else if (downKey.isDown)
     {
         player_entity.body.moveDown(speed);
     }
-    if (leftKey.isDown == true)
+    if (leftKey.isDown)
     {
         player_entity.body.moveLeft(speed);
     }
-    else if (rightKey.isDown == true)
+    else if (rightKey.isDown)
     {
         player_entity.body.moveRight(speed);
     }
 
-    if (upKey.isDown == true)
+    if (upKey.isDown)
     {
         player_entity.animations.play('walk');
     }
-    else if (downKey.isDown == true)
+    else if (downKey.isDown)
     {
         player_entity.animations.play('walk');
     }
-    else if (leftKey.isDown == true)
+    else if (leftKey.isDown)
     {
         player_entity.animations.play('walk');
     }
-    else if (rightKey.isDown == true)
+    else if (rightKey.isDown)
     {
         player_entity.animations.play('walk');
         if (flip == true){
@@ -201,7 +202,7 @@ function player_direction(){
             flip = false;
         }
     }
-    else if (spaceKey.isDown == true)
+    else if (spaceKey.isDown)
     {
         player_entity.animations.play('attack');
     }
@@ -224,6 +225,7 @@ function update()
     game.camera.follow(player_entity);
     player_direction();
 
+    //TODO: Make this check only when the player moves.
     player_x = this.math.snapToFloor(Math.floor(player_entity.position.x), 32) / 32;
     player_y = this.math.snapToFloor(Math.floor(player_entity.position.y), 32) / 32;
 }
