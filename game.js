@@ -5,7 +5,7 @@
 
 var game = new Phaser.Game(600, 600, Phaser.AUTO, 'phaser-example', { preload: preload, create: create, update: update, render: render });
 
-var enemiesTotal = 8;
+var enemiesTotal = 1;
 var map1    = 'src/map/map1.json';
 
 function preload()
@@ -36,6 +36,7 @@ var rightKey;
 var spaceKey;
 
 var player_entity;
+var player_radius;
 var player_x;
 var player_y;
 var flip = false;
@@ -46,6 +47,7 @@ var preArray = [];
 var postArray = [];
 var level =[];
 
+var debug1;
 var debug2 = '';
 var sortDepthGroup;
 //saved for later
@@ -100,6 +102,18 @@ function create() {
     player_entity.body.setRectangle(31,34);
     player_entity.body.fixedRotation = true;
     player_entity.anchor.setTo(0.5,0.75);
+
+    var playerCollisionGroup = game.physics.p2.createCollisionGroup();
+
+    player_radius = game.add.sprite(player_entity.x,player_entity.y, null);
+    game.physics.p2.enable(player_radius, true);
+    player_radius.body.setCircle(31);
+    player_radius.body.fixedRotation = true;
+    player_radius.anchor.setTo(0.5,0.75);
+    player_radius.body.setCollisionGroup(playerCollisionGroup);
+    //player_radius.body.collides(alternateCollisionGroup, returnMethod, this);
+
+
     var spd = 20;
     player_entity.animations.add('idle',   [0,1,2,3,4,5,6,7,8,9],               5, false);
     player_entity.animations.add('cast',   [10,11,12,13,14,15,16,17,18,19],   spd, false);
@@ -216,6 +230,10 @@ function player_direction(){
 
 function update()
 {
+
+    player_radius.body.x = player_entity.x;
+    player_radius.body.y = player_entity.y;
+
     sortDepthGroup.sort('y', Phaser.Group.SORT_ASCENDING);
     game.camera.follow(player_entity);
     player_direction();
@@ -225,8 +243,12 @@ function update()
     player_y = this.math.snapToFloor(Math.floor(player_entity.position.y), 32) / 32;
 }
 
+function getx(){
+    return ;
+}
+
 function render(){
-    game.debug.text('Player Y: ' + player_y, 32, 32);
-    //game.debug.text('Enemy Collision: ' + enemyAttack  , 32, 62);
-    //game.debug.text('Player Collision: ' + debug2  , 32, 92);
+    // game.debug.text('debug1: ' + debug1, 32, 32);
+    // game.debug.text('Enemy Collision: ' + enemyAttack  , 32, 62);
+    // game.debug.text('debug2 ' + debug2  , 32, 92);
 }
