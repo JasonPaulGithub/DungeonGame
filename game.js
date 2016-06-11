@@ -6,23 +6,23 @@
 var game = new Phaser.Game(600, 600, Phaser.AUTO, 'phaser-example', { preload: preload, create: create, update: update, render: render });
 
 var map1    = 'src/map/map1.json';
-var map2    = 'src/map/map2.json';
+
+var enemiesTotal = 8;
 
 function preload()
 {
     game.load.spritesheet('tiles','src/sprites/tiles.png');
-
     game.load.tilemap('mapData', map1, null, Phaser.Tilemap.TILED_JSON);
     game.load.json('version', map1);
-
     game.load.spritesheet('cleric', 'src/sprites/cleric.png', 64, 64);
     game.load.spritesheet('orc', 'src/sprites/orc.png', 64, 64);
     game.load.spritesheet('orcThief', 'src/sprites/orcThief.png', 64, 64);
-
     game.add.plugin(Phaser.Plugin.Debug);
     game.add.plugin(Phaser.Plugin.Inspector);
 
 }
+
+
 
 var mapData;
 var background_layer;
@@ -52,6 +52,9 @@ var level =[];
 
 var debug2 = '';
 var sortDepthGroup;
+//saved for later
+var enemies = [];
+var map2    = 'src/map/map2.json';
 
 function create() {
 
@@ -128,10 +131,6 @@ function create() {
 /////// Misc
     roof_layer.bringToTop();
     player_entity.body.onBeginContact.add(blockHit, this);
-
-
-    var enemies = [];
-    var enemiesTotal = 8;
 
     for (var i = 0; i < enemiesTotal; i++)
     {

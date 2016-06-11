@@ -15,7 +15,7 @@
 
         var nextPointXObj;
         var nextPointYObj;
-        var orcObjStopPathFinder = false;
+        var pathfinderON = true;
 
         var orcObj = sortDepthGroup.create(x, y, 'orc');
         orcObj.animations.add('idle',   [0,1,2,3,4,5,6,7,8,9],               5, false);
@@ -35,6 +35,8 @@
         pathfinder.setGrid(level);
         pathfinder.setAcceptableTiles([0]);
 
+
+
         setInterval(function () {
 
             var obj_x = game.math.snapToFloor(Math.floor(orcObj.position.x), 32) / 32;
@@ -47,7 +49,7 @@
                     nextPointYObj = path[1].y;
                 }
 
-                if (path === null || orcObjStopPathFinder == true) {
+                if (path === null || pathfinderON == false) {
                     //console.log("Pathfinder: DORMANT");
                 }
 
