@@ -37,13 +37,10 @@
 
         setInterval(function () {
 
-            var enemy_xObj = game.math.snapToFloor(Math.floor(orcObj.position.x), 32) / 32;
-            var enemy_yObj = game.math.snapToFloor(Math.floor(orcObj.position.y), 32) / 32;
+            var obj_x = game.math.snapToFloor(Math.floor(orcObj.position.x), 32) / 32;
+            var obj_y = game.math.snapToFloor(Math.floor(orcObj.position.y), 32) / 32;
 
-            console.log(enemy_xObj);
-            console.log(enemy_yObj);
-
-            pathfinder.findPath(enemy_xObj, enemy_y, player_x, player_y, function (path) {
+            pathfinder.findPath(obj_x, obj_y, player_x, player_y, function (path) {
 
                 if (path) {
                     nextPointXObj = path[1].x;
@@ -58,28 +55,28 @@
                     for (var i = 0; i < path.length; i++) {
                         //console.log("X: " + path[i].x + " Y: " + path[i].y + " Rx: " + enemy_x + " Ry: " + enemy_y);
                         console.log("Obj console ON");
-                        if (nextPointXObj < enemy_xObj && nextPointYObj < enemy_yObj) {
+                        if (nextPointXObj < obj_x && nextPointYObj < obj_y) {
                             directionObj = "NW";
                         }
-                        else if (nextPointXObj == enemy_xObj && nextPointYObj < enemy_yObj) {
+                        else if (nextPointXObj == obj_x && nextPointYObj < obj_y) {
                             directionObj = "N";
                         }
-                        else if (nextPointXObj > enemy_xObj && nextPointYObj < enemy_yObj) {
+                        else if (nextPointXObj > obj_x && nextPointYObj < obj_y) {
                             directionObj = "NE";
                         }
-                        else if (nextPointXObj < enemy_xObj && nextPointYObj == enemy_yObj) {
+                        else if (nextPointXObj < obj_x && nextPointYObj == obj_y) {
                             directionObj = "W";
                         }
-                        else if (nextPointXObj > enemy_xObj && nextPointYObj == enemy_yObj) {
+                        else if (nextPointXObj > obj_x && nextPointYObj == obj_y) {
                             directionObj = "E";
                         }
-                        else if (nextPointXObj > enemy_xObj && nextPointYObj > enemy_yObj) {
+                        else if (nextPointXObj > obj_x && nextPointYObj > obj_y) {
                             directionObj = "SE";
                         }
-                        else if (nextPointXObj == enemy_xObj && nextPointYObj > enemy_yObj) {
+                        else if (nextPointXObj == obj_x && nextPointYObj > obj_y) {
                             directionObj = "S";
                         }
-                        else if (nextPointXObj < enemy_xObj && nextPointYObj > enemy_yObj) {
+                        else if (nextPointXObj < obj_x && nextPointYObj > obj_y) {
                             directionObj = "SW";
                         }
                         else {

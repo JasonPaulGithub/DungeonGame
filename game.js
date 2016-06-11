@@ -3,9 +3,6 @@
 //TODO: Set a sight radius, and an attack radius, then put it into an object.
 
 //TODO:
-//DELETE TEH ALPHA-ORC
-
-//TODO:
 //THE OBSERVER PATTERN CAN BE USED TO ADVERTISE THE PLAYER LOCATION TO
 //ENEMY ORC INSTANCES!
 
@@ -49,14 +46,6 @@ var player_entity;
 var player_x;
 var player_y;
 var flip = false;
-
-var orc;
-var enemy_x;
-var enemy_y;
-var enemyDirection;
-var enemyAttack = 'attack off';
-var flipEnemy = false;
-
 
 var phaserJSON;
 var data;
@@ -124,25 +113,9 @@ function create() {
     player_entity.animations.add('attack', [30,31,32,33,34,35,36,37,38,39],   spd, false);
     player_entity.animations.add('die',    [40,41,42,43,44,45,46,47,48,49],   spd, false);
 
-/////// ALPHA-ORC (TO BE DELETED!!)
-    orc = sortDepthGroup.create(433,333,'orcThief');
-    game.physics.p2.enable(orc,true);
-    orc.body.setCircle(12);
-    orc.body.fixedRotation = true;
-    orc.anchor.setTo(0.5,0.75);
-    orc.animations.add('idle',   [0,1,2,3,4,5,6,7,8,9],               5, false);
-    orc.animations.add('cast',   [10,11,12,13,14,15,16,17,18,19],   spd, false);
-    orc.animations.add('walk',   [20,21,22,23,24,25,26,27,28,29],   spd, false);
-    orc.animations.add('attack', [30,31,32,33,34,35,36,37,38,39],   spd, false);
-    orc.animations.add('die',    [40,41,42,43,44,45,46,47,48,49],   spd, false);
-
-
 /////// EasyStar
     phaserJSON = game.cache.getJSON('version');
-    data = phaserJSON.layers[3].data; //grab the wall layer
-    preArray = [];
-    postArray = [];
-    level =[];
+    data = phaserJSON.layers[3].data;
 
     for (var i=0; i<data.length; i++) {
         preArray.push(data[i]);
@@ -157,139 +130,14 @@ function create() {
         preArray.splice(0,dcv);
     }
 
-    var easystar = new EasyStar.js();
-    easystar.setGrid(level);
-    easystar.setAcceptableTiles([0]);
-    //easystar.enableDiagonals();
-
-    setInterval(function(){
-
-        easystar.findPath(enemy_x, enemy_y, player_x, player_y, function( path ) {
-
-            if (path) {
-                nextPointX = path[1].x;
-                nextPointY = path[1].y;
-            }
-
-            if (path === null || stopPathFinder == true) {
-                console.log("Pathfinder: DORMANT");
-                console.log('Pathfinder: ON');
-            }
-
-            else {
-                for (var i = 0; i < path.length; i++) {
-                    //console.log("X: " + path[i].x + " Y: " + path[i].y + " Rx: " + enemy_x + " Ry: " + enemy_y);
-
-                    if (nextPointX < enemy_x && nextPointY < enemy_y)
-                    {
-                        enemyDirection = "NW";
-                    }
-                    else if (nextPointX == enemy_x && nextPointY < enemy_y)
-                    {
-                        enemyDirection = "N";
-                    }
-                    else if (nextPointX > enemy_x && nextPointY < enemy_y)
-                    {
-                        enemyDirection = "NE";
-                    }
-                    else if (nextPointX < enemy_x && nextPointY == enemy_y)
-                    {
-                        enemyDirection = "W";
-                    }
-                    else if (nextPointX > enemy_x && nextPointY == enemy_y)
-                    {
-                        enemyDirection = "E";
-                    }
-                    else if (nextPointX > enemy_x && nextPointY > enemy_y)
-                    {
-                        enemyDirection = "SE";
-                    }
-                    else if (nextPointX == enemy_x && nextPointY > enemy_y)
-                    {
-                        enemyDirection = "S";
-                    }
-                    else if (nextPointX < enemy_x && nextPointY > enemy_y)
-                    {
-                        enemyDirection = "SW";
-                    }
-                    else
-                    {
-                        enemyDirection = "STOP";
-                    }
-                    moveEnemy();
-                }
-            }
-        });
-        easystar.calculate();
-
-    }, 80);
-
 /////// Misc
     roof_layer.bringToTop();
     player_entity.body.onBeginContact.add(blockHit, this);
-    orc.body.onBeginContact.add(attackOn,this);
-    orc.body.onEndContact.add(attackOff,this);
 
     new orcObject(333, 363, game);
     new orcObject(700, 700, game);
     new orcObject(800, 800, game);
 
-}
-
-function attackOn(body){
-    if (body == null)
-    {
-
-    }
-    else if (body.sprite == null)
-    {
-
-    }
-    else if (body.sprite.key=="cleric")
-    {
-        enemyAttack = 'attack on';
-    }
-    else
-    {
-
-    }
-}
-function attackOff(body) {
-    if (body == null) {
-
-    }
-    else if (body.sprite == null) {
-
-    }
-    else if (body.sprite.key == "cleric") {
-        enemyAttack = 'attack off';
-    }
-    else {
-
-    }
-}
-
-function animateOrc(x){
-
-    if (enemyAttack == 'attack on'){
-        orc.animations.play('attack', 20, true);
-    }
-
-    if (enemyAttack == 'attack off')
-    {
-        if (x == 'walk'){
-            orc.animations.play('walk');
-        }
-        if (x == 'die'){
-            orc.animations.play('walk');
-        }
-        if (x == 'cast'){
-            orc.animations.play('walk');
-        }
-        if (x == 'idle'){
-            orc.animations.play('walk');
-        }
-    }
 }
 
 function blockHit (body) {
@@ -371,74 +219,6 @@ function direction(){
     }
 }
 
-function moveEnemy(){
-
-    // Enemy physics:
-    // http://phaser.io/examples/v2/p2-physics/contact-material
-
-    animateOrc('walk');
-    orc.body.setZeroVelocity();
-    var enemySpeed = 151;
-
-    if (enemyAttack == 'attack on'){
-        orc.body.setZeroVelocity();
-    }
-    else {
-        if (enemyDirection == "N") {
-            orc.body.moveUp(enemySpeed);
-        }
-        else if (enemyDirection == "S") {
-            orc.body.moveDown(enemySpeed);
-        }
-        else if (enemyDirection == "E") {
-            orc.body.moveRight(enemySpeed);
-            if (flipEnemy == true) {
-                orc.scale.x *= -1;
-                flipEnemy = false;
-            }
-        }
-        else if (enemyDirection == "W") {
-            orc.body.moveLeft(enemySpeed);
-            if (flipEnemy == false) {
-                orc.scale.x *= -1;
-                flipEnemy = true;
-            }
-        }
-        else if (enemyDirection == "SE") {
-            orc.body.moveDown(enemySpeed);
-            orc.body.moveRight(enemySpeed);
-        }
-        else if (enemyDirection == "NW") {
-            orc.body.moveUp(enemySpeed);
-            orc.body.moveLeft(enemySpeed);
-        }
-        else if (enemyDirection == "SW") {
-            orc.body.moveDown(enemySpeed);
-            orc.body.moveLeft(enemySpeed);
-        }
-        else if (enemyDirection == "NE") {
-            orc.body.moveUp(enemySpeed);
-            orc.body.moveRight(enemySpeed);
-        }
-        else if (enemyDirection == "STOP") {
-            orc.body.setZeroVelocity()
-            orc.animations.play('idle');
-        }
-        else {
-            orc.body.setZeroVelocity()
-            orc.animations.play('idle');
-        }
-    }
-}
-
-function getplayx(){
-
-}
-
-function getplayery(){
-
-}
-
 function update()
 {
     sortDepthGroup.sort('y', Phaser.Group.SORT_ASCENDING);
@@ -448,12 +228,14 @@ function update()
     //Snap from the pixel co-ordinate to the grid co-ordinate.
     player_x = this.math.snapToFloor(Math.floor(player_entity.position.x), 32) / 32;
     player_y = this.math.snapToFloor(Math.floor(player_entity.position.y), 32) / 32;
+    /*
     enemy_x = this.math.snapToFloor(Math.floor(orc.position.x), 32) / 32;
     enemy_y = this.math.snapToFloor(Math.floor(orc.position.y), 32) / 32;
+    */
 }
 
 function render(){
     //  game.debug.text('Object Direction: ' + x, 32, 32);
-    game.debug.text('Enemy Collision: ' + enemyAttack  , 32, 62);
+    // game.debug.text('Enemy Collision: ' + enemyAttack  , 32, 62);
     game.debug.text('Player Collision: ' + debug2  , 32, 92);
 }
