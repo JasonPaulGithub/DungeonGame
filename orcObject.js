@@ -5,8 +5,8 @@
     orcObject = function (x,y,game) {
 
         this.game = game;
-        var x = x;
-        var y = y;
+        var x = game.world.randomX;
+        var y = game.world.randomY;
 
         ///
         var directionObj;
@@ -48,13 +48,14 @@
                 }
 
                 if (path === null || orcObjStopPathFinder == true) {
-                    console.log("Pathfinder: DORMANT");
+                    //console.log("Pathfinder: DORMANT");
                 }
 
                 else {
                     for (var i = 0; i < path.length; i++) {
                         //console.log("X: " + path[i].x + " Y: " + path[i].y + " Rx: " + enemy_x + " Ry: " + enemy_y);
-                        console.log("Obj console ON");
+                        //console.log("Obj console ON");
+
                         if (nextPointXObj < obj_x && nextPointYObj < obj_y) {
                             directionObj = "NW";
                         }
@@ -88,7 +89,7 @@
             });
             pathfinder.calculate();
 
-        }, 80);
+        }, 100);
 
         orcObj.body.onBeginContact.add(orcObjattackOn, this);
         orcObj.body.onEndContact.add(orcObjattackOff, this);

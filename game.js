@@ -1,10 +1,6 @@
 //Literally the next thing to work on goes here:
-//TODO: Create a new enemy object alongside the existing one.
 //TODO: Set a sight radius, and an attack radius, then put it into an object.
-
-//TODO:
-//THE OBSERVER PATTERN CAN BE USED TO ADVERTISE THE PLAYER LOCATION TO
-//ENEMY ORC INSTANCES!
+//TODO: Save memory - Only run the pathfinder each time the player moves.
 
 var game = new Phaser.Game(600, 600, Phaser.AUTO, 'phaser-example', { preload: preload, create: create, update: update, render: render });
 
@@ -53,10 +49,6 @@ var preArray = [];
 var postArray = [];
 var level =[];
 
-var nextPointX;
-var nextPointY;
-var stopPathFinder = false;
-
 var debug2 = '';
 var sortDepthGroup;
 
@@ -79,14 +71,16 @@ function create() {
     floor_decor.debug = false;
     wall_layer = mapData.createLayer('wall');
     wall_layer.resizeWorld();
-    wall_layer.debug = false;
+    wall_layer.debug = true;
     wall_decor = mapData.createLayer('wall_decor');
     wall_decor.resizeWorld();
     wall_decor.debug = false;
     roof_layer = mapData.createLayer('roof');
     roof_layer.resizeWorld();
     roof_layer.debug = false;
-    mapData.setCollisionBetween(1,2000,true,'wall');
+
+    mapData.setCollisionByExclusion([0], true, 'wall', false);
+
     game.physics.p2.convertTilemap(mapData, wall_layer);
 
 /////// Depth Sort
@@ -134,9 +128,14 @@ function create() {
     roof_layer.bringToTop();
     player_entity.body.onBeginContact.add(blockHit, this);
 
-    new orcObject(333, 363, game);
-    new orcObject(700, 700, game);
-    new orcObject(800, 800, game);
+
+    var enemies = [];
+    var enemiesTotal = 8;
+
+    for (var i = 0; i < enemiesTotal; i++)
+    {
+        enemies.push(new orcObject(1,2,game));
+    }
 
 }
 
@@ -160,7 +159,7 @@ function blockHit (body) {
     }
 }
 
-function direction(){
+function player_direction(){
 
     player_entity.body.setZeroVelocity();
     var speed = 150;
@@ -223,19 +222,14 @@ function update()
 {
     sortDepthGroup.sort('y', Phaser.Group.SORT_ASCENDING);
     game.camera.follow(player_entity);
-    direction();
+    player_direction();
 
-    //Snap from the pixel co-ordinate to the grid co-ordinate.
     player_x = this.math.snapToFloor(Math.floor(player_entity.position.x), 32) / 32;
     player_y = this.math.snapToFloor(Math.floor(player_entity.position.y), 32) / 32;
-    /*
-    enemy_x = this.math.snapToFloor(Math.floor(orc.position.x), 32) / 32;
-    enemy_y = this.math.snapToFloor(Math.floor(orc.position.y), 32) / 32;
-    */
 }
 
 function render(){
-    //  game.debug.text('Object Direction: ' + x, 32, 32);
-    // game.debug.text('Enemy Collision: ' + enemyAttack  , 32, 62);
-    game.debug.text('Player Collision: ' + debug2  , 32, 92);
+    game.debug.text('Player Y: ' + player_y, 32, 32);
+    //game.debug.text('Enemy Collision: ' + enemyAttack  , 32, 62);
+    //game.debug.text('Player Collision: ' + debug2  , 32, 92);
 }
