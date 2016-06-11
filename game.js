@@ -228,16 +228,9 @@ function player_direction(){
     }
 }
 
-
-function checkOverlap(spriteA, spriteB) {
-    var boundsA = spriteA.getBounds();//{height:64,type:22,width:64,x:400,y:400};
-    var boundsB = spriteB.getBounds();
-    return Phaser.Rectangle.intersects(boundsA, boundsB);
-}
-
 function update()
 {
-   sortDepthGroup.sort('y', Phaser.Group.SORT_ASCENDING);
+    sortDepthGroup.sort('y', Phaser.Group.SORT_ASCENDING);
     game.camera.follow(player_entity);
     player_direction();
 
@@ -246,14 +239,19 @@ function update()
     sightRadius.position.x = player_entity.body.x;
     sightRadius.position.y = player_entity.body.y;
 
-    if (checkOverlap(attackRadius, player_entity))
-    {
-        debug1 = 'Overlapping: true';
-    }
-    else
-    {
-        debug1 = 'Overlapping: false';
-    }
+            if (checkOverlap(attackRadius, player_entity))
+            {
+                debug1 = 'Overlapping: true';
+            }
+            else
+            {
+                debug1 = 'Overlapping: false';
+            }
+            function checkOverlap(spriteA, spriteB) {
+                var boundsA = spriteA.getBounds();//{height:64,type:22,width:64,x:400,y:400};
+                var boundsB = spriteB.getBounds();
+                return Phaser.Rectangle.intersects(boundsA, boundsB);
+            }
 
     //TODO: Make this check only when the player moves.
     player_x = this.math.snapToFloor(Math.floor(player_entity.position.x), 32) / 32;
