@@ -31,29 +31,9 @@
         orcObj.anchor.setTo(0.5, 0.75);
 
         /////// EasyStar
-        var phaserJSON = game.cache.getJSON('version');
-        var data = phaserJSON.layers[3].data; //grab the wall layer
-        var preArray = [];
-        var postArray = [];
-        var level = [];
-
-        for (var i = 0; i < data.length; i++) {
-            preArray.push(data[i]);
-        }
-
-        var dcv = Math.sqrt(data.length);
-        var dataLength = data.length;
-
-        for (var x = 0; x < dataLength; x += dcv) {
-            postArray = preArray.slice(0, dcv);
-            level.push(postArray);
-            preArray.splice(0, dcv);
-        }
-
         var pathfinder = new EasyStar.js();
         pathfinder.setGrid(level);
         pathfinder.setAcceptableTiles([0]);
-        //pathfinder.enableDiagonals();
 
         setInterval(function () {
 

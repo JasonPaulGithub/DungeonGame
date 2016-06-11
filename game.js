@@ -57,6 +57,13 @@ var enemyDirection;
 var enemyAttack = 'attack off';
 var flipEnemy = false;
 
+
+var phaserJSON;
+var data;
+var preArray = [];
+var postArray = [];
+var level =[];
+
 var nextPointX;
 var nextPointY;
 var stopPathFinder = false;
@@ -131,11 +138,11 @@ function create() {
 
 
 /////// EasyStar
-    var phaserJSON = game.cache.getJSON('version');
-    var data = phaserJSON.layers[3].data; //grab the wall layer
-    var preArray = [];
-    var postArray = [];
-    var level =[];
+    phaserJSON = game.cache.getJSON('version');
+    data = phaserJSON.layers[3].data; //grab the wall layer
+    preArray = [];
+    postArray = [];
+    level =[];
 
     for (var i=0; i<data.length; i++) {
         preArray.push(data[i]);
@@ -422,6 +429,14 @@ function moveEnemy(){
             orc.animations.play('idle');
         }
     }
+}
+
+function getplayx(){
+
+}
+
+function getplayery(){
+
 }
 
 function update()
