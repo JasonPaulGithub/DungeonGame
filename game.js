@@ -5,9 +5,8 @@
 
 var game = new Phaser.Game(600, 600, Phaser.AUTO, 'phaser-example', { preload: preload, create: create, update: update, render: render });
 
-var map1    = 'src/map/map1.json';
-
 var enemiesTotal = 8;
+var map1    = 'src/map/map1.json';
 
 function preload()
 {
@@ -19,10 +18,7 @@ function preload()
     game.load.spritesheet('orcThief', 'src/sprites/orcThief.png', 64, 64);
     game.add.plugin(Phaser.Plugin.Debug);
     game.add.plugin(Phaser.Plugin.Inspector);
-
 }
-
-
 
 var mapData;
 var background_layer;
