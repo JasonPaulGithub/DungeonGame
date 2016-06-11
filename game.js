@@ -36,7 +36,8 @@ var rightKey;
 var spaceKey;
 
 var player_entity;
-var player_radius;
+var player_AttackRadius;
+var player_SightRadius;
 var player_x;
 var player_y;
 var flip = false;
@@ -103,16 +104,15 @@ function create() {
     player_entity.body.fixedRotation = true;
     player_entity.anchor.setTo(0.5,0.75);
 
-    var playerCollisionGroup = game.physics.p2.createCollisionGroup();
+    player_AttackRadius = game.add.sprite(0,0, null);
+    game.physics.p2.enable(player_AttackRadius, true);
+    player_AttackRadius.body.setCircle(31);
+    player_AttackRadius.body.fixedRotation = true;
 
-    player_radius = game.add.sprite(player_entity.x,player_entity.y, null);
-    game.physics.p2.enable(player_radius, true);
-    player_radius.body.setCircle(31);
-    player_radius.body.fixedRotation = true;
-    player_radius.anchor.setTo(0.5,0.75);
-    player_radius.body.setCollisionGroup(playerCollisionGroup);
-    //player_radius.body.collides(alternateCollisionGroup, returnMethod, this);
-
+    player_SightRadius = game.add.sprite(0,0, null);
+    game.physics.p2.enable(player_SightRadius, true);
+    player_SightRadius.body.setCircle(100);//300 for screen
+    player_SightRadius.body.fixedRotation = true;
 
     var spd = 20;
     player_entity.animations.add('idle',   [0,1,2,3,4,5,6,7,8,9],               5, false);
@@ -231,8 +231,13 @@ function player_direction(){
 function update()
 {
 
-    player_radius.body.x = player_entity.x;
-    player_radius.body.y = player_entity.y;
+    //http://phaser.io/examples/v2/sprites/overlap-without-physics
+
+    player_AttackRadius.body.x = player_entity.x;
+    player_AttackRadius.body.y = player_entity.y;
+
+    player_SightRadius.body.x = player_entity.x;
+    player_SightRadius.body.y = player_entity.y;
 
     sortDepthGroup.sort('y', Phaser.Group.SORT_ASCENDING);
     game.camera.follow(player_entity);
@@ -243,12 +248,8 @@ function update()
     player_y = this.math.snapToFloor(Math.floor(player_entity.position.y), 32) / 32;
 }
 
-function getx(){
-    return ;
-}
-
 function render(){
-    // game.debug.text('debug1: ' + debug1, 32, 32);
+     game.debug.text('debug1: ' + debug1, 32, 32);
     // game.debug.text('Enemy Collision: ' + enemyAttack  , 32, 62);
     // game.debug.text('debug2 ' + debug2  , 32, 92);
 }
