@@ -101,19 +101,17 @@ function create() {
     game.physics.p2.enable(player_entity, true);
     player_entity.body.setRectangle(31,34);
     player_entity.body.fixedRotation = true;
-    player_entity.anchor.setTo(0.5,0.75);
+    player_entity.anchor.setTo(0.5,0.75);//I wonder if this causes problems...
 
-    sightRadius = game.add.graphics(0,0);
-    sightRadius.beginFill(0xFF0000, 1);
-    sightRadius.drawCircle(300, 300, 300);//x, y, diameter
-    sightRadius.inputEnabled = true;
-    sightRadius.input.enableDrag();
+    sightRadius = game.add.sprite(100, 200, '');
+    sightRadius.height=128;
+    sightRadius.width=128;
+    sightRadius.anchor.setTo(0.5,0.75);
 
-    attackRadius = game.add.graphics(0,0);
-    attackRadius.beginFill(0xFF00FF, 1);
-    attackRadius.drawCircle(300, 300, 150);//x, y, diameter
-    attackRadius.inputEnabled = true;
-    attackRadius.input.enableDrag();
+    attackRadius = game.add.sprite(400, 400,'');
+    attackRadius.height=128;
+    attackRadius.width=128;
+    attackRadius.anchor.setTo(0.5,0.75);
 
     var spd = 20;
     player_entity.animations.add('idle',   [0,1,2,3,4,5,6,7,8,9],               5, false);
@@ -230,18 +228,23 @@ function player_direction(){
     }
 }
 
+
+function checkOverlap(spriteA, spriteB) {
+    var boundsA = spriteA.getBounds();//{height:64,type:22,width:64,x:400,y:400};
+    var boundsB = spriteB.getBounds();
+    return Phaser.Rectangle.intersects(boundsA, boundsB);
+}
+
 function update()
 {
-
-    //http://phaser.io/examples/v2/sprites/overlap-without-physics
-
-    sortDepthGroup.sort('y', Phaser.Group.SORT_ASCENDING);
+   sortDepthGroup.sort('y', Phaser.Group.SORT_ASCENDING);
     game.camera.follow(player_entity);
     player_direction();
 
-    //TODO: Make this check only when the player moves.
-    player_x = this.math.snapToFloor(Math.floor(player_entity.position.x), 32) / 32;
-    player_y = this.math.snapToFloor(Math.floor(player_entity.position.y), 32) / 32;
+    attackRadius.position.x = player_entity.body.x;
+    attackRadius.position.y = player_entity.body.y;
+    sightRadius.position.x = player_entity.body.x;
+    sightRadius.position.y = player_entity.body.y;
 
     if (checkOverlap(attackRadius, player_entity))
     {
@@ -251,19 +254,15 @@ function update()
     {
         debug1 = 'Overlapping: false';
     }
-}
 
-function checkOverlap(spriteA, spriteB) {
-
-    var boundsA = spriteA.getBounds();
-    var boundsB = spriteB.getBounds();
-
-    return Phaser.Rectangle.intersects(boundsA, boundsB);
+    //TODO: Make this check only when the player moves.
+    player_x = this.math.snapToFloor(Math.floor(player_entity.position.x), 32) / 32;
+    player_y = this.math.snapToFloor(Math.floor(player_entity.position.y), 32) / 32;
 
 }
 
 function render(){
-     game.debug.text('Sight Radius: ' + debug1, 32, 32);
+     game.debug.text('Attack Radius: ' + debug1, 32, 32);
     // game.debug.text('Enemy Collision: ' + enemyAttack  , 32, 62);
     // game.debug.text('debug2 ' + debug2  , 32, 92);
 }
