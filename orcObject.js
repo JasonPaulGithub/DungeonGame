@@ -41,9 +41,56 @@
             var obj_y = game.math.snapToFloor(Math.floor(orcObj.position.y), 32) / 32;
 
             pathfinder(obj_x, obj_y, player_x, player_y);
-
             easystar.findPath(obj_x, obj_y, player_x, player_y, function (path) {
 
+                if (path) {
+                    nextPointXObj = path[1].x;
+                    nextPointYObj = path[1].y;
+                }
+
+                if (path.length > 8 || path === null || pathfinderON == false) {
+                    //console.log("Pathfinder: DORMANT");
+                    orcObj.body.setZeroVelocity();
+                    orcObj.animations.play('idle');
+                }
+
+                else
+                {
+                    for (var i = 0; i < path.length; i++)
+                    {
+                        //console.log("X: " + path[i].x + " Y: " + path[i].y + " Rx: " + player_x + " Ry: " + player_y);
+                        //console.log("Obj console ON");
+
+                        if (nextPointXObj < obj_x && nextPointYObj < obj_y) {
+                            directionObj = "NW";
+                        }
+                        else if (nextPointXObj == obj_x && nextPointYObj < obj_y) {
+                            directionObj = "N";
+                        }
+                        else if (nextPointXObj > obj_x && nextPointYObj < obj_y) {
+                            directionObj = "NE";
+                        }
+                        else if (nextPointXObj < obj_x && nextPointYObj == obj_y) {
+                            directionObj = "W";
+                        }
+                        else if (nextPointXObj > obj_x && nextPointYObj == obj_y) {
+                            directionObj = "E";
+                        }
+                        else if (nextPointXObj > obj_x && nextPointYObj > obj_y) {
+                            directionObj = "SE";
+                        }
+                        else if (nextPointXObj == obj_x && nextPointYObj > obj_y) {
+                            directionObj = "S";
+                        }
+                        else if (nextPointXObj < obj_x && nextPointYObj > obj_y) {
+                            directionObj = "SW";
+                        }
+                        else {
+                            directionObj = "STOP";
+                        }
+                        moveEnemyObj();
+                    }
+                }
             });
             easystar.calculate();
         }, 200);
