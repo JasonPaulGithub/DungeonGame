@@ -211,13 +211,10 @@
 
         var orcRadius;
 
-        orcRadius = game.add.sprite(x, y,'');
+        orcRadius = game.add.sprite(x, y,'orc');
         orcRadius.height=128;
         orcRadius.width=128;
         orcRadius.anchor.setTo(0.5,0.5);
-        orcRadius.inputEnabled = true;
-        orcRadius.input.enableDrag();
-
 
         orcObject.prototype.update = function () {
             //debug1 = 'true.';
@@ -225,7 +222,7 @@
             orcRadius.position.x = orcObj.body.x;
             orcRadius.position.y = orcObj.body.y;
 
-            if (checkOverlap(playerRadius, orcObj)) {
+            if (checkOverlap(playerRadius, orcRadius)) {
                // debug1 = 'Overlapping: true';
                 pathfinderON = true;
             }
