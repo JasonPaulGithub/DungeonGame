@@ -74,7 +74,7 @@ function create() {
     floor_decor.debug = false;
     wall_layer = mapData.createLayer('wall');
     wall_layer.resizeWorld();
-    wall_layer.debug = true;
+    wall_layer.debug = false;
     wall_decor = mapData.createLayer('wall_decor');
     wall_decor.resizeWorld();
     wall_decor.debug = false;
@@ -99,7 +99,7 @@ function create() {
 
 ////// Player
     player_entity = sortDepthGroup.create(333,333, 'cleric');
-    game.physics.p2.enable(player_entity, true);
+    game.physics.p2.enable(player_entity, false);
     player_entity.body.setRectangle(31,34);
     player_entity.body.fixedRotation = true;
     player_entity.anchor.setTo(0.5,0.75);//NOTE: This causes slight confusion with the pathfinder
