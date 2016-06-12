@@ -30,17 +30,21 @@
         orcObj.body.fixedRotation = true;
         orcObj.anchor.setTo(0.5, 0.75);
 
+
+
         /////// EasyStar
-        var pathfinder = new EasyStar.js();
-        pathfinder.setGrid(level);
-        pathfinder.setAcceptableTiles([0]);
+        var easystar = new EasyStar.js();
+        easystar.setGrid(level);
+        easystar.setAcceptableTiles([0]);
 
         setInterval(function () {
 
             var obj_x = game.math.snapToFloor(Math.floor(orcObj.position.x), 32) / 32;
             var obj_y = game.math.snapToFloor(Math.floor(orcObj.position.y), 32) / 32;
 
-            pathfinder.findPath(obj_x, obj_y, player_x, player_y, function (path) {
+            pathfinder(obj_x, obj_y, player_x, player_y);
+
+            easystar.findPath(obj_x, obj_y, player_x, player_y, function (path) {
 
                 if (path) {
                     nextPointXObj = path[1].x;
@@ -57,9 +61,6 @@
                 {
                     for (var i = 0; i < path.length; i++)
                     {
-                        //console.log("X: " + path[i].x + " Y: " + path[i].y + " Rx: " + player_x + " Ry: " + player_y);
-                        //console.log("Obj console ON");
-
                         if (nextPointXObj < obj_x && nextPointYObj < obj_y) {
                             directionObj = "NW";
                         }
@@ -91,8 +92,8 @@
                     }
                 }
             });
-            pathfinder.calculate();
-        }, 100);
+            easystar.calculate();
+        }, 25);
 
         orcObj.body.onBeginContact.add(orcObjattackOn, this);
         orcObj.body.onEndContact.add(orcObjattackOff, this);

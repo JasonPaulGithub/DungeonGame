@@ -1,10 +1,11 @@
-pathfinder = function (){
+pathfinder = function (obj_x, obj_y, player_x, player_y){
 
     var easystar = new EasyStar.js();
     easystar.setGrid(level);
     easystar.setAcceptableTiles([0]);
 
-    easystar.findPath(1, 1, 2, 2, function (path) {
+
+    easystar.findPath(obj_x, obj_y, player_x, player_y, function (path) {
 
         for (var i = 0; i < path.length; i++)
         {
@@ -13,6 +14,7 @@ pathfinder = function (){
         }
 
     });
+
     easystar.calculate();
     delete this;
 }

@@ -132,6 +132,8 @@ function create() {
         preArray.splice(0,dcv);
     }
 
+
+
 /////// enemies
     for (var i = 0; i < enemiesTotal; i++)
     {
@@ -242,4 +244,5 @@ function render(){
      game.debug.text('Attack Radius: ' + debug1, 32, 32);
     // game.debug.text('Enemy Collision: ' + enemyAttack  , 32, 62);
     // game.debug.text('debug2 ' + debug2  , 32, 92);
+
 }//>
