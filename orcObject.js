@@ -5,8 +5,8 @@
     orcObject = function (x,y,game) {
 
         this.game = game;
-        var x = game.world.randomX;
-        var y = game.world.randomY;
+        var x = 333//game.world.randomX;
+        var y = 444//game.world.randomY;
 
         ///
         var directionObj;
@@ -16,6 +16,12 @@
         var nextPointXObj;
         var nextPointYObj;
         var pathfinderON = false;
+
+        var orcRadius;
+        orcRadius = game.add.sprite(x, y,'orc');
+        orcRadius.height=128;
+        orcRadius.width=128;
+        orcRadius.anchor.setTo(0.5,0.5);
 
         var orcObj = sortDepthGroup.create(x, y, 'orc');
         orcObj.animations.add('idle', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 5, false);
@@ -209,12 +215,6 @@
 
         }
 
-        var orcRadius;
-
-        orcRadius = game.add.sprite(x, y,'orc');
-        orcRadius.height=128;
-        orcRadius.width=128;
-        orcRadius.anchor.setTo(0.5,0.5);
 
         orcObject.prototype.update = function () {
             //debug1 = 'true.';
@@ -223,11 +223,11 @@
             orcRadius.position.y = orcObj.body.y;
 
             if (checkOverlap(playerRadius, orcRadius)) {
-                debug1 = 'Overlapping: true';
+                //debug1 = 'Overlapping: true';
                 pathfinderON = true;
             }
             else {
-                debug1 = 'Overlapping: false';
+                //debug1 = 'Overlapping: false';
                 //pathfinderON = false;
             }
             function checkOverlap(spriteA, spriteB) {
@@ -237,3 +237,5 @@
             }
         }
     }
+
+
