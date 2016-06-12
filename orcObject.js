@@ -1,14 +1,9 @@
-    // TODO:
-    // PROBLEM: CREATURES FOLLOW THE SAME ROUTE AND BUMP INTO EACHOTHER.
-    // POSSIBLE SOLUTION: GET THE OBJET TO DECLARE ITS POSITION ON A SHARED TILEMAP.
-
     orcObject = function (x,y,game) {
 
         this.game = game;
         var x = 333//game.world.randomX;
         var y = 444//game.world.randomY;
 
-        ///
         var directionObj;
         var enemyAttackObj = 'attack off';
         var flipEnemyObj = false;
@@ -30,8 +25,7 @@
         orcObj.animations.add('attack', [30, 31, 32, 33, 34, 35, 36, 37, 38, 39], 20, false);
         orcObj.animations.add('die', [40, 41, 42, 43, 44, 45, 46, 47, 48, 49], 20, false);
 
-
-        game.physics.p2.enable(orcObj, false);
+        game.physics.p2.enable(orcObj, true);
         orcObj.body.setCircle(12);
         orcObj.body.fixedRotation = true;
         orcObj.anchor.setTo(0.5, 0.75);
@@ -41,7 +35,6 @@
         pathfinder.setGrid(level);
         pathfinder.setAcceptableTiles([0]);
 
-
         setInterval(function () {
 
             var obj_x = game.math.snapToFloor(Math.floor(orcObj.position.x), 32) / 32;
@@ -49,64 +42,57 @@
 
             pathfinder.findPath(obj_x, obj_y, player_x, player_y, function (path) {
 
-                //debug1 = path.length;
+                if (path) {
+                    nextPointXObj = path[1].x;
+                    nextPointYObj = path[1].y;
+                }
 
-                    if (path) {
-                        nextPointXObj = path[1].x;
-                        nextPointYObj = path[1].y;
-                    }
+                if (path.length > 8 || path === null || pathfinderON == false) {
+                    //console.log("Pathfinder: DORMANT");
+                    orcObj.body.setZeroVelocity();
+                    orcObj.animations.play('idle');
+                }
 
-                    if (path.length > 6 || path === null || pathfinderON == false) {
-                        //console.log("Pathfinder: DORMANT");
-                        orcObj.body.setZeroVelocity();
-                        orcObj.animations.play('idle');
-                    }
-
-                    else {
-                        for (var i = 0; i < path.length; i++) {
-                            //console.log("X: " + path[i].x + " Y: " + path[i].y + " Rx: " + enemy_x + " Ry: " + enemy_y);
-                            //console.log("Obj console ON");
-
-                            if (nextPointXObj < obj_x && nextPointYObj < obj_y) {
-                                directionObj = "NW";
-                            }
-                            else if (nextPointXObj == obj_x && nextPointYObj < obj_y) {
-                                directionObj = "N";
-                            }
-                            else if (nextPointXObj > obj_x && nextPointYObj < obj_y) {
-                                directionObj = "NE";
-                            }
-                            else if (nextPointXObj < obj_x && nextPointYObj == obj_y) {
-                                directionObj = "W";
-                            }
-                            else if (nextPointXObj > obj_x && nextPointYObj == obj_y) {
-                                directionObj = "E";
-                            }
-                            else if (nextPointXObj > obj_x && nextPointYObj > obj_y) {
-                                directionObj = "SE";
-                            }
-                            else if (nextPointXObj == obj_x && nextPointYObj > obj_y) {
-                                directionObj = "S";
-                            }
-                            else if (nextPointXObj < obj_x && nextPointYObj > obj_y) {
-                                directionObj = "SW";
-                            }
-                            else {
-                                directionObj = "STOP";
-                            }
-                            moveEnemyObj();
+                else
+                {
+                    for (var i = 0; i < path.length; i++)
+                    {
+                        if (nextPointXObj < obj_x && nextPointYObj < obj_y) {
+                            directionObj = "NW";
                         }
+                        else if (nextPointXObj == obj_x && nextPointYObj < obj_y) {
+                            directionObj = "N";
+                        }
+                        else if (nextPointXObj > obj_x && nextPointYObj < obj_y) {
+                            directionObj = "NE";
+                        }
+                        else if (nextPointXObj < obj_x && nextPointYObj == obj_y) {
+                            directionObj = "W";
+                        }
+                        else if (nextPointXObj > obj_x && nextPointYObj == obj_y) {
+                            directionObj = "E";
+                        }
+                        else if (nextPointXObj > obj_x && nextPointYObj > obj_y) {
+                            directionObj = "SE";
+                        }
+                        else if (nextPointXObj == obj_x && nextPointYObj > obj_y) {
+                            directionObj = "S";
+                        }
+                        else if (nextPointXObj < obj_x && nextPointYObj > obj_y) {
+                            directionObj = "SW";
+                        }
+                        else {
+                            directionObj = "STOP";
+                        }
+                        moveEnemyObj();
                     }
-
-
+                }
             });
             pathfinder.calculate();
-
         }, 100);
 
         orcObj.body.onBeginContact.add(orcObjattackOn, this);
         orcObj.body.onEndContact.add(orcObjattackOff, this);
-
 
         function orcObjattackOn(body) {
             if (body == null) {
@@ -155,9 +141,6 @@
         }
 
         function moveEnemyObj() {
-
-            // Enemy physics:
-            // http://phaser.io/examples/v2/p2-physics/contact-material
 
             animateOrcObj('walk');
             orcObj.body.setZeroVelocity();
@@ -212,7 +195,6 @@
                     orcObj.animations.play('idle');
                 }
             }
-
         }
 
         function doStuff(){
