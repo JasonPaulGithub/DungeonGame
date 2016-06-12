@@ -30,8 +30,6 @@
         orcObj.body.fixedRotation = true;
         orcObj.anchor.setTo(0.5, 0.75);
 
-
-
         /////// EasyStar
         var easystar = new EasyStar.js();
         easystar.setGrid(level);
@@ -46,54 +44,9 @@
 
             easystar.findPath(obj_x, obj_y, player_x, player_y, function (path) {
 
-                if (path) {
-                    nextPointXObj = path[1].x;
-                    nextPointYObj = path[1].y;
-                }
-
-                if (path.length > 8 || path === null || pathfinderON == false) {
-                    //console.log("Pathfinder: DORMANT");
-                    orcObj.body.setZeroVelocity();
-                    orcObj.animations.play('idle');
-                }
-
-                else
-                {
-                    for (var i = 0; i < path.length; i++)
-                    {
-                        if (nextPointXObj < obj_x && nextPointYObj < obj_y) {
-                            directionObj = "NW";
-                        }
-                        else if (nextPointXObj == obj_x && nextPointYObj < obj_y) {
-                            directionObj = "N";
-                        }
-                        else if (nextPointXObj > obj_x && nextPointYObj < obj_y) {
-                            directionObj = "NE";
-                        }
-                        else if (nextPointXObj < obj_x && nextPointYObj == obj_y) {
-                            directionObj = "W";
-                        }
-                        else if (nextPointXObj > obj_x && nextPointYObj == obj_y) {
-                            directionObj = "E";
-                        }
-                        else if (nextPointXObj > obj_x && nextPointYObj > obj_y) {
-                            directionObj = "SE";
-                        }
-                        else if (nextPointXObj == obj_x && nextPointYObj > obj_y) {
-                            directionObj = "S";
-                        }
-                        else if (nextPointXObj < obj_x && nextPointYObj > obj_y) {
-                            directionObj = "SW";
-                        }
-                        else {
-                            directionObj = "STOP";
-                        }
-                        moveEnemyObj();
-                    }
-                }
             });
             easystar.calculate();
-        }, 25);
+        }, 200);
 
         orcObj.body.onBeginContact.add(orcObjattackOn, this);
         orcObj.body.onEndContact.add(orcObjattackOff, this);
@@ -207,11 +160,11 @@
             orcRadius.position.y = orcObj.body.y;
 
             if (checkOverlap(playerRadius, orcRadius)) {
-                debug1 = 'Overlapping: true';
+                //debug1 = 'Overlapping: true';
                 pathfinderON = true;
             }
             else {
-                debug1 = 'Overlapping: false';
+                //debug1 = 'Overlapping: false';
             }
             function checkOverlap(spriteA, spriteB) {
                 var boundsA = spriteA.getBounds();

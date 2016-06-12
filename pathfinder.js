@@ -5,12 +5,12 @@ pathfinder = function (obj_x, obj_y, player_x, player_y){
     easystar.setAcceptableTiles([0]);
 
 
+
     easystar.findPath(obj_x, obj_y, player_x, player_y, function (path) {
 
         for (var i = 0; i < path.length; i++)
         {
             console.log("X: " + path[i].x + " Y: " + path[i].y);
-
         }
 
     });
