@@ -40,7 +40,8 @@
             var obj_x = game.math.snapToFloor(Math.floor(orcObj.position.x), 32) / 32;
             var obj_y = game.math.snapToFloor(Math.floor(orcObj.position.y), 32) / 32;
 
-            pathfinder(obj_x, obj_y, player_x, player_y);
+            var i = pathfinder(obj_x, obj_y, player_x, player_y);
+            //moveEnemyObj();
             easystar.findPath(obj_x, obj_y, player_x, player_y, function (path) {
 
                 if (path) {
