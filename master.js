@@ -10,3 +10,4 @@ function include(file)
 /* Game */
 include('game.js');
 include('orcObject.js');
+include('radius.js');

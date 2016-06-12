@@ -114,12 +114,12 @@ function create() {
     sightRadius.anchor.setTo(0.5,0.5);
     //sightRadius.body.setCollisionGroup(playerCollisionGroup);
 
-    attackRadius = game.add.sprite(400, 400,'cleric');
+ /*   attackRadius = game.add.sprite(400, 400,'cleric');
     attackRadius.height=128;
     attackRadius.width=128;
     attackRadius.anchor.setTo(0.5,0.5);
     attackRadius.inputEnabled = true;
-    attackRadius.input.enableDrag();
+    attackRadius.input.enableDrag();*/
 
     var spd = 20;
     player_entity.animations.add('idle',   [0,1,2,3,4,5,6,7,8,9],               5, false);
@@ -153,7 +153,6 @@ function create() {
     for (var i = 0; i < enemiesTotal; i++)
     {
         enemies.push(new orcObject(1,2,game));
-        //enemies[i].update(); //<< This is how you get the object to update
     }
 
 }
@@ -250,24 +249,18 @@ function update()
 /*    sightRadius.body.x = player_entity.body.x;
     sightRadius.body.y = player_entity.body.y;*/
 
-    if (checkOverlap(sightRadius, attackRadius))
+
+    for (var i = 0; i < enemiesTotal; i++)
     {
-        debug1 = 'Overlapping: true';
+        enemies[i].update();
     }
-    else
-    {
-        debug1 = 'Overlapping: false';
-    }
-    function checkOverlap(spriteA, spriteB) {
-        var boundsA = spriteA.getBounds();
-        var boundsB = spriteB.getBounds();
-        return Phaser.Rectangle.intersects(boundsA, boundsB);
-    }
+//<< This is how you get the object to update
+
+
 
     //TODO: Make this check only when the player moves.
     player_x = this.math.snapToFloor(Math.floor(player_entity.position.x), 32) / 32;
     player_y = this.math.snapToFloor(Math.floor(player_entity.position.y), 32) / 32;
-
 }
 
 function render(){

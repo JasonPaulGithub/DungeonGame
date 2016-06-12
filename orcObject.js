@@ -5,8 +5,8 @@
     orcObject = function (x,y,game) {
 
         this.game = game;
-        var x = game.world.randomX;
-        var y = game.world.randomY;
+        var x = 333//game.world.randomX;
+        var y = 444//game.world.randomY;
 
         ///
         var directionObj;
@@ -18,11 +18,11 @@
         var pathfinderON = true;
 
         var orcObj = sortDepthGroup.create(x, y, 'orc');
-        orcObj.animations.add('idle',   [0,1,2,3,4,5,6,7,8,9],               5, false);
-        orcObj.animations.add('cast',   [10,11,12,13,14,15,16,17,18,19],   20, false);
-        orcObj.animations.add('walk',   [20,21,22,23,24,25,26,27,28,29],   20, false);
-        orcObj.animations.add('attack', [30,31,32,33,34,35,36,37,38,39],   20, false);
-        orcObj.animations.add('die',    [40,41,42,43,44,45,46,47,48,49],   20, false);
+        orcObj.animations.add('idle', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 5, false);
+        orcObj.animations.add('cast', [10, 11, 12, 13, 14, 15, 16, 17, 18, 19], 20, false);
+        orcObj.animations.add('walk', [20, 21, 22, 23, 24, 25, 26, 27, 28, 29], 20, false);
+        orcObj.animations.add('attack', [30, 31, 32, 33, 34, 35, 36, 37, 38, 39], 20, false);
+        orcObj.animations.add('die', [40, 41, 42, 43, 44, 45, 46, 47, 48, 49], 20, false);
 
 
         game.physics.p2.enable(orcObj, true);
@@ -34,7 +34,6 @@
         var pathfinder = new EasyStar.js();
         pathfinder.setGrid(level);
         pathfinder.setAcceptableTiles([0]);
-
 
 
         setInterval(function () {
@@ -203,11 +202,33 @@
             }
 
         }
+
+        var attackRadiusObj;
+
+        attackRadiusObj = game.add.sprite(x, y,'cleric');
+        attackRadiusObj.height=128;
+        attackRadiusObj.width=128;
+        attackRadiusObj.anchor.setTo(0.5,0.5);
+        attackRadiusObj.inputEnabled = true;
+        attackRadiusObj.input.enableDrag();
+
+
+        orcObject.prototype.update = function () {
+            //debug1 = 'true.';
+
+            sightRadius.position.x = orcObj.body.x;
+            sightRadius.position.y = orcObj.body.y;
+
+            if (checkOverlap(attackRadiusObj, orcObj)) {
+                debug1 = 'Overlapping: true';
+            }
+            else {
+                debug1 = 'Overlapping: false';
+            }
+            function checkOverlap(spriteA, spriteB) {
+                var boundsA = spriteA.getBounds();
+                var boundsB = spriteB.getBounds();
+                return Phaser.Rectangle.intersects(boundsA, boundsB);
+            }
+        }
     }
-
-
-/*
-orcObject.prototype.update = function() {
-
-}
-*/
