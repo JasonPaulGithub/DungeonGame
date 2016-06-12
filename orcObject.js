@@ -57,7 +57,7 @@
                 {
                     for (var i = 0; i < path.length; i++)
                     {
-                        console.log("X: " + path[i].x + " Y: " + path[i].y + " Rx: " + player_x + " Ry: " + player_y);
+                        //console.log("X: " + path[i].x + " Y: " + path[i].y + " Rx: " + player_x + " Ry: " + player_y);
                         //console.log("Obj console ON");
 
                         if (nextPointXObj < obj_x && nextPointYObj < obj_y) {
