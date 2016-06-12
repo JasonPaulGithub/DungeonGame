@@ -5,7 +5,7 @@
 
 var game = new Phaser.Game(600, 600, Phaser.AUTO, 'phaser-example', { preload: preload, create: create, update: update, render: render });
 
-var enemiesTotal = 8;
+var enemiesTotal = 1;
 var map1    = 'src/map/map1.json';
 
 function preload()
@@ -48,6 +48,7 @@ var preArray = [];
 var postArray = [];
 var level =[];
 
+var debugging = true;
 var debug1;
 var debug2 = '';
 var sortDepthGroup;
@@ -74,16 +75,14 @@ function create() {
     floor_decor.debug = false;
     wall_layer = mapData.createLayer('wall');
     wall_layer.resizeWorld();
-    wall_layer.debug = true;
+    wall_layer.debug = debugging;
     wall_decor = mapData.createLayer('wall_decor');
     wall_decor.resizeWorld();
     wall_decor.debug = false;
     roof_layer = mapData.createLayer('roof');
     roof_layer.resizeWorld();
     roof_layer.debug = false;
-
     mapData.setCollisionByExclusion([0], true, 'wall', false);
-
     game.physics.p2.convertTilemap(mapData, wall_layer);
 
 /////// Depth Sort
@@ -99,27 +98,15 @@ function create() {
 
 ////// Player
     player_entity = sortDepthGroup.create(333,333, 'cleric');
-    game.physics.p2.enable(player_entity, true);
+    game.physics.p2.enable(player_entity, debugging);
     player_entity.body.setRectangle(31,34);
     player_entity.body.fixedRotation = true;
-    player_entity.anchor.setTo(0.5,0.75);//NOTE: This causes slight confusion with the pathfinder
+    player_entity.anchor.setTo(0.5,0.75);
 
-    //Trying to get some thing to work here (for radius) >>>
-    //var playerCollisionGroup = game.physics.p2.createCollisionGroup();
     playerRadius = game.add.sprite(100, 200, '');
     playerRadius.height=128;
     playerRadius.width=128;
-    //game.physics.p2.enable(sightRadius, true);
-    //sightRadius.body.setCircle(100);
     playerRadius.anchor.setTo(0.5,0.5);
-    //sightRadius.body.setCollisionGroup(playerCollisionGroup);
-
- /*   attackRadius = game.add.sprite(400, 400,'cleric');
-    attackRadius.height=128;
-    attackRadius.width=128;
-    attackRadius.anchor.setTo(0.5,0.5);
-    attackRadius.inputEnabled = true;
-    attackRadius.input.enableDrag();*/
 
     var spd = 20;
     player_entity.animations.add('idle',   [0,1,2,3,4,5,6,7,8,9],               5, false);
@@ -145,17 +132,19 @@ function create() {
         preArray.splice(0,dcv);
     }
 
-/////// Misc
-    roof_layer.bringToTop();
-    player_entity.body.onBeginContact.add(blockHit, this);
-
 /////// enemies
     for (var i = 0; i < enemiesTotal; i++)
     {
         enemies.push(new orcObject(1,2,game));
     }
 
-}
+/////// Misc
+    roof_layer.bringToTop();
+    player_entity.body.onBeginContact.add(blockHit, this);
+    game.camera.follow(player_entity);
+    //game.camera.deadzone = new Phaser.Rectangle(100, 100, 300, 200);
+
+}//>
 
 function blockHit (body) {
 
@@ -175,7 +164,7 @@ function blockHit (body) {
     {
         debug2 = 'You hit a un-identified object';
     }
-}
+}//>
 
 function player_direction(){
 
@@ -234,29 +223,23 @@ function player_direction(){
             flip = true;
         }
     }
-}
+}//>
 
 function update()
 {
     sortDepthGroup.sort('y', Phaser.Group.SORT_ASCENDING);
-    game.camera.follow(player_entity);
-    player_direction();
-
-    //attackRadius.position.x = player_entity.body.x;
-    //attackRadius.position.y = player_entity.body.y;
     playerRadius.position.x = player_entity.body.x;
     playerRadius.position.y = player_entity.body.y;
-/*    sightRadius.body.x = player_entity.body.x;
-    sightRadius.body.y = player_entity.body.y;*/
-
 
     //TODO: Make this check only when the player moves.
     player_x = this.math.snapToFloor(Math.floor(player_entity.position.x), 32) / 32;
     player_y = this.math.snapToFloor(Math.floor(player_entity.position.y), 32) / 32;
-}
+
+    player_direction();
+}//>
 
 function render(){
      game.debug.text('Attack Radius: ' + debug1, 32, 32);
     // game.debug.text('Enemy Collision: ' + enemyAttack  , 32, 62);
     // game.debug.text('debug2 ' + debug2  , 32, 92);
-}
+}//>

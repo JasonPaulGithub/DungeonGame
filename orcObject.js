@@ -1,8 +1,8 @@
     orcObject = function (x,y,game) {
 
         this.game = game;
-        var x = 333//game.world.randomX;
-        var y = 444//game.world.randomY;
+        var x = game.world.randomX;
+        var y = game.world.randomY;
 
         var directionObj;
         var enemyAttackObj = 'attack off';
@@ -25,7 +25,7 @@
         orcObj.animations.add('attack', [30, 31, 32, 33, 34, 35, 36, 37, 38, 39], 20, false);
         orcObj.animations.add('die', [40, 41, 42, 43, 44, 45, 46, 47, 48, 49], 20, false);
 
-        game.physics.p2.enable(orcObj, true);
+        game.physics.p2.enable(orcObj, debugging);
         orcObj.body.setCircle(12);
         orcObj.body.fixedRotation = true;
         orcObj.anchor.setTo(0.5, 0.75);
@@ -57,6 +57,9 @@
                 {
                     for (var i = 0; i < path.length; i++)
                     {
+                        //console.log("X: " + path[i].x + " Y: " + path[i].y + " Rx: " + player_x + " Ry: " + player_y);
+                        //console.log("Obj console ON");
+
                         if (nextPointXObj < obj_x && nextPointYObj < obj_y) {
                             directionObj = "NW";
                         }
