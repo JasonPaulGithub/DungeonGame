@@ -53,6 +53,7 @@ var debug2 = '';
 var sortDepthGroup;
 var enemies = [];
 var map2    = 'src/map/map2.json';
+var playerCollisionGroup;
 
 function create() {
 
@@ -101,17 +102,24 @@ function create() {
     game.physics.p2.enable(player_entity, true);
     player_entity.body.setRectangle(31,34);
     player_entity.body.fixedRotation = true;
-    player_entity.anchor.setTo(0.5,0.75);//I wonder if this causes problems...
+    player_entity.anchor.setTo(0.5,0.75);//NOTE: This causes slight confusion with the pathfinder
 
-    sightRadius = game.add.sprite(100, 200, '');
+    //Trying to get some thing to work here (for radius) >>>
+    //var playerCollisionGroup = game.physics.p2.createCollisionGroup();
+    sightRadius = game.add.sprite(100, 200, 'orc');
     sightRadius.height=128;
     sightRadius.width=128;
+    //game.physics.p2.enable(sightRadius, true);
+    //sightRadius.body.setCircle(100);
     sightRadius.anchor.setTo(0.5,0.5);
+    //sightRadius.body.setCollisionGroup(playerCollisionGroup);
 
-    attackRadius = game.add.sprite(400, 400,'');
+    attackRadius = game.add.sprite(400, 400,'cleric');
     attackRadius.height=128;
     attackRadius.width=128;
     attackRadius.anchor.setTo(0.5,0.5);
+    attackRadius.inputEnabled = true;
+    attackRadius.input.enableDrag();
 
     var spd = 20;
     player_entity.animations.add('idle',   [0,1,2,3,4,5,6,7,8,9],               5, false);
@@ -145,6 +153,7 @@ function create() {
     for (var i = 0; i < enemiesTotal; i++)
     {
         enemies.push(new orcObject(1,2,game));
+        //enemies[i].update(); //<< This is how you get the object to update
     }
 
 }
@@ -234,24 +243,26 @@ function update()
     game.camera.follow(player_entity);
     player_direction();
 
-    attackRadius.position.x = player_entity.body.x;
-    attackRadius.position.y = player_entity.body.y;
+    //attackRadius.position.x = player_entity.body.x;
+    //attackRadius.position.y = player_entity.body.y;
     sightRadius.position.x = player_entity.body.x;
     sightRadius.position.y = player_entity.body.y;
+/*    sightRadius.body.x = player_entity.body.x;
+    sightRadius.body.y = player_entity.body.y;*/
 
-            if (checkOverlap(attackRadius, player_entity))
-            {
-                debug1 = 'Overlapping: true';
-            }
-            else
-            {
-                debug1 = 'Overlapping: false';
-            }
-            function checkOverlap(spriteA, spriteB) {
-                var boundsA = spriteA.getBounds();//{height:64,type:22,width:64,x:400,y:400};
-                var boundsB = spriteB.getBounds();
-                return Phaser.Rectangle.intersects(boundsA, boundsB);
-            }
+    if (checkOverlap(sightRadius, attackRadius))
+    {
+        debug1 = 'Overlapping: true';
+    }
+    else
+    {
+        debug1 = 'Overlapping: false';
+    }
+    function checkOverlap(spriteA, spriteB) {
+        var boundsA = spriteA.getBounds();
+        var boundsB = spriteB.getBounds();
+        return Phaser.Rectangle.intersects(boundsA, boundsB);
+    }
 
     //TODO: Make this check only when the player moves.
     player_x = this.math.snapToFloor(Math.floor(player_entity.position.x), 32) / 32;

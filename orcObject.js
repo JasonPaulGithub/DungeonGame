@@ -204,3 +204,10 @@
 
         }
     }
+
+
+/*
+orcObject.prototype.update = function() {
+
+}
+*/
