@@ -4,44 +4,44 @@ pathfinder = function (obj_x, obj_y, player_x, player_y){
     easystar.setGrid(level);
     easystar.setAcceptableTiles([0]);
 
-
     easystar.findPath(obj_x, obj_y, player_x, player_y, function (path) {
-        
+
+        if (path.length > 8 || path === null) {
+            delete this;
+        }
             for (var i = 0; i < path.length; i++)
             {
                 console.log("X: " + path[i].x + " Y: " + path[i].y + " Rx: " + player_x + " Ry: " + player_y);
 
                 if (path[1].x < obj_x && path[1].y < obj_y) {
-                    debug1 = "NW";
+                    directionObj = "NW";
                 }
                 else if (path[1].x == obj_x && path[1].y < obj_y) {
-                    debug1 = "N";
+                    directionObj ="N";
                 }
                 else if (path[1].x > obj_x && path[1].y < obj_y) {
-                    debug1 = "NE";
+                    directionObj ="NE";
                 }
                 else if (path[1].x < obj_x && path[1].y == obj_y) {
-                    debug1 = "W";
+                    directionObj ="W";
                 }
                 else if (path[1].x > obj_x && path[1].y == obj_y) {
-                    debug1 = "E";
+                    directionObj ="E";
                 }
                 else if (path[1].x > obj_x && path[1].y > obj_y) {
-                    debug1 = "SE";
+                    directionObj ="SE";
                 }
                 else if (path[1].x == obj_x && path[1].y > obj_y) {
-                    debug1 = "S";
+                    directionObj ="S";
                 }
                 else if (path[1].x < obj_x && path[1].y > obj_y) {
-                    debug1 = "SW";
+                    directionObj ="SW";
                 }
                 else {
-                    debug1 = "STOP";
+                    directionObj ="STOP";
                 }
             }
-
     });
 
     easystar.calculate();
-    delete this;
 }

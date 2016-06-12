@@ -12,6 +12,9 @@
         var nextPointYObj;
         var pathfinderON = false;
 
+        var obj_x;
+        var obj_y;
+
         var orcRadius;
         orcRadius = game.add.sprite(x, y,'');
         orcRadius.height=128;
@@ -37,11 +40,10 @@
 
         setInterval(function () {
 
-            var obj_x = game.math.snapToFloor(Math.floor(orcObj.position.x), 32) / 32;
-            var obj_y = game.math.snapToFloor(Math.floor(orcObj.position.y), 32) / 32;
+            obj_x = game.math.snapToFloor(Math.floor(orcObj.position.x), 32) / 32;
+            obj_y = game.math.snapToFloor(Math.floor(orcObj.position.y), 32) / 32;
 
-            var i = pathfinder(obj_x, obj_y, player_x, player_y);
-            //moveEnemyObj();
+            pathfinder(obj_x, obj_y, player_x, player_y);
             easystar.findPath(obj_x, obj_y, player_x, player_y, function (path) {
 
                 if (path) {
@@ -50,7 +52,6 @@
                 }
 
                 if (path.length > 8 || path === null || pathfinderON == false) {
-                    //console.log("Pathfinder: DORMANT");
                     orcObj.body.setZeroVelocity();
                     orcObj.animations.play('idle');
                 }
@@ -59,9 +60,6 @@
                 {
                     for (var i = 0; i < path.length; i++)
                     {
-                        //console.log("X: " + path[i].x + " Y: " + path[i].y + " Rx: " + player_x + " Ry: " + player_y);
-                        //console.log("Obj console ON");
-
                         if (nextPointXObj < obj_x && nextPointYObj < obj_y) {
                             directionObj = "NW";
                         }
@@ -210,8 +208,7 @@
             if (checkOverlap(playerRadius, orcRadius)) {
                 //debug1 = 'Overlapping: true';
                 pathfinderON = true;
-            }
-            else {
+    }            else {
                 //debug1 = 'Overlapping: false';
             }
             function checkOverlap(spriteA, spriteB) {
