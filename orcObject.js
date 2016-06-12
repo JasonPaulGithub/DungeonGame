@@ -43,7 +43,7 @@
 
             pathfinder.findPath(obj_x, obj_y, player_x, player_y, function (path) {
 
-                debug1 = path.length;
+                //debug1 = path.length;
 
                     if (path) {
                         nextPointXObj = path[1].x;
@@ -223,11 +223,11 @@
             orcRadius.position.y = orcObj.body.y;
 
             if (checkOverlap(playerRadius, orcRadius)) {
-               // debug1 = 'Overlapping: true';
+                debug1 = 'Overlapping: true';
                 pathfinderON = true;
             }
             else {
-               // debug1 = 'Overlapping: false';
+                debug1 = 'Overlapping: false';
                 //pathfinderON = false;
             }
             function checkOverlap(spriteA, spriteB) {

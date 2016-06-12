@@ -5,7 +5,7 @@
 
 var game = new Phaser.Game(600, 600, Phaser.AUTO, 'phaser-example', { preload: preload, create: create, update: update, render: render });
 
-var enemiesTotal = 4;
+var enemiesTotal = 2;
 var map1    = 'src/map/map1.json';
 
 function preload()
