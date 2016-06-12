@@ -237,7 +237,7 @@
 
         orcObject.prototype.update = function ()
         {
-            doStuff();
+            //doStuff();
         }
     }
 

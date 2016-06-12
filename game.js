@@ -250,14 +250,6 @@ function update()
     sightRadius.body.y = player_entity.body.y;*/
 
 
-    for (var i = 0; i < enemiesTotal; i++)
-    {
-        enemies[i].update();
-    }
-//<< This is how you get the object to update
-
-
-
     //TODO: Make this check only when the player moves.
     player_x = this.math.snapToFloor(Math.floor(player_entity.position.x), 32) / 32;
     player_y = this.math.snapToFloor(Math.floor(player_entity.position.y), 32) / 32;
