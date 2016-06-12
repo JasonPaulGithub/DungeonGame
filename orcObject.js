@@ -15,7 +15,7 @@
 
         var nextPointXObj;
         var nextPointYObj;
-        var pathfinderON = true;
+        var pathfinderON = false;
 
         var orcObj = sortDepthGroup.create(x, y, 'orc');
         orcObj.animations.add('idle', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 5, false);
@@ -43,50 +43,56 @@
 
             pathfinder.findPath(obj_x, obj_y, player_x, player_y, function (path) {
 
-                if (path) {
-                    nextPointXObj = path[1].x;
-                    nextPointYObj = path[1].y;
-                }
+                debug1 = path.length;
 
-                if (path === null || pathfinderON == false) {
-                    //console.log("Pathfinder: DORMANT");
-                }
-
-                else {
-                    for (var i = 0; i < path.length; i++) {
-                        //console.log("X: " + path[i].x + " Y: " + path[i].y + " Rx: " + enemy_x + " Ry: " + enemy_y);
-                        //console.log("Obj console ON");
-
-                        if (nextPointXObj < obj_x && nextPointYObj < obj_y) {
-                            directionObj = "NW";
-                        }
-                        else if (nextPointXObj == obj_x && nextPointYObj < obj_y) {
-                            directionObj = "N";
-                        }
-                        else if (nextPointXObj > obj_x && nextPointYObj < obj_y) {
-                            directionObj = "NE";
-                        }
-                        else if (nextPointXObj < obj_x && nextPointYObj == obj_y) {
-                            directionObj = "W";
-                        }
-                        else if (nextPointXObj > obj_x && nextPointYObj == obj_y) {
-                            directionObj = "E";
-                        }
-                        else if (nextPointXObj > obj_x && nextPointYObj > obj_y) {
-                            directionObj = "SE";
-                        }
-                        else if (nextPointXObj == obj_x && nextPointYObj > obj_y) {
-                            directionObj = "S";
-                        }
-                        else if (nextPointXObj < obj_x && nextPointYObj > obj_y) {
-                            directionObj = "SW";
-                        }
-                        else {
-                            directionObj = "STOP";
-                        }
-                        moveEnemyObj();
+                    if (path) {
+                        nextPointXObj = path[1].x;
+                        nextPointYObj = path[1].y;
                     }
-                }
+
+                    if (path.length > 3 || path === null || pathfinderON == false) {
+                        //console.log("Pathfinder: DORMANT");
+                        orcObj.body.setZeroVelocity();
+                        orcObj.animations.play('idle');
+                    }
+
+                    else {
+                        for (var i = 0; i < path.length; i++) {
+                            //console.log("X: " + path[i].x + " Y: " + path[i].y + " Rx: " + enemy_x + " Ry: " + enemy_y);
+                            //console.log("Obj console ON");
+
+                            if (nextPointXObj < obj_x && nextPointYObj < obj_y) {
+                                directionObj = "NW";
+                            }
+                            else if (nextPointXObj == obj_x && nextPointYObj < obj_y) {
+                                directionObj = "N";
+                            }
+                            else if (nextPointXObj > obj_x && nextPointYObj < obj_y) {
+                                directionObj = "NE";
+                            }
+                            else if (nextPointXObj < obj_x && nextPointYObj == obj_y) {
+                                directionObj = "W";
+                            }
+                            else if (nextPointXObj > obj_x && nextPointYObj == obj_y) {
+                                directionObj = "E";
+                            }
+                            else if (nextPointXObj > obj_x && nextPointYObj > obj_y) {
+                                directionObj = "SE";
+                            }
+                            else if (nextPointXObj == obj_x && nextPointYObj > obj_y) {
+                                directionObj = "S";
+                            }
+                            else if (nextPointXObj < obj_x && nextPointYObj > obj_y) {
+                                directionObj = "SW";
+                            }
+                            else {
+                                directionObj = "STOP";
+                            }
+                            moveEnemyObj();
+                        }
+                    }
+
+
             });
             pathfinder.calculate();
 
@@ -203,27 +209,29 @@
 
         }
 
-        var attackRadiusObj;
+        var orcRadius;
 
-        attackRadiusObj = game.add.sprite(x, y,'cleric');
-        attackRadiusObj.height=128;
-        attackRadiusObj.width=128;
-        attackRadiusObj.anchor.setTo(0.5,0.5);
-        attackRadiusObj.inputEnabled = true;
-        attackRadiusObj.input.enableDrag();
+        orcRadius = game.add.sprite(x, y,'');
+        orcRadius.height=128;
+        orcRadius.width=128;
+        orcRadius.anchor.setTo(0.5,0.5);
+        orcRadius.inputEnabled = true;
+        orcRadius.input.enableDrag();
 
 
         orcObject.prototype.update = function () {
             //debug1 = 'true.';
 
-            sightRadius.position.x = orcObj.body.x;
-            sightRadius.position.y = orcObj.body.y;
+            orcRadius.position.x = orcObj.body.x;
+            orcRadius.position.y = orcObj.body.y;
 
-            if (checkOverlap(attackRadiusObj, orcObj)) {
-                debug1 = 'Overlapping: true';
+            if (checkOverlap(playerRadius, orcObj)) {
+               // debug1 = 'Overlapping: true';
+                pathfinderON = true;
             }
             else {
-                debug1 = 'Overlapping: false';
+               // debug1 = 'Overlapping: false';
+                //pathfinderON = false;
             }
             function checkOverlap(spriteA, spriteB) {
                 var boundsA = spriteA.getBounds();

@@ -40,7 +40,7 @@ var player_x;
 var player_y;
 var flip = false;
 var attackRadius;
-var sightRadius;
+var playerRadius;
 
 var phaserJSON;
 var data;
@@ -106,12 +106,12 @@ function create() {
 
     //Trying to get some thing to work here (for radius) >>>
     //var playerCollisionGroup = game.physics.p2.createCollisionGroup();
-    sightRadius = game.add.sprite(100, 200, 'orc');
-    sightRadius.height=128;
-    sightRadius.width=128;
+    playerRadius = game.add.sprite(100, 200, 'cleric');
+    playerRadius.height=128;
+    playerRadius.width=128;
     //game.physics.p2.enable(sightRadius, true);
     //sightRadius.body.setCircle(100);
-    sightRadius.anchor.setTo(0.5,0.5);
+    playerRadius.anchor.setTo(0.5,0.5);
     //sightRadius.body.setCollisionGroup(playerCollisionGroup);
 
  /*   attackRadius = game.add.sprite(400, 400,'cleric');
@@ -244,8 +244,8 @@ function update()
 
     //attackRadius.position.x = player_entity.body.x;
     //attackRadius.position.y = player_entity.body.y;
-    sightRadius.position.x = player_entity.body.x;
-    sightRadius.position.y = player_entity.body.y;
+    playerRadius.position.x = player_entity.body.x;
+    playerRadius.position.y = player_entity.body.y;
 /*    sightRadius.body.x = player_entity.body.x;
     sightRadius.body.y = player_entity.body.y;*/
 
