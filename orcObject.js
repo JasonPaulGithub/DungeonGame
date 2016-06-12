@@ -18,7 +18,7 @@
         var pathfinderON = false;
 
         var orcRadius;
-        orcRadius = game.add.sprite(x, y,'orc');
+        orcRadius = game.add.sprite(x, y,'');
         orcRadius.height=128;
         orcRadius.width=128;
         orcRadius.anchor.setTo(0.5,0.5);
@@ -31,7 +31,7 @@
         orcObj.animations.add('die', [40, 41, 42, 43, 44, 45, 46, 47, 48, 49], 20, false);
 
 
-        game.physics.p2.enable(orcObj, true);
+        game.physics.p2.enable(orcObj, false);
         orcObj.body.setCircle(12);
         orcObj.body.fixedRotation = true;
         orcObj.anchor.setTo(0.5, 0.75);
