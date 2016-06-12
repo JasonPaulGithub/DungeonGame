@@ -215,20 +215,17 @@
 
         }
 
-
-        orcObject.prototype.update = function () {
-            //debug1 = 'true.';
+        function doStuff(){
 
             orcRadius.position.x = orcObj.body.x;
             orcRadius.position.y = orcObj.body.y;
 
             if (checkOverlap(playerRadius, orcRadius)) {
-                //debug1 = 'Overlapping: true';
+                debug1 = 'Overlapping: true';
                 pathfinderON = true;
             }
             else {
-                //debug1 = 'Overlapping: false';
-                //pathfinderON = false;
+                debug1 = 'Overlapping: false';
             }
             function checkOverlap(spriteA, spriteB) {
                 var boundsA = spriteA.getBounds();
@@ -236,6 +233,14 @@
                 return Phaser.Rectangle.intersects(boundsA, boundsB);
             }
         }
+        doStuff();
+
+        orcObject.prototype.update = function ()
+        {
+            doStuff();
+        }
     }
+
+
 
 
