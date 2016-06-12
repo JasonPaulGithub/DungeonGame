@@ -1,8 +1,8 @@
     orcObject = function (x,y,game) {
 
         this.game = game;
-        var x = game.world.randomX;
-        var y = game.world.randomY;
+        var x = 222//game.world.randomX;
+        var y = 222//game.world.randomY;
 
         var directionObj;
         var enemyAttackObj = 'attack off';
@@ -57,7 +57,7 @@
                 {
                     for (var i = 0; i < path.length; i++)
                     {
-                        //console.log("X: " + path[i].x + " Y: " + path[i].y + " Rx: " + player_x + " Ry: " + player_y);
+                        console.log("X: " + path[i].x + " Y: " + path[i].y + " Rx: " + player_x + " Ry: " + player_y);
                         //console.log("Obj console ON");
 
                         if (nextPointXObj < obj_x && nextPointYObj < obj_y) {
