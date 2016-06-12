@@ -5,8 +5,8 @@
     orcObject = function (x,y,game) {
 
         this.game = game;
-        var x = 333//game.world.randomX;
-        var y = 444//game.world.randomY;
+        var x = game.world.randomX;
+        var y = game.world.randomY;
 
         ///
         var directionObj;
@@ -50,7 +50,7 @@
                         nextPointYObj = path[1].y;
                     }
 
-                    if (path.length > 3 || path === null || pathfinderON == false) {
+                    if (path.length > 6 || path === null || pathfinderON == false) {
                         //console.log("Pathfinder: DORMANT");
                         orcObj.body.setZeroVelocity();
                         orcObj.animations.play('idle');

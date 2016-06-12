@@ -5,7 +5,7 @@
 
 var game = new Phaser.Game(600, 600, Phaser.AUTO, 'phaser-example', { preload: preload, create: create, update: update, render: render });
 
-var enemiesTotal = 1;
+var enemiesTotal = 2;
 var map1    = 'src/map/map1.json';
 
 function preload()
@@ -106,7 +106,7 @@ function create() {
 
     //Trying to get some thing to work here (for radius) >>>
     //var playerCollisionGroup = game.physics.p2.createCollisionGroup();
-    playerRadius = game.add.sprite(100, 200, 'cleric');
+    playerRadius = game.add.sprite(100, 200, '');
     playerRadius.height=128;
     playerRadius.width=128;
     //game.physics.p2.enable(sightRadius, true);
