@@ -51,12 +51,14 @@ var level =[];
 var debugging = true;
 var debug1;
 var debug2 = '';
+var debug3 = 'attack off';
 var sortDepthGroup;
 var enemies = [];
 var map2    = 'src/map/map2.json';
 var playerCollisionGroup;
 
 var Enemy1;
+var orc;
 
 function create() {
 
@@ -140,7 +142,12 @@ function create() {
         enemies.push(new orcObject(1,2,game));
     }*/
 
-   Enemy1 = new enemyObject(1, 'orcThief', game);
+
+    //TODO:
+    //REFACTOR AND TEST HERE:
+    orc     = new orcObject(1,2,game);
+    //MOVE AND UPDATE CODE OVER TO HERE
+    Enemy1  = new enemyObject(1, 'orcThief', game);
 
 /////// Misc
     roof_layer.bringToTop();
@@ -244,7 +251,7 @@ function update()
 
 function render(){
      game.debug.text('Enemy Direction: ' + debug1, 32, 32);
-    // game.debug.text('Enemy Collision: ' + enemyAttack  , 32, 62);
+     game.debug.text('Enemy Collision: ' + debug3  , 32, 62);
     // game.debug.text('debug2 ' + debug2  , 32, 92);
 
 }//>

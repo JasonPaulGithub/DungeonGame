@@ -1,9 +1,6 @@
 function enemyObject(index, sprite, game)
 {
     this.game = game;
-
-
-    // Note lack of 'this' on the x,y>>
     var x = 222//game.world.randomX;
     var y = 222//game.world.randomY;
     var animateSpeed = 20;
@@ -23,7 +20,6 @@ function enemyObject(index, sprite, game)
     this.orcRadius.width=128;
     this.orcRadius.anchor.setTo(0.5,0.5);
     this.orcRadius.alpha=0.2;
-
 
 }
 
