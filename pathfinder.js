@@ -4,44 +4,16 @@ pathfinder = function (obj_x, obj_y, player_x, player_y){
     easystar.setGrid(level);
     easystar.setAcceptableTiles([0]);
 
-    easystar.findPath(obj_x, obj_y, player_x, player_y, function (path)
-    {
 
-        var direction;
-        direction = "nope";
-        console.log(direction);
+    easystar.findPath(obj_x, obj_y, player_x, player_y, function (path) {
 
-        if (path) {
-
-            if (path[1].x < obj_x && path[1].y < obj_y) {
-                direction = "NW";
-            }
-            else if (path[1].x == obj_x && path[1].y < obj_y) {
-                direction = "N";
-            }
-            else if (path[1].x > obj_x && path[1].y < obj_y) {
-                direction = "NE";
-            }
-            else if (path[1].x < obj_x && path[1].y == obj_y) {
-                direction = "W";
-            }
-            else if (path[1].x > obj_x && path[1].y == obj_y) {
-                direction = "E";
-            }
-            else if (path[1].x > obj_x && path[1].y > obj_y) {
-                direction = "SE";
-            }
-            else if (path[1].x == obj_x && path[1].y > obj_y) {
-                direction = "S";
-            }
-            else if (path[1].x < obj_x && path[1].y > obj_y) {
-                direction = "SW";
-            }
-            else {
-                direction = "STOP";
-            }
+        for (var i = 0; i < path.length; i++)
+        {
+            console.log("X: " + path[i].x + " Y: " + path[i].y);
         }
+
     });
+
     easystar.calculate();
-    //delete this;
+    delete this;
 }
