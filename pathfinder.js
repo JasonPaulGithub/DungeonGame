@@ -48,11 +48,14 @@ pathfinder = function (obj_x, obj_y, player_x, player_y){
                 /*
 
                 good news is the direcitons are being passed on
-                to debug1, but sadly this is a variable, we need some thing
+                to debug1, but sadly this is a global variable, we need some thing
                 that can focus on the object. The same thing foes for the
-                move enemy object variable.
+                moveEnemyObject() method.
 
-                To solve this I must investigate using:
+                To solve this I must investigate:
+                Interaction with objects.
+                > Is the orcObject really an object?
+                > passing variables into the OrcObject.
                 Messing with functions, prototype or the RETURN keyword.
                 GETters and SETters. Anything.
 
