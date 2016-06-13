@@ -4,7 +4,6 @@ pathfinder = function (obj_x, obj_y, player_x, player_y){
     easystar.setGrid(level);
     easystar.setAcceptableTiles([0]);
 
-
     easystar.findPath(obj_x, obj_y, player_x, player_y, function (path) {
 
         if (path.length > 8 || path === null)
@@ -15,54 +14,34 @@ pathfinder = function (obj_x, obj_y, player_x, player_y){
             for (var i = 0; i < path.length; i++)
             {
                 if (path[1].x < obj_x && path[1].y < obj_y) {
-                    debug1 = "NW";
+                    console.log("NW");
                 }
                 else if (path[1].x == obj_x && path[1].y < obj_y) {
-                    debug1 = "N";
+                    console.log("N");
                 }
                 else if (path[1].x > obj_x && path[1].y < obj_y) {
-                    debug1 = "NE";
+                    console.log("NE");
                 }
                 else if (path[1].x < obj_x && path[1].y == obj_y) {
-                    debug1 = "W";
+                    console.log("W");
                 }
                 else if (path[1].x > obj_x && path[1].y == obj_y) {
-                    debug1 = "E";
+                    console.log("E");
                 }
                 else if (path[1].x > obj_x && path[1].y > obj_y) {
-                    debug1 = "SE";
+                    console.log("SE");
                 }
                 else if (path[1].x == obj_x && path[1].y > obj_y) {
-                    debug1 = "S";
+                    console.log("S");
                 }
                 else if (path[1].x < obj_x && path[1].y > obj_y) {
-                    debug1 = "SW";
+                    console.log("SW");
                 }
                 else {
-                    debug1 = "STOP";
+                    console.log("STOP");
                 }
-
-                //moveEnemyObj();
-                //Here the same problem occurs twice:
-
-                /*
-
-                good news is the direcitons are being passed on
-                to debug1, but sadly this is a global variable, we need some thing
-                that can focus on the object. The same thing foes for the
-                moveEnemyObject() method.
-
-                To solve this I must investigate:
-                Interaction with objects.
-                > Is the orcObject really an object?
-                > passing variables into the OrcObject.
-                Messing with functions, prototype or the RETURN keyword.
-                GETters and SETters. Anything.
-
-                 */
             }
         }
-
     });
 
     easystar.calculate();
