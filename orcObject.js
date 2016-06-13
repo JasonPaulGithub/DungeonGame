@@ -46,19 +46,19 @@
             pathfinder(obj_x, obj_y, player_x, player_y);
             easystar.findPath(obj_x, obj_y, player_x, player_y, function (path) {
 
-                if (path) {
+                if (path)
+                {
                     nextPointXObj = path[1].x;
                     nextPointYObj = path[1].y;
                 }
 
-                if (path.length > 8 || path === null || pathfinderON == false) {
+                if (path.length > 8 || path === null || pathfinderON == false)
+                {
                     //console.log("Pathfinder: DORMANT");
                     orcObj.body.setZeroVelocity();
                     orcObj.animations.play('idle');
-                }
+                } else {
 
-                else
-                {
                     for (var i = 0; i < path.length; i++)
                     {
                         //console.log("X: " + path[i].x + " Y: " + path[i].y + " Rx: " + player_x + " Ry: " + player_y);
@@ -91,7 +91,8 @@
                         else {
                             directionObj = "STOP";
                         }
-            moveEnemyObj();
+
+                        moveEnemyObj();
                     }
                 }
             });
