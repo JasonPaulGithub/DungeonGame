@@ -106,6 +106,7 @@
             }
             else if (body.sprite.key == 'cleric') {
                 enemyAttackObj = 'attack on';
+                debug3= 'attack on';
             }
             else {
             }
@@ -118,6 +119,7 @@
             }
             else if (body.sprite.key == 'cleric') {
                 enemyAttackObj = 'attack off';
+                debug3= 'attack off';
             }
             else {
             }
@@ -208,11 +210,11 @@
             orcRadius.position.y = orcObj.body.y;
 
             if (checkOverlap(playerRadius, orcRadius)) {
-                //debug1 = 'Overlapping: true';
+                debug1 = 'Overlapping: true';
                 pathfinderON = true;
             }
             else {
-                //debug1 = 'Overlapping: false';
+                debug1 = 'Overlapping: false';
             }
             function checkOverlap(spriteA, spriteB) {
                 var boundsA = spriteA.getBounds();
