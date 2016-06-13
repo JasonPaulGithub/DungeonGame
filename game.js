@@ -56,6 +56,8 @@ var enemies = [];
 var map2    = 'src/map/map2.json';
 var playerCollisionGroup;
 
+var Enemy1;
+
 function create() {
 
     game.physics.startSystem(Phaser.Physics.P2JS);
@@ -131,14 +133,14 @@ function create() {
         level.push(postArray);
         preArray.splice(0,dcv);
     }
-
-
-
+/*
 /////// enemies
     for (var i = 0; i < enemiesTotal; i++)
     {
         enemies.push(new orcObject(1,2,game));
-    }
+    }*/
+
+    Enemy1 = new enemyObject(1, game);
 
 /////// Misc
     roof_layer.bringToTop();
@@ -246,3 +248,5 @@ function render(){
     // game.debug.text('debug2 ' + debug2  , 32, 92);
 
 }//>
+
+

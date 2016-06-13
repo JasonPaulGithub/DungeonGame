@@ -1,4 +1,4 @@
-pathfinder = function (obj_x, obj_y, player_x, player_y){
+function pathfinder(obj_x, obj_y, player_x, player_y){
 
     var easystar = new EasyStar.js();
     easystar.setGrid(level);
@@ -46,5 +46,5 @@ pathfinder = function (obj_x, obj_y, player_x, player_y){
     });
 
     easystar.calculate();
-    delete this;
+    //delete this;
 }

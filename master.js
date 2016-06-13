@@ -11,3 +11,4 @@ function include(file)
 include('game.js');
 include('orcObject.js');
 include('pathfinder.js');
+include('enemyObject.js');
