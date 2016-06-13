@@ -58,6 +58,7 @@ var map2    = 'src/map/map2.json';
 var playerCollisionGroup;
 
 var Enemy1;
+var Enemy2;
 var orc;
 
 function create() {
@@ -147,7 +148,8 @@ function create() {
     //REFACTOR AND TEST HERE:
     orc     = new orcObject(1,2,game);
     //MOVE AND UPDATE CODE OVER TO HERE
-    Enemy1  = new enemyObject(1, 'orcThief', game);
+    Enemy1  = new enemyObject(1, 'orcThief', 333,222, game);
+    Enemy2  = new enemyObject(2, 'orcThief', 444,333, game);
 
 /////// Misc
     roof_layer.bringToTop();

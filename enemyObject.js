@@ -1,8 +1,8 @@
-function enemyObject(index, sprite, game)
+function enemyObject(index, sprite, x, y, game)
 {
     this.game = game;
-    var x = 222//game.world.randomX;
-    var y = 222//game.world.randomY;
+    var x = x//game.world.randomX;
+    var y = y//game.world.randomY;
     var animateSpeed = 20;
 
     this.enemy = game.add.sprite(x, y, sprite);

@@ -1,8 +1,8 @@
     orcObject = function (x,y,game) {
 
         this.game = game;
-        var x = 444//game.world.randomX;
-        var y = 222//game.world.randomY;
+        var x = 200//game.world.randomX;
+        var y = 300//game.world.randomY;
 
         var directionObj = '';
         var enemyAttackObj = 'attack off';
