@@ -1,16 +1,32 @@
 function enemyObject(index, game)
 {
 
-    //Note: Doesn't use the THIS keyword.
+    this.game = game;
     var x = 222//game.world.randomX;
     var y = 222//game.world.randomY;
+    //Note lack of 'this' on the x,y.
 
-    this.game = game;
 
     this.enemy = game.add.sprite(x, y, 'orcThief');
     this.enemy.name = index.toString();
-
     game.physics.p2.enable(this.enemy, debugging);
+
+    this.objDirection = '';
+    this.enemyAttackObj = 'attack off';
+    this.flipEnemyObj = false;
+
+    this.nextX;
+    this.nextY;
+    this.objX;
+    this.objY;
+    this.pathfinderON = false;
+
+    this.orcRadius;
+    this.orcRadius = game.add.sprite(x, y,'orcThief');
+    this.orcRadius.height=128;
+    this.orcRadius.width=128;
+    this.orcRadius.anchor.setTo(0.5,0.5);
+    this.orcRadius.alpha=0.2;
 
 }
 
