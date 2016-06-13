@@ -9,8 +9,9 @@ pathfinder = function (obj_x, obj_y, player_x, player_y){
         if (path.length > 8 || path === null)
         {
 
-        } else {
-
+        }
+        else
+        {
             for (var i = 0; i < path.length; i++)
             {
                 if (path[1].x < obj_x && path[1].y < obj_y) {
