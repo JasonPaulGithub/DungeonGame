@@ -33,15 +33,68 @@
         orcObj.body.fixedRotation = true;
         orcObj.anchor.setTo(0.5, 0.75);
 
+        /////// EasyStar
+        var pathfinder = new EasyStar.js();
+        pathfinder.setGrid(level);
+        pathfinder.setAcceptableTiles([0]);
+
+
+
         setInterval(function () {
 
             var obj_x = game.math.snapToFloor(Math.floor(orcObj.position.x), 32) / 32;
             var obj_y = game.math.snapToFloor(Math.floor(orcObj.position.y), 32) / 32;
 
-            pathfinder(obj_x, obj_y, player_x, player_y);
-            console.log(directionObj);
+            pathfinder.findPath(obj_x, obj_y, player_x, player_y, function (path) {
 
-        }, 200);
+                if (path) {
+                    nextPointXObj = path[1].x;
+                    nextPointYObj = path[1].y;
+                }
+
+                if (path.length > 8 || path === null || pathfinderON == false) {
+                    //console.log("Pathfinder: DORMANT");
+                    orcObj.body.setZeroVelocity();
+                    orcObj.animations.play('idle');
+                }
+
+                else
+                {
+                    for (var i = 0; i < path.length; i++)
+                    {
+                        if (nextPointXObj < obj_x && nextPointYObj < obj_y) {
+                            directionObj = "NW";
+                        }
+                        else if (nextPointXObj == obj_x && nextPointYObj < obj_y) {
+                            directionObj = "N";
+                        }
+                        else if (nextPointXObj > obj_x && nextPointYObj < obj_y) {
+                            directionObj = "NE";
+                        }
+                        else if (nextPointXObj < obj_x && nextPointYObj == obj_y) {
+                            directionObj = "W";
+                        }
+                        else if (nextPointXObj > obj_x && nextPointYObj == obj_y) {
+                            directionObj = "E";
+                        }
+                        else if (nextPointXObj > obj_x && nextPointYObj > obj_y) {
+                            directionObj = "SE";
+                        }
+                        else if (nextPointXObj == obj_x && nextPointYObj > obj_y) {
+                            directionObj = "S";
+                        }
+                        else if (nextPointXObj < obj_x && nextPointYObj > obj_y) {
+                            directionObj = "SW";
+                        }
+                        else {
+                            directionObj = "STOP";
+                        }
+                        moveEnemyObj();
+                    }
+                }
+            });
+            pathfinder.calculate();
+        }, 100);
 
         orcObj.body.onBeginContact.add(orcObjattackOn, this);
         orcObj.body.onEndContact.add(orcObjattackOff, this);

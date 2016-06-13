@@ -42,7 +42,7 @@ pathfinder = function (obj_x, obj_y, player_x, player_y){
                     debug1 = "STOP";
                 }
 
-                moveEnemyObj();
+                //moveEnemyObj();
                 //Here the same problem occurs twice:
 
                 /*
