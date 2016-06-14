@@ -153,10 +153,18 @@
         this.myX = game.math.snapToFloor(Math.floor(this.enemy.position.x), 32) / 32;
         this.myY = game.math.snapToFloor(Math.floor(this.enemy.position.y), 32) / 32;
 
-        this.path = new pathfinder();
-        console.log(this.path.returnX('Awh yeah'));
-        console.log(this.path.findPath(1,1,5,5));
-        debug1 = this.path.returnX('woop! woop! woop!');
+
+
+        //////////////OLD:
+        this.path = new pathfinder(1,1,5,5);
+/*      TODO  ////////////// NEW:
+        this.path = new pathfinder;
+        this.path.collect(1,1,5,5);
+        this.path.calculate;
+        this.path.objectGetter;
+        ///////////// ^ this*/
+
+
 
 
         if (checkOverlap(playerRadius, this.enemyRadius)) {

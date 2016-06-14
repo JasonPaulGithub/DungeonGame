@@ -7,7 +7,7 @@ function pathfinder(obj_x, obj_y, player_x, player_y){
     this.easystar.findPath(obj_x, obj_y, player_x, player_y, function (path) {
 
         if (path[1].x < obj_x && path[1].y < obj_y) {
-            debug1 = "NW";
+            debug1 = "NW"; // objectSetter(NW);
         }
         else if (path[1].x == obj_x && path[1].y < obj_y) {
             debug1 = "N";
@@ -33,11 +33,18 @@ function pathfinder(obj_x, obj_y, player_x, player_y){
         else {
             debug1 = "STOP";
         }
-
     });
-}
 
-pathfinder.prototype.go = function(){
     //easystar.setIterationsPerCalculation(1000);
     this.easystar.calculate();
 }
+
+/*this.thing.objectSetter(x)
+ * {*
+ *  this.i = x
+ * }*/
+
+ /*this.thing.objectGetter()
+ * {*
+ *  return this.thing.setter.i = x
+ * }*/
