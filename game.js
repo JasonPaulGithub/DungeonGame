@@ -145,9 +145,7 @@ function create() {
 
 
     //TODO:
-    //REFACTOR AND TEST HERE:
-    orc     = new orcObject(1,2,game);
-    //MOVE AND UPDATE CODE OVER TO HERE
+    //orc     = new orcObject(1,2,game);
     Enemy1  = new enemyObject(1, 'orcThief', 333,222, game);
     Enemy2  = new enemyObject(2, 'orcThief', 444,333, game);
 
@@ -249,11 +247,13 @@ function update()
     player_y = this.math.snapToFloor(Math.floor(player_entity.position.y), 32) / 32;
 
     player_direction();
+
+    Enemy1.update();
 }//>
 
 function render(){
-     game.debug.text('Enemy Direction: ' + debug1, 32, 32);
-     game.debug.text('Enemy Collision: ' + debug3  , 32, 62);
+     //game.debug.text('Enemy Direction: ' + debug1, 32, 32);
+     //game.debug.text('Enemy Collision: ' + debug3  , 32, 62);
     // game.debug.text('debug2 ' + debug2  , 32, 92);
 
 }//>
