@@ -72,7 +72,7 @@ function create() {
 /////// MapData
     mapData = game.add.tilemap('mapData');
     mapData.addTilesetImage('tiles');
-
+    //it might be possible that the rendering of each layer slows the framerate.
     background_layer = mapData.createLayer('background');
     background_layer.resizeWorld();
     background_layer.debug = false;
