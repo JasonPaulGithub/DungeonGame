@@ -2,8 +2,8 @@
 
         this.game = game;
 
-        this.x = x //game.world.randomX;
-        this.y = y //game.world.randomY;
+        this.x = x
+        this.y = y
         var animateSpeed = 20;
         this.id = index.toString();
         console.log('Object ID: ' + this.id);
@@ -23,6 +23,8 @@
         this.enemyRadius.anchor.setTo(0.5, 0.5);
         this.enemyRadius.alpha = 0.2;
 
+        this.alive = true;
+
         this.attack = 'attack off';
         this.flip = false;
 
@@ -35,19 +37,6 @@
         this.enemy.body.onBeginContact.add(attackOn, this);
         this.enemy.body.onEndContact.add(attackOff, this);
 
-
-        //game.math.snapToFloor(Math.floor(this.enemy.position.x), 32) / 32;
-        //game.math.snapToFloor(Math.floor(this.enemy.position.y), 32) / 32;
-
-        setInterval(function () {
-
-            //var i  =game.math.snapToFloor(Math.floor(this.enemy.position.x), 32) / 32;
-            //var ii =game.math.snapToFloor(Math.floor(this.enemy.position.y), 32) / 32;
-
-            //console.log(this.enemy.x);
-            //console.log(ii);
-
-        }, 100);
     }
     
     function attackOn(body) {
@@ -173,5 +162,11 @@
     }
 
     enemyObject.prototype.update = function(){
-        console.log(this.enemy.x);
+
+        this.enemyRadius.position.x = this.enemy.x;
+        this.enemyRadius.position.y = this.enemy.y;
+
+        //game.math.snapToFloor(Math.floor(this.enemy.position.x), 32) / 32;
+        //game.math.snapToFloor(Math.floor(this.enemy.position.y), 32) / 32;
+
     }

@@ -248,7 +248,27 @@ function update()
 
     player_direction();
 
+
+    ////////////////////////////
+    // The enemy TANK code for reference
+    ////////////////////////////
+
     Enemy1.update();
+
+    /*for (var i = 0; i < enemies.length; i++)
+    {
+        if (enemies[i].alive)
+        {
+            enemiesAlive++;
+            game.physics.arcade.collide(tank, enemies[i].tank);
+            game.physics.arcade.overlap(bullets, enemies[i].tank, bulletHitEnemy, null, this);
+            enemies[i].update();
+        }
+    }
+    */
+
+
+
 }//>
 
 function render(){
