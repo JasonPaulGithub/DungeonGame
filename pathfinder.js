@@ -1,10 +1,10 @@
 function pathfinder(obj_x, obj_y, player_x, player_y){
 
-    var easystar = new EasyStar.js();
-    easystar.setGrid(level);
-    easystar.setAcceptableTiles([0]);
+    this.easystar = new EasyStar.js();
+    this.easystar.setGrid(level);
+    this.easystar.setAcceptableTiles([0]);
 
-    easystar.findPath(obj_x, obj_y, player_x, player_y, function (path) {
+    this.easystar.findPath(obj_x, obj_y, player_x, player_y, function (path) {
 
         if (path[1].x < obj_x && path[1].y < obj_y) {
             debug1 = "NW";
@@ -36,6 +36,6 @@ function pathfinder(obj_x, obj_y, player_x, player_y){
 
     });
 
-    easystar.calculate();
+    this.easystar.calculate();
     //delete this;
 }
