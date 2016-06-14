@@ -277,7 +277,7 @@ function update()
 }//>
 
 function render(){
-     //game.debug.text('Enemy Direction: ' + debug1, 32, 32);
+     game.debug.text('Enemy Direction: ' + debug1, 32, 32);
      //game.debug.text('Enemy Collision: ' + debug3  , 32, 62);
     // game.debug.text('debug2 ' + debug2  , 32, 92);
 

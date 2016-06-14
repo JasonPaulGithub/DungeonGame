@@ -39,6 +39,9 @@
         this.enemy.body.onBeginContact.add(attackOn, this);
         this.enemy.body.onEndContact.add(attackOff, this);
 
+        /////TODO: Pathfinder.
+        new pathfinder(1, 1, 5, 5);
+
     }
     
     function attackOn(body) {
@@ -153,11 +156,11 @@
         //game.math.snapToFloor(Math.floor(this.enemy.position.y), 32) / 32;
 
         if (checkOverlap(playerRadius, this.enemyRadius)) {
-            console.log('Overlapping with ' + this.id + ': True');
-            this.pathfinderON = true;
+            //console.log('Overlapping with ' + this.id + ': True');
+            //this.pathfinderON = true;
         }
         else {
-            //console.log('Overlapping with ' + this.id + ': False');
+            //
         }
         function checkOverlap(spriteA, spriteB) {
             var boundsA = spriteA.getBounds();
