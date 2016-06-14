@@ -4,6 +4,7 @@
 
         this.x = x
         this.y = y
+
         this.animateSpeed = 20;
         this.id = index.toString();
         console.log('Object ID: ' + this.id);
@@ -30,10 +31,10 @@
         this.attack = 'attack off';
         this.flip = false;
 
-        this.pathfinder;
-        this.nextX = '';
-        this.nextY = '';
-        this.pathfinderON = false;
+        //this.pathfinder;
+        this.path;
+        this.myX;
+        this.myY;
         this.myDirection = '';
 
         this.enemy.body.onBeginContact.add(attackOn, this);
@@ -149,8 +150,14 @@
         this.enemyRadius.position.x = this.enemy.x;
         this.enemyRadius.position.y = this.enemy.y;
 
-        //game.math.snapToFloor(Math.floor(this.enemy.position.x), 32) / 32;
-        //game.math.snapToFloor(Math.floor(this.enemy.position.y), 32) / 32;
+        this.myX = game.math.snapToFloor(Math.floor(this.enemy.position.x), 32) / 32;
+        this.myY = game.math.snapToFloor(Math.floor(this.enemy.position.y), 32) / 32;
+
+        this.path = new pathfinder();
+        console.log(this.path.returnX('Awh yeah'));
+        console.log(this.path.findPath(1,1,5,5));
+        debug1 = this.path.returnX('woop! woop! woop!');
+
 
         if (checkOverlap(playerRadius, this.enemyRadius)) {
             //console.log('Overlapping with ' + this.id + ': True');
