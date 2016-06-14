@@ -4,17 +4,17 @@
 
         this.x = x
         this.y = y
-        var animateSpeed = 20;
+        this.animateSpeed = 20;
         this.id = index.toString();
         console.log('Object ID: ' + this.id);
 
         this.enemy = game.add.sprite(x, y, sprite);
-        this.enemy.animations.add('idle', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], animateSpeed / 4, false);
-        this.enemy.animations.add('cast', [10, 11, 12, 13, 14, 15, 16, 17, 18, 19], animateSpeed, false);
-        this.enemy.animations.add('walk', [20, 21, 22, 23, 24, 25, 26, 27, 28, 29], animateSpeed, false);
-        this.enemy.animations.add('attack', [30, 31, 32, 33, 34, 35, 36, 37, 38, 39], animateSpeed, false);
-        this.enemy.animations.add('die', [40, 41, 42, 43, 44, 45, 46, 47, 48, 49], animateSpeed, false);
         game.physics.p2.enable(this.enemy, debugging);
+        this.enemy.animations.add('idle', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], this.animateSpeed / 4, false);
+        this.enemy.animations.add('cast', [10, 11, 12, 13, 14, 15, 16, 17, 18, 19], this.animateSpeed, false);
+        this.enemy.animations.add('walk', [20, 21, 22, 23, 24, 25, 26, 27, 28, 29], this.animateSpeed, false);
+        this.enemy.animations.add('attack', [30, 31, 32, 33, 34, 35, 36, 37, 38, 39], this.animateSpeed, false);
+        this.enemy.animations.add('die', [40, 41, 42, 43, 44, 45, 46, 47, 48, 49], this.animateSpeed, false);
         this.enemy.body.setCircle(12);
         this.enemy.body.fixedRotation = true;
 
@@ -30,9 +30,9 @@
         this.attack = 'attack off';
         this.flip = false;
 
+        this.pathfinder;
         this.nextX = '';
         this.nextY = '';
-
         this.pathfinderON = false;
         this.myDirection = '';
 
@@ -151,9 +151,6 @@
 
         //game.math.snapToFloor(Math.floor(this.enemy.position.x), 32) / 32;
         //game.math.snapToFloor(Math.floor(this.enemy.position.y), 32) / 32;
-
-        /////TODO: Pathfinder.
-        new pathfinder(5, 5, player_x, player_y);
 
         if (checkOverlap(playerRadius, this.enemyRadius)) {
             //console.log('Overlapping with ' + this.id + ': True');

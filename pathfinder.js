@@ -35,7 +35,8 @@ function pathfinder(obj_x, obj_y, player_x, player_y){
         }
 
     });
+}
 
+pathfinder.prototype.go = function(){
     this.easystar.calculate();
-    //delete this;
 }

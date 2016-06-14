@@ -260,6 +260,9 @@ function update()
     Enemy1.update();
     Enemy2.update();
 
+    var ii = new pathfinder(5,5,player_x,player_y);
+    ii.go();
+
     /*for (var i = 0; i < enemies.length; i++)
     {
         if (enemies[i].alive)
