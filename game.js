@@ -1,7 +1,6 @@
 //Literally the next thing to work on goes here:
 //TODO: Set a sight radius, and an attack radius for player.
-//TODO: Save memory - Only run the pathfinder each time the player moves.
-//TODO: Figure out why the memory goes apeshit when the player moves - i.e: The framerate +50%!!
+//TODO: At the moment iterations are set, but to save memory, choose to run the pathfinder each time the player changes their X/Y position.
 
 var game = new Phaser.Game(600, 600, Phaser.AUTO, 'phaser-example', { preload: preload, create: create, update: update, render: render });
 
@@ -72,7 +71,7 @@ function create() {
 /////// MapData
     mapData = game.add.tilemap('mapData');
     mapData.addTilesetImage('tiles');
-    //it might be possible that the rendering of each layer slows the framerate.
+    //TODO: test to see - it might be possible that the rendering of each layer slows the framerate.
     background_layer = mapData.createLayer('background');
     background_layer.resizeWorld();
     background_layer.debug = false;
