@@ -15,6 +15,8 @@
         this.enemy.animations.add('attack', [30, 31, 32, 33, 34, 35, 36, 37, 38, 39], animateSpeed, false);
         this.enemy.animations.add('die', [40, 41, 42, 43, 44, 45, 46, 47, 48, 49], animateSpeed, false);
         game.physics.p2.enable(this.enemy, debugging);
+        this.enemy.body.setCircle(12);
+        this.enemy.body.fixedRotation = true;
 
         this.enemyRadius;
         this.enemyRadius = game.add.sprite(x, y, sprite);
@@ -142,25 +144,6 @@
         }
     }
 
-    function doStuff(){
-
-        this.enemyRadius.position.x = this.enemy.body.x;
-        this.enemyRadius.position.y = this.enemy.body.y;
-
-        if (checkOverlap(playerRadius, this.enemyRadius)) {
-            console.log('Overlapping: true');
-            this.pathfinderON = true;
-        }
-        else {
-            console.log('Overlapping: false');
-        }
-        function checkOverlap(spriteA, spriteB) {
-            var boundsA = spriteA.getBounds();
-            var boundsB = spriteB.getBounds();
-            return Phaser.Rectangle.intersects(boundsA, boundsB);
-        }
-    }
-
     enemyObject.prototype.update = function(){
 
         this.enemyRadius.position.x = this.enemy.x;
@@ -169,4 +152,16 @@
         //game.math.snapToFloor(Math.floor(this.enemy.position.x), 32) / 32;
         //game.math.snapToFloor(Math.floor(this.enemy.position.y), 32) / 32;
 
+        if (checkOverlap(playerRadius, this.enemyRadius)) {
+            console.log('Overlapping with ' + this.id + ': True');
+            this.pathfinderON = true;
+        }
+        else {
+            //console.log('Overlapping with ' + this.id + ': False');
+        }
+        function checkOverlap(spriteA, spriteB) {
+            var boundsA = spriteA.getBounds();
+            var boundsB = spriteB.getBounds();
+            return Phaser.Rectangle.intersects(boundsA, boundsB);
+        }
     }

@@ -53,7 +53,11 @@ var debug1;
 var debug2 = '';
 var debug3 = 'attack off';
 var sortDepthGroup;
+
 var enemies = [];
+var enemiesTotal = 0;
+var enemiesAlive = 0;
+
 var map2    = 'src/map/map2.json';
 var playerCollisionGroup;
 
@@ -153,7 +157,7 @@ function create() {
     roof_layer.bringToTop();
     player_entity.body.onBeginContact.add(blockHit, this);
     game.camera.follow(player_entity);
-    game.camera.deadzone = new Phaser.Rectangle(100, 100, 300, 200);
+  //game.camera.deadzone = new Phaser.Rectangle(300, 300, 50, 50);
 
 }//>
 
@@ -254,6 +258,7 @@ function update()
     ////////////////////////////
 
     Enemy1.update();
+    Enemy2.update();
 
     /*for (var i = 0; i < enemies.length; i++)
     {
