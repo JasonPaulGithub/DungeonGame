@@ -153,11 +153,8 @@
         this.myX = game.math.snapToFloor(Math.floor(this.enemy.x), 32) / 32;
         this.myY = game.math.snapToFloor(Math.floor(this.enemy.y), 32) / 32;
 
-        console.log(this.myX);
-        console.log(this.myY);
-
         //////////////OLD:
-        this.path = new pathfinder(1,1,11,11);
+        this.path = new pathfinder(this.myX,this.myY,player_x,player_y);
         this.path.calculate();
 /*      TODO  ////////////// NEW:
         this.path = new pathfinder;
