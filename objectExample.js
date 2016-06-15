@@ -8,7 +8,7 @@ myobject.prototype.add = function()
 }
 function objectchanger(obj)
 {
-    obj.add(); // runs the method of the object being passed in
+    obj.add();
 }
 
 var o = new myobject();
