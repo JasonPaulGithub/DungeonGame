@@ -165,10 +165,9 @@
         if (checkOverlap(playerRadius, this.enemyRadius)) {
             //console.log('Overlapping with ' + this.id + ': True');
             //this.pathfinderON = true;
+
             this.path = new pathfinder(this.myX,this.myY,player_x,player_y);
-            this.path.p1(this.path);
             this.path.calculate();
-            console.log(this.path.value);
         }
         else {
             //
