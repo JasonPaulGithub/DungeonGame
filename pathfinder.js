@@ -9,17 +9,17 @@ function pathfinder(obj_x, obj_y, plyr_x, plyr_y){
 
 pathfinder.prototype.p1 = function(thisObject){
 
-        objectChanger(thisObject);
+        objectChanger(thisObject,'hello');
 }
 
-pathfinder.prototype.add = function(xx)
+pathfinder.prototype.add = function(str)
 {
-    this.value++;
+    this.value = (str);
 }
 
-function objectChanger(obj){
+function objectChanger(obj, str){
 
-    obj.add();
+    obj.add(str);
 }
 
 pathfinder.prototype.calculate = function()
