@@ -3,7 +3,6 @@ function pathfinder(obj_x, obj_y, player_x, player_y){
     this.easystar = new EasyStar.js();
     this.easystar.setGrid(level);
     this.easystar.setAcceptableTiles([0]);
-
     this.easystar.findPath(obj_x, obj_y, player_x, player_y, function (path) {
 
         if (path[1].x < obj_x && path[1].y < obj_y) {
@@ -34,17 +33,10 @@ function pathfinder(obj_x, obj_y, player_x, player_y){
             debug1 = "STOP";
         }
     });
-
     //easystar.setIterationsPerCalculation(1000);
-    this.easystar.calculate();
 }
 
-/*this.thing.objectSetter(x)
- * {*
- *  this.i = x
- * }*/
-
- /*this.thing.objectGetter()
- * {*
- *  return this.thing.setter.i = x
- * }*/
+pathfinder.prototype.calculate = function()
+{
+    this.easystar.calculate();
+}

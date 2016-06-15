@@ -157,6 +157,7 @@
 
         //////////////OLD:
         this.path = new pathfinder(1,1,5,5);
+        this.path.calculate();
 /*      TODO  ////////////// NEW:
         this.path = new pathfinder;
         this.path.collect(1,1,5,5);
