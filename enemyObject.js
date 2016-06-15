@@ -150,13 +150,14 @@
         this.enemyRadius.position.x = this.enemy.x;
         this.enemyRadius.position.y = this.enemy.y;
 
-        this.myX = game.math.snapToFloor(Math.floor(this.enemy.position.x), 32) / 32;
-        this.myY = game.math.snapToFloor(Math.floor(this.enemy.position.y), 32) / 32;
+        this.myX = game.math.snapToFloor(Math.floor(this.enemy.x), 32) / 32;
+        this.myY = game.math.snapToFloor(Math.floor(this.enemy.y), 32) / 32;
 
-
+        console.log(this.myX);
+        console.log(this.myY);
 
         //////////////OLD:
-        this.path = new pathfinder(1,1,5,5);
+        this.path = new pathfinder(1,1,11,11);
         this.path.calculate();
 /*      TODO  ////////////// NEW:
         this.path = new pathfinder;
