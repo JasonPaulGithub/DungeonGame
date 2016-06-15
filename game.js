@@ -250,7 +250,6 @@ function update()
 
     player_direction();
 
-
     ////////////////////////////
     // The enemy TANK code for reference
     ////////////////////////////

@@ -88,7 +88,11 @@
         }
     }
 
-    function moveEnemyObj() {
+    function moveEnemyObj(xx) {
+
+        if (xx){
+            console.log('x has been found');
+        }
 
         this.enemy.animations.play('walk');
         this.enemy.body.setZeroVelocity();
@@ -153,18 +157,9 @@
         this.myX = game.math.snapToFloor(Math.floor(this.enemy.x), 32) / 32;
         this.myY = game.math.snapToFloor(Math.floor(this.enemy.y), 32) / 32;
 
-        //////////////OLD:
-        this.path = new pathfinder(this.myX,this.myY,player_x,player_y);
+        this.path = new pathfinder();
+        this.path.collect(this.myX,this.myY,player_x,player_y);
         this.path.calculate();
-/*      TODO  ////////////// NEW:
-        this.path = new pathfinder;
-        this.path.collect(1,1,5,5);
-        this.path.calculate;
-        this.path.objectGetter;
-        ///////////// ^ this*/
-
-
-
 
         if (checkOverlap(playerRadius, this.enemyRadius)) {
             //console.log('Overlapping with ' + this.id + ': True');
