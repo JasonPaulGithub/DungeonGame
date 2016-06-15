@@ -40,6 +40,9 @@
         this.enemy.body.onBeginContact.add(attackOn, this);
         this.enemy.body.onEndContact.add(attackOff, this);
 
+
+
+
     }
     
     function attackOn(body) {
@@ -153,17 +156,19 @@
         this.myX = game.math.snapToFloor(Math.floor(this.enemy.x), 32) / 32;
         this.myY = game.math.snapToFloor(Math.floor(this.enemy.y), 32) / 32;
 
-        this.path = new pathfinder();
-        this.path.collect(this.myX,this.myY,player_x,player_y);
-        this.path.calculate();
 
-        console.log(this.path.value);
-        this.path.objectchanger(this.path);
-        console.log(this.path.value);
+
+        //console.log(this.path.value);
+        //this.path.objectchanger(this.path);
+        //console.log(this.path.value);
 
         if (checkOverlap(playerRadius, this.enemyRadius)) {
             //console.log('Overlapping with ' + this.id + ': True');
             //this.pathfinderON = true;
+            this.path = new pathfinder(this.myX,this.myY,player_x,player_y);
+            this.path.p1(this.path);
+            this.path.calculate();
+            console.log(this.path.value);
         }
         else {
             //
