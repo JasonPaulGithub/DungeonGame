@@ -35,7 +35,7 @@
         this.path;
         this.myX;
         this.myY;
-        this.myDirection = '';
+        this.myDirection = "";
 
         this.enemy.body.onBeginContact.add(attackOn, this);
         this.enemy.body.onEndContact.add(attackOff, this);
@@ -88,16 +88,12 @@
         }
     }
 
-    function moveEnemyObj(xx) {
-
-        if (xx){
-            console.log('x has been found');
-        }
+    enemyObject.prototype.move = function() {
 
         this.enemy.animations.play('walk');
         this.enemy.body.setZeroVelocity();
         var enemySpeed = 151;
-
+        
         if (this.attack == 'attack on') {
             this.enemy.body.setZeroVelocity();
         }
@@ -161,6 +157,10 @@
         this.path.collect(this.myX,this.myY,player_x,player_y);
         this.path.calculate();
 
+        console.log(this.path.value);
+        this.path.objectchanger(this.path);
+        console.log(this.path.value);
+
         if (checkOverlap(playerRadius, this.enemyRadius)) {
             //console.log('Overlapping with ' + this.id + ': True');
             //this.pathfinderON = true;
@@ -173,4 +173,6 @@
             var boundsB = spriteB.getBounds();
             return Phaser.Rectangle.intersects(boundsA, boundsB);
         }
+
+        this.move();
     }
