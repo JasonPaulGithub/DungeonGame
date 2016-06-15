@@ -62,6 +62,7 @@
                 {
                     for (var i = 0; i < path.length; i++)
                     {
+                        //notice how the diagonal direction does not return. Fix needed.
                         if (nextPointXObj < obj_x && nextPointYObj < obj_y) {
                             directionObj = "NW";
                         }

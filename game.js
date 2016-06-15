@@ -149,7 +149,8 @@ function create() {
     //TODO:
     //orc     = new orcObject(1,2,game);
     Enemy1  = new enemyObject(1, 'orcThief', 333,222, game);
-    //Enemy2  = new enemyObject(2, 'orcThief', 444,333, game);
+    Enemy1.direction='SOUTH';
+    Enemy2  = new enemyObject(2, 'orcThief', 444,333, game);
 
 /////// Misc
     roof_layer.bringToTop();
@@ -255,7 +256,7 @@ function update()
     ////////////////////////////
 
     Enemy1.update();
-    //Enemy2.update();
+    Enemy2.update();
 
     //var ii = new pathfinder(5,5,player_x,player_y);
     //ii.go();

@@ -4,34 +4,14 @@ function pathfinder(obj_x, obj_y, plyr_x, plyr_y){
     this.easystar = new EasyStar.js();
     this.easystar.setGrid(level);
     this.easystar.setAcceptableTiles([0]);
-
-    //this.value = 5;
-
     this.easystar.findPath(obj_x, obj_y, plyr_x, plyr_y, function(path){
 
-        var o = new myobject();
+        console.log('I have no idea what Im doing.');
 
-        if (path[1].x == obj_x && path[1].y > obj_y) {
-            objectchanger(o, 'GO SOUTH!');
-            console.log('new value: ' + o.value); // the value is now 6
-        }
+        // probably have to create the pathfinder instance at the game.js level ad mod direction from there.
+
     });
 }
-
-function myobject()
-{
-    this.value = 5;
-}
-myobject.prototype.add = function(str)
-{
-    this.value = str;
-}
-function objectchanger(obj,str)
-{
-    obj.add(str);
-}
-
-
 
 pathfinder.prototype.calculate = function()
 {
