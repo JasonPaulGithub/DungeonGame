@@ -61,6 +61,7 @@ var map2    = 'src/map/map2.json';
 var playerCollisionGroup;
 
 var Enemy1;
+var Enemypath;
 var Enemy2;
 var orc;
 
@@ -139,18 +140,72 @@ function create() {
         level.push(postArray);
         preArray.splice(0,dcv);
     }
-/*
-/////// enemies
+
+    /*
+    /////// enemies
     for (var i = 0; i < enemiesTotal; i++)
     {
         enemies.push(new orcObject(1,2,game));
     }*/
 
-    //TODO:
-    //orc     = new orcObject(1,2,game);
+
     Enemy1  = new enemyObject(1, 'orcThief', 333,222, game);
-    Enemy1.direction='SOUTH';
-    Enemy2  = new enemyObject(2, 'orcThief', 444,333, game);
+
+
+    var easystar;
+    easystar = new EasyStar.js();
+    easystar.setGrid(level);
+    easystar.setAcceptableTiles([0]);
+    easystar.findPath(1, 1, 2, 2, function(path) {
+
+        //console.log("X: " + path[i].x + " Y: " + path[i].y + " Rx: " + enemy_x + " Ry: " + enemy_y);
+        //console.log("X: " + path[i].x + " Y: " + path[i].y);
+        console.log('I have no idea what Im doing.');
+        Enemy1.direction='EAST';
+
+/*
+        if (nextPointXObj < obj_x && nextPointYObj < obj_y) {
+            debug1 = "NW";
+        }
+        else if (nextPointXObj == obj_x && nextPointYObj < obj_y) {
+            debug1 = "N";
+        }
+        else if (nextPointXObj > obj_x && nextPointYObj < obj_y) {
+            debug1 = "NE";
+        }
+        else if (nextPointXObj < obj_x && nextPointYObj == obj_y) {
+            debug1 = "W";
+        }
+        else if (nextPointXObj > obj_x && nextPointYObj == obj_y) {
+            debug1 = "E";
+        }
+        else if (nextPointXObj > obj_x && nextPointYObj > obj_y) {
+            debug1 = "SE";
+        }
+        else if (nextPointXObj == obj_x && nextPointYObj > obj_y) {
+            debug1 = "S";
+        }
+        else if (nextPointXObj < obj_x && nextPointYObj > obj_y) {
+            debug1 = "SW";
+        }
+        else {
+            debug1 = "STOP";
+        }
+        */
+
+    });
+
+    easystar.setIterationsPerCalculation(1000);
+    easystar.calculate();
+
+
+
+    //  We need to move to this:
+    /*  var trueEnemyObject {
+        Enemy1  = new enemyObject(1, 'orcThief', 333,222, game);
+        Enemy1path = new pathfinder(Enemy1.myX, Enemy1.myY, player_x, player_y);
+    }*/
+
 
 /////// Misc
     roof_layer.bringToTop();
@@ -256,7 +311,7 @@ function update()
     ////////////////////////////
 
     Enemy1.update();
-    Enemy2.update();
+    //Enemy2.update();
 
     //var ii = new pathfinder(5,5,player_x,player_y);
     //ii.go();
@@ -272,8 +327,6 @@ function update()
         }
     }
     */
-
-
 
 }//>
 
