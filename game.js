@@ -64,6 +64,7 @@ var Enemy1;
 var Enemypath;
 var Enemy2;
 var orc;
+var easystar;
 
 function create() {
 
@@ -150,53 +151,6 @@ function create() {
 
 
     Enemy1  = new enemyObject(1, 'orcThief', 333,222, game);
-
-
-    var easystar;
-    easystar = new EasyStar.js();
-    easystar.setGrid(level);
-    easystar.setAcceptableTiles([0]);
-    easystar.findPath(1, 1, 2, 2, function(path) {
-
-        //console.log("X: " + path[i].x + " Y: " + path[i].y + " Rx: " + enemy_x + " Ry: " + enemy_y);
-        //console.log("X: " + path[i].x + " Y: " + path[i].y);
-        console.log('I have no idea what Im doing.');
-        Enemy1.direction='EAST';
-
-/*
-        if (nextPointXObj < obj_x && nextPointYObj < obj_y) {
-            debug1 = "NW";
-        }
-        else if (nextPointXObj == obj_x && nextPointYObj < obj_y) {
-            debug1 = "N";
-        }
-        else if (nextPointXObj > obj_x && nextPointYObj < obj_y) {
-            debug1 = "NE";
-        }
-        else if (nextPointXObj < obj_x && nextPointYObj == obj_y) {
-            debug1 = "W";
-        }
-        else if (nextPointXObj > obj_x && nextPointYObj == obj_y) {
-            debug1 = "E";
-        }
-        else if (nextPointXObj > obj_x && nextPointYObj > obj_y) {
-            debug1 = "SE";
-        }
-        else if (nextPointXObj == obj_x && nextPointYObj > obj_y) {
-            debug1 = "S";
-        }
-        else if (nextPointXObj < obj_x && nextPointYObj > obj_y) {
-            debug1 = "SW";
-        }
-        else {
-            debug1 = "STOP";
-        }
-        */
-
-    });
-
-    easystar.setIterationsPerCalculation(1000);
-    easystar.calculate();
 
 
 
@@ -310,7 +264,6 @@ function update()
     // The enemy TANK code for reference
     ////////////////////////////
 
-    Enemy1.update();
     //Enemy2.update();
 
     //var ii = new pathfinder(5,5,player_x,player_y);
@@ -327,6 +280,60 @@ function update()
         }
     }
     */
+
+
+    Enemy1.update();
+
+    easystar = new EasyStar.js();
+    easystar.setGrid(level);
+    easystar.setAcceptableTiles([0]);
+    easystar.findPath(Enemy1.myX,Enemy1.myY, player_x, player_y, function(path) {
+
+
+        for (var i = 0; i < path.length; i++) {
+            console.log("X: " + path[i].x + " Y: " + path[i].y);
+
+            if (path[1].x < Enemy1.myX && path[1].y < player_y) {
+                debug1 = "NW";
+                Enemy1.direction = 'NW';
+            }
+            else if (path[1].x == Enemy1.myX && path[1].y < player_y) {
+                debug1 = "SOUTH";
+                Enemy1.direction = 'SOUTH';
+            }
+            else if (path[1].x > Enemy1.myX && path[1].y < player_y) {
+                debug1 = "NE";
+                Enemy1.direction = 'NE';
+            }
+            else if (path[1].x < Enemy1.myX && path[1].y == player_y) {
+                debug1 = "EAST";
+                Enemy1.direction = 'EAST';
+            }
+            else if (path[1].x > Enemy1.myX && path[1].y == player_y) {
+                debug1 = "WEST";
+                Enemy1.direction = 'WEST';
+            }
+            else if (path[1].x > Enemy1.myX && path[1].y > player_y) {
+                debug1 = "SE";
+                Enemy1.direction = 'SE';
+            }
+            else if (path[1].x == Enemy1.myX && path[1].y > player_y) {
+                debug1 = "NORTH";
+                Enemy1.direction = 'NORTH';
+            }
+            else if (path[1].x < Enemy1.myX && path[1].y > player_y) {
+                debug1 = "SW";
+                Enemy1.direction = 'SW';
+            }
+            else {
+                debug1 = "STOP";
+            }
+        }
+
+    });
+
+    easystar.setIterationsPerCalculation(1000);
+    easystar.calculate();
 
 }//>
 

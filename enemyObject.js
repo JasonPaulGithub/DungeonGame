@@ -2,8 +2,8 @@
 
         this.game = game;
 
-        this.x = x
-        this.y = y
+        this.myX = x
+        this.myY = y;
 
         this.animateSpeed = 20;
         this.id = index.toString();
@@ -29,7 +29,7 @@
 
         this.alive = true;
         this.attack = 'attack off';
-        this.direction = 'NORTH';
+        this.direction = '';
         this.speed = 20;
 
         this.enemy.body.onBeginContact.add(attackOn, this);
@@ -73,8 +73,8 @@
         this.myX = game.math.snapToFloor(Math.floor(this.enemy.x), 32) / 32;
         this.myY = game.math.snapToFloor(Math.floor(this.enemy.y), 32) / 32;
 
-        this.path = new pathfinder(this.myX,this.myY,player_x,player_y);
-        this.path.calculate();
+/*        this.path = new pathfinder(this.myX,this.myY,player_x,player_y);
+        this.path.calculate();*/
 
 
         if (checkOverlap(playerRadius, this.enemyRadius)) {
@@ -102,6 +102,8 @@
             case 'WEST':
                 this.enemy.body.moveRight(this.speed);
                 break;
+            default:
+                this.enemy.body.setZeroVelocity();;
         }
     }
 
