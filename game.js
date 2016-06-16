@@ -313,6 +313,10 @@ function update()
         else if (path[1].x < Enemy1.myX && path[1].x > Enemy1.myY) {
             Enemy1.direction = "SW";
         }
+        else {
+            Enemy1.direction = "STOP";
+        }
+        Enemy1.moveEnemy()
     });
 
     //easystar.setIterationsPerCalculation(500);

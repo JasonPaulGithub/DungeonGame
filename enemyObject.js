@@ -37,6 +37,86 @@
 
     }
 
+    enemyObject.prototype.moveEnemy = function(){
+
+        animateEnemy('walk');
+        this.enemy.body.setZeroVelocity();
+        var enemySpeed = 151;
+
+        if (this.enemy.attack == 'attack on') {
+            this.enemy.body.setZeroVelocity();
+        }
+        else
+        {
+            if (this.direction == "N") {
+                this.enemy.body.moveUp(enemySpeed);
+            }
+            else if (this.direction == "S") {
+                this.enemy.body.moveDown(enemySpeed);
+            }
+            else if (this.direction == "E") {
+                this.enemy.body.moveRight(enemySpeed);
+                if (this.flip == true) {
+                    this.enemy.scale.x *= -1;
+                    this.flip = false;
+                }
+            }
+            else if (this.direction == "W") {
+                this.enemy.body.moveLeft(enemySpeed);
+                if (this.flip == false) {
+                    this.enemy.scale.x *= -1;
+                    this.flip = true;
+                }
+            }
+            else if (this.direction == "SE") {
+                this.enemy.body.moveDown(enemySpeed);
+                this.enemy.body.moveRight(enemySpeed);
+            }
+            else if (this.direction == "NW") {
+                this.enemy.body.moveUp(enemySpeed);
+                this.enemy.body.moveLeft(enemySpeed);
+            }
+            else if (this.direction == "SW") {
+                this.enemy.body.moveDown(enemySpeed);
+                this.enemy.body.moveLeft(enemySpeed);
+            }
+            else if (this.direction == "NE") {
+                this.enemy.body.moveUp(enemySpeed);
+                this.enemy.body.moveRight(enemySpeed);
+            }
+            else if (this.direction == "STOP") {
+                this.enemy.body.setZeroVelocity();
+                this.enemy.animations.play('idle');
+            }
+            else {
+                this.enemy.body.setZeroVelocity();
+                this.enemy.animations.play('idle');
+            }
+        }
+    }
+
+    function animateEnemy(x) {
+
+/*        if (this.enemy.attack == 'attack on') {
+            this.enemy.animations.play('attack', 20, true);
+        }*/
+
+/*        if (this.enemy.attack == 'attack off') {
+            if (x == 'walk') {
+                this.enemy.animations.play('walk');
+            }
+            if (x == 'die') {
+                this.enemy.animations.play('walk');
+            }
+            if (x == 'cast') {
+                this.enemy.animations.play('walk');
+            }
+            if (x == 'idle') {
+                this.enemy.animations.play('walk');
+            }
+        }*/
+    }
+
     function attackOn(body) {
         if (body == null) {
         }
@@ -65,13 +145,13 @@
     }
 
     enemyObject.prototype.update = function(){
-        //TODO: reduce the ticks on the update.
 
         this.enemyRadius.position.x = this.enemy.x;
         this.enemyRadius.position.y = this.enemy.y;
 
         this.myX = game.math.snapToFloor(Math.floor(this.enemy.x), 32) / 32;
         this.myY = game.math.snapToFloor(Math.floor(this.enemy.y), 32) / 32;
+
 
         if (checkOverlap(playerRadius, this.enemyRadius)) {
             //
@@ -85,37 +165,5 @@
             return Phaser.Rectangle.intersects(boundsA, boundsB);
         }
 
-        switch(this.direction){
-            case 'N':
-                this.enemy.body.moveUp(this.speed);
-                break;
-            case 'S':
-                this.enemy.body.moveDown(this.speed);
-                break;
-            case 'E':
-                this.enemy.body.moveRight(this.speed);
-                break;
-            case 'W':
-                this.enemy.body.moveLeft(this.speed);
-                break;
-            case 'NE':
-                this.enemy.body.moveUp(this.speed);
-                this.enemy.body.moveRight(this.speed);
-                break;
-            case 'NW':
-                this.enemy.body.moveUp(this.speed);
-                this.enemy.body.moveLeft(this.speed);
-                break;
-            case 'SE':
-                this.enemy.body.moveDown(this.speed);
-                this.enemy.body.moveRight(this.speed);
-                break;
-            case 'SW':
-                this.enemy.body.moveDown(this.speed);
-                this.enemy.body.moveLeft(this.speed);
-                break;
-            default:
-                this.enemy.body.setZeroVelocity();
-        }
     }
 

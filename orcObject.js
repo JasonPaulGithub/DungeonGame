@@ -148,62 +148,7 @@
             }
         }
 
-        function moveEnemyObj() {
 
-            animateOrcObj('walk');
-            orcObj.body.setZeroVelocity();
-            var enemySpeed = 151;
-
-            if (enemyAttackObj == 'attack on') {
-                orcObj.body.setZeroVelocity();
-            }
-            else {
-                if (directionObj == "N") {
-                    orcObj.body.moveUp(enemySpeed);
-                }
-                else if (directionObj == "S") {
-                    orcObj.body.moveDown(enemySpeed);
-                }
-                else if (directionObj == "E") {
-                    orcObj.body.moveRight(enemySpeed);
-                    if (flipEnemyObj == true) {
-                        orcObj.scale.x *= -1;
-                        flipEnemyObj = false;
-                    }
-                }
-                else if (directionObj == "W") {
-                    orcObj.body.moveLeft(enemySpeed);
-                    if (flipEnemyObj == false) {
-                        orcObj.scale.x *= -1;
-                        flipEnemyObj = true;
-                    }
-                }
-                else if (directionObj == "SE") {
-                    orcObj.body.moveDown(enemySpeed);
-                    orcObj.body.moveRight(enemySpeed);
-                }
-                else if (directionObj == "NW") {
-                    orcObj.body.moveUp(enemySpeed);
-                    orcObj.body.moveLeft(enemySpeed);
-                }
-                else if (directionObj == "SW") {
-                    orcObj.body.moveDown(enemySpeed);
-                    orcObj.body.moveLeft(enemySpeed);
-                }
-                else if (directionObj == "NE") {
-                    orcObj.body.moveUp(enemySpeed);
-                    orcObj.body.moveRight(enemySpeed);
-                }
-                else if (directionObj == "STOP") {
-                    orcObj.body.setZeroVelocity();
-                    orcObj.animations.play('idle');
-                }
-                else {
-                    orcObj.body.setZeroVelocity();
-                    orcObj.animations.play('idle');
-                }
-            }
-        }
 
         function doStuff(){
 
