@@ -39,7 +39,7 @@
 
     enemyObject.prototype.moveEnemy = function(){
 
-        animateEnemy('walk');
+        //animateEnemy('walk');
         this.enemy.body.setZeroVelocity();
         var enemySpeed = 151;
 
@@ -97,11 +97,11 @@
 
     function animateEnemy(x) {
 
-/*        if (this.enemy.attack == 'attack on') {
+        if (this.enemy.attack == 'attack on') {
             this.enemy.animations.play('attack', 20, true);
-        }*/
+        }
 
-/*        if (this.enemy.attack == 'attack off') {
+        if (this.enemy.attack == 'attack off') {
             if (x == 'walk') {
                 this.enemy.animations.play('walk');
             }
@@ -114,7 +114,7 @@
             if (x == 'idle') {
                 this.enemy.animations.play('walk');
             }
-        }*/
+        }
     }
 
     function attackOn(body) {
