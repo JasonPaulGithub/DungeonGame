@@ -73,10 +73,6 @@
         this.myX = game.math.snapToFloor(Math.floor(this.enemy.x), 32) / 32;
         this.myY = game.math.snapToFloor(Math.floor(this.enemy.y), 32) / 32;
 
-/*        this.path = new pathfinder(this.myX,this.myY,player_x,player_y);
-        this.path.calculate();*/
-
-
         if (checkOverlap(playerRadius, this.enemyRadius)) {
             //
         }
@@ -90,20 +86,36 @@
         }
 
         switch(this.direction){
-            case 'NORTH':
+            case 'GO NORTH':
                 this.enemy.body.moveUp(this.speed);
                 break;
-            case 'SOUTH':
+            case 'GO SOUTH':
                 this.enemy.body.moveDown(this.speed);
                 break;
-            case 'EAST':
-                this.enemy.body.moveLeft(this.speed);
-                break;
-            case 'WEST':
+            case 'GO EAST':
                 this.enemy.body.moveRight(this.speed);
                 break;
+            case 'GO WEST':
+                this.enemy.body.moveLeft(this.speed);
+                break;
+            case 'GO NORTH EAST':
+                this.enemy.body.moveUp(this.speed);
+                this.enemy.body.moveRight(this.speed);
+                break;
+            case 'GO NORTH WEST':
+                this.enemy.body.moveUp(this.speed);
+                this.enemy.body.moveLeft(this.speed);
+                break;
+            case 'GO SOUTH EAST':
+                this.enemy.body.moveDown(this.speed);
+                this.enemy.body.moveRight(this.speed);
+                break;
+            case 'GO SOUTH WEST':
+                this.enemy.body.moveDown(this.speed);
+                this.enemy.body.moveLeft(this.speed);
+                break;
             default:
-                this.enemy.body.setZeroVelocity();;
+                this.enemy.body.setZeroVelocity();
         }
     }
 
