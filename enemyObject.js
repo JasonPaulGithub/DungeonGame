@@ -30,7 +30,7 @@
         this.alive = true;
         this.attack = 'attack off';
         this.direction = '';
-        this.speed = 20;
+        this.speed = 200;
 
         this.enemy.body.onBeginContact.add(attackOn, this);
         this.enemy.body.onEndContact.add(attackOff, this);
@@ -86,31 +86,31 @@
         }
 
         switch(this.direction){
-            case 'GO NORTH':
+            case 'N':
                 this.enemy.body.moveUp(this.speed);
                 break;
-            case 'GO SOUTH':
+            case 'S':
                 this.enemy.body.moveDown(this.speed);
                 break;
-            case 'GO EAST':
+            case 'E':
                 this.enemy.body.moveRight(this.speed);
                 break;
-            case 'GO WEST':
+            case 'W':
                 this.enemy.body.moveLeft(this.speed);
                 break;
-            case 'GO NORTH EAST':
+            case 'NE':
                 this.enemy.body.moveUp(this.speed);
                 this.enemy.body.moveRight(this.speed);
                 break;
-            case 'GO NORTH WEST':
+            case 'NW':
                 this.enemy.body.moveUp(this.speed);
                 this.enemy.body.moveLeft(this.speed);
                 break;
-            case 'GO SOUTH EAST':
+            case 'SE':
                 this.enemy.body.moveDown(this.speed);
                 this.enemy.body.moveRight(this.speed);
                 break;
-            case 'GO SOUTH WEST':
+            case 'SW':
                 this.enemy.body.moveDown(this.speed);
                 this.enemy.body.moveLeft(this.speed);
                 break;

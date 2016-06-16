@@ -287,57 +287,41 @@ function update()
     easystar = new EasyStar.js();
     easystar.setGrid(level);
     easystar.setAcceptableTiles([0]);
-    easystar.findPath(Enemy1.myX,Enemy1.myY, player_x, player_y, function(path) {
+    easystar.findPath(Enemy1.myX, Enemy1.myY, player_x, player_y, function(path) {
 
-        for (var i = 0; i < path.length; i++) {
-            //console.log("X: " + path[i].x + " Y: " + path[i].y);
-
-            if (path[1].x < path[1].y && path[1].y < player_y) {
-                //Enemy1.direction = "GO NORTH WEST";
-                debug1 = 'Pathx: ' + path[1].x + ' Pathy' + path[1].y + ' Path px ' + player_x + ' Path py: ' + player_y;
-            }
-            else if (path[1].x == path[1].y && path[1].y < player_y) {
-                //Enemy1.direction = "GO SOUTH";
-                debug1 = 'Pathx: ' + path[1].x + ' Pathy' + path[1].y + ' Path px' + player_x + ' Path py: ' + player_y;
-            }
-            else if (path[1].x > path[1].y && path[1].y < player_y) {
-                //Enemy1.direction = "GO NORTH EAST";
-                debug1 = 'Pathx: ' + path[1].x + ' Pathy' + path[1].y + ' Path px' + player_x + ' Path py: ' + player_y;
-            }
-            else if (path[1].x < path[1].y && path[1].y == player_y) {
-                //Enemy1.direction = "GO WEST";
-                debug1 = 'Pathx: ' + path[1].x + ' Pathy' + path[1].y + ' Path px' + player_x + ' Path py: ' + player_y;
-            }
-            else if (path[1].x > path[1].y && path[1].y == player_y) {
-                //Enemy1.direction = "GO EAST";
-                debug1 = 'Pathx: ' + path[1].x + ' Pathy' + path[1].y + ' Path px' + player_x + ' Path py: ' + player_y;
-            }
-            else if (path[1].x > path[1].y && path[1].y > player_y) {
-                //Enemy1.direction = "GO SOUTH EAST";
-                debug1 = 'Pathx: ' + path[1].x + ' Pathy' + path[1].y + ' Path px' + player_x + ' Path py: ' + player_y;
-            }
-            else if (path[1].x == path[1].y && path[1].y > player_y) {
-                //Enemy1.direction = "GO NORTH";
-                debug1 = 'Pathx: ' + path[1].x + 'Pathy' + path[1].y + 'Path px' + player_x + ' Path py: ' + player_y;
-            }
-            else if (path[1].x < path[1].y && path[1].y > player_y) {
-                //Enemy1.direction = "GO SOUTH WEST";
-                debug1 = 'Pathx: ' + path[1].x + 'Pathy' + path[1].y + 'Path px' + player_x + ' Path py: ' + player_y;
-            }
-            else {
-                //Enemy1.direction = "STOP";
-            }
+        if (path[1].x < Enemy1.myX && path[1].x < Enemy1.myY) {
+            Enemy1.direction = "NW";
         }
-
+        else if (path[1].x == Enemy1.myX && path[1].x < Enemy1.myY) {
+            Enemy1.direction = "N";
+        }
+        else if (path[1].x > Enemy1.myX && path[1].x < Enemy1.myY) {
+            Enemy1.direction = "NE";
+        }
+        else if (path[1].x < Enemy1.myX && path[1].x == Enemy1.myY) {
+            Enemy1.direction = "W";
+        }
+        else if (path[1].x > Enemy1.myX && path[1].x == Enemy1.myY) {
+            Enemy1.direction = "E";
+        }
+        else if (path[1].x > Enemy1.myX && path[1].x > Enemy1.myY) {
+            Enemy1.direction = "SE";
+        }
+        else if (path[1].x == Enemy1.myX && path[1].x > Enemy1.myY) {
+            Enemy1.direction = "S";
+        }
+        else if (path[1].x < Enemy1.myX && path[1].x > Enemy1.myY) {
+            Enemy1.direction = "SW";
+        }
     });
 
-    easystar.setIterationsPerCalculation(1000);
+    //easystar.setIterationsPerCalculation(500);
     easystar.calculate();
 
 }//>
 
 function render(){
-     game.debug.text('EDir: ' + debug1, 32, 32);
+     game.debug.text('EDir: ' + Enemy1.direction, 32, 32);
      //game.debug.text('Enemy Collision: ' + debug3  , 32, 62);
     // game.debug.text('debug2 ' + debug2  , 32, 92);
 
