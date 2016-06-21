@@ -151,6 +151,8 @@ function create() {
 
     Enemy1  = new enemyObject(1, 'orcThief', 300,400, game);
 
+
+
 }//>
 
 function blockHit (body) {
@@ -244,6 +246,13 @@ function update()
 
     player_direction();
     Enemy1.update();
+    Enemy1.easystar.findPath(Enemy1.myX, Enemy1.myY, player_x, player_y, function (path){
+
+        debug1 = path[1].x + ' ' + path[1].y;
+        //enemy.move(); - or tween? tween might be better....
+
+    });
+    Enemy1.easystar.calculate();
 }
 
 function render(){

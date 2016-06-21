@@ -42,7 +42,7 @@
         this.easystar.setGrid(LEVEL);
         this.easystar.setAcceptableTiles([0]);
 
-    }
+    } //so in theory, anything below this line or outside this class isnt part of the object unless it's dcalred a thisObject.prototype...?
 
     function overlap(){
         if (checkOverlap(playerRadius, this.enemyRadius)) {
@@ -93,21 +93,4 @@
         this.myY = game.math.snapToFloor(Math.floor(this.enemy.y), 32) / 32;
 
         //overlap();
-
-        this.easystar.findPath(this.myX, this.myY, player_x, player_y, function (path){
-            //debug1 = 'Next X' + path[1].x + ' Nexy Y: ' + path[1].y;
-            debug1 = returnDirection(path[1].x,path[1].y);
-        });
-        this.easystar.calculate();
-    }
-
-    function returnDirection(npx,npy){
-
-        if (1<2){
-            return 'yes';
-        }else{
-            return 'no';
-        }
-
-        //return npx + ' ' + npy;
     }
