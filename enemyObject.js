@@ -32,10 +32,10 @@
         this.direction = '';
         this.speed = 200;
 
-        this.enemy.body.onBeginContact.add(attackOn, this);
-        this.enemy.body.onEndContact.add(attackOff, this);
+        //this.enemy.body.onBeginContact.add(attackOn, this);
+        //this.enemy.body.onEndContact.add(attackOff, this);
 
-        this.state = ['idle','wander','attack','alarm','search'];
+        //this.state = ['idle','wander','attack','alarm','search'];
 
         this.easystar;
         this.easystar = new EasyStar.js();
@@ -65,7 +65,6 @@
         }
         else if (body.sprite.key == 'cleric') {
             this.attack = 'attack on';
-            console.log('Enemy ' + this.id + '= attack on');
             this.enemy.animations.play('attack');
         }
         else {
@@ -100,9 +99,15 @@
             debug1 = returnDirection(path[1].x,path[1].y);
         });
         this.easystar.calculate();
-
     }
 
-    function returnDirection(x,y){
-        return x + ' ' + y;
+    function returnDirection(npx,npy){
+
+        if (1<2){
+            return 'yes';
+        }else{
+            return 'no';
+        }
+
+        //return npx + ' ' + npy;
     }

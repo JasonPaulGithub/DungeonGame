@@ -149,7 +149,7 @@ function create() {
   //game.camera.deadzone = new Phaser.Rectangle(300, 300, 50, 50);
 
 
-    Enemy1  = new enemyObject(1, 'orcThief', 333,222, game);
+    Enemy1  = new enemyObject(1, 'orcThief', 300,400, game);
 
 }//>
 
@@ -251,8 +251,8 @@ function render(){
     //game.debug.text(, 32, 48);
     game.debug.text('My x: '    + player_x + ' My y: '    + player_y, 32, 64);
     //game.debug.text(, 32, 80);
-    game.debug.text('Path: ' + debug1, 32, 96);
-    game.debug.text('Direction: ', 32, 112);
+    game.debug.text('Next Point: ' + debug1, 32, 96);
+    //game.debug.text('Direction: ' + debug1, 32, 112);
     //game.debug.text(, 32, 128);
 }
 
