@@ -248,7 +248,7 @@ function update()
     Enemy1.update();
     Enemy1.easystar.findPath(Enemy1.myX, Enemy1.myY, player_x, player_y, function (path){
 
-        debug1 = path[1].x + ' ' + path[1].y;
+        debug1 = 'nx.x: ' + path[1].x + ' nx.y: ' + path[1].y + '| p.x: ' + player_x + ' p.y: ' + player_y;
         //enemy.move(); - or tween? tween might be better....
 
     });
