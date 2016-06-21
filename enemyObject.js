@@ -35,85 +35,26 @@
         this.enemy.body.onBeginContact.add(attackOn, this);
         this.enemy.body.onEndContact.add(attackOff, this);
 
+        this.state = ['idle','wander','attack','alarm','search'];
+
+        this.easystar;
+        this.easystar = new EasyStar.js();
+        this.easystar.setGrid(LEVEL);
+        this.easystar.setAcceptableTiles([0]);
+
     }
 
-    enemyObject.prototype.moveEnemy = function(){
-
-        //animateEnemy('walk');
-        this.enemy.body.setZeroVelocity();
-        var enemySpeed = 151;
-
-        if (this.enemy.attack == 'attack on') {
-            this.enemy.body.setZeroVelocity();
+    function overlap(){
+        if (checkOverlap(playerRadius, this.enemyRadius)) {
+            //
         }
-        else
-        {
-            if (this.direction == "N") {
-                this.enemy.body.moveUp(enemySpeed);
-            }
-            else if (this.direction == "S") {
-                this.enemy.body.moveDown(enemySpeed);
-            }
-            else if (this.direction == "E") {
-                this.enemy.body.moveRight(enemySpeed);
-                if (this.flip == true) {
-                    this.enemy.scale.x *= -1;
-                    this.flip = false;
-                }
-            }
-            else if (this.direction == "W") {
-                this.enemy.body.moveLeft(enemySpeed);
-                if (this.flip == false) {
-                    this.enemy.scale.x *= -1;
-                    this.flip = true;
-                }
-            }
-            else if (this.direction == "SE") {
-                this.enemy.body.moveDown(enemySpeed);
-                this.enemy.body.moveRight(enemySpeed);
-            }
-            else if (this.direction == "NW") {
-                this.enemy.body.moveUp(enemySpeed);
-                this.enemy.body.moveLeft(enemySpeed);
-            }
-            else if (this.direction == "SW") {
-                this.enemy.body.moveDown(enemySpeed);
-                this.enemy.body.moveLeft(enemySpeed);
-            }
-            else if (this.direction == "NE") {
-                this.enemy.body.moveUp(enemySpeed);
-                this.enemy.body.moveRight(enemySpeed);
-            }
-            else if (this.direction == "STOP") {
-                this.enemy.body.setZeroVelocity();
-                this.enemy.animations.play('idle');
-            }
-            else {
-                this.enemy.body.setZeroVelocity();
-                this.enemy.animations.play('idle');
-            }
+        else {
+            //
         }
-    }
-
-    function animateEnemy(x) {
-
-        if (this.enemy.attack == 'attack on') {
-            this.enemy.animations.play('attack', 20, true);
-        }
-
-        if (this.enemy.attack == 'attack off') {
-            if (x == 'walk') {
-                this.enemy.animations.play('walk');
-            }
-            if (x == 'die') {
-                this.enemy.animations.play('walk');
-            }
-            if (x == 'cast') {
-                this.enemy.animations.play('walk');
-            }
-            if (x == 'idle') {
-                this.enemy.animations.play('walk');
-            }
+        function checkOverlap(spriteA, spriteB) {
+            var boundsA = spriteA.getBounds();
+            var boundsB = spriteB.getBounds();
+            return Phaser.Rectangle.intersects(boundsA, boundsB);
         }
     }
 
@@ -152,18 +93,16 @@
         this.myX = game.math.snapToFloor(Math.floor(this.enemy.x), 32) / 32;
         this.myY = game.math.snapToFloor(Math.floor(this.enemy.y), 32) / 32;
 
+        //overlap();
 
-        if (checkOverlap(playerRadius, this.enemyRadius)) {
-            //
-        }
-        else {
-            //
-        }
-        function checkOverlap(spriteA, spriteB) {
-            var boundsA = spriteA.getBounds();
-            var boundsB = spriteB.getBounds();
-            return Phaser.Rectangle.intersects(boundsA, boundsB);
-        }
+        this.easystar.findPath(this.myX, this.myY, player_x, player_y, function (path){
+            //debug1 = 'Next X' + path[1].x + ' Nexy Y: ' + path[1].y;
+            debug1 = returnDirection(path[1].x,path[1].y);
+        });
+        this.easystar.calculate();
 
     }
 
+    function returnDirection(x,y){
+        return x + ' ' + y;
+    }

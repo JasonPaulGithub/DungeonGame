@@ -45,7 +45,7 @@ var phaserJSON;
 var data;
 var preArray = [];
 var postArray = [];
-var level =[];
+var LEVEL =[];
 
 var debugging = true;
 var debug1;
@@ -64,7 +64,7 @@ var Enemy1;
 var Enemypath;
 var Enemy2;
 var orc;
-var easystar;
+//var easystar;
 
 function create() {
 
@@ -100,7 +100,7 @@ function create() {
 
 /////// Controls
     cursors = game.input.keyboard.createCursorKeys();
-    upKey = game.input.keyboard.addKey(Phaser.Keyboard.UP);
+    upKey   = game.input.keyboard.addKey(Phaser.Keyboard.UP);
     downKey = game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
     leftKey = game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
     rightKey = game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
@@ -138,34 +138,18 @@ function create() {
 
     for (var x = 0; x < dataLength; x += dcv) {
         postArray = preArray.slice(0,dcv);
-        level.push(postArray);
+        LEVEL.push(postArray);
         preArray.splice(0,dcv);
     }
-
-    /*
-    /////// enemies
-    for (var i = 0; i < enemiesTotal; i++)
-    {
-        enemies.push(new orcObject(1,2,game));
-    }*/
-
-
-    Enemy1  = new enemyObject(1, 'orcThief', 333,222, game);
-
-
-
-    //  We need to move to this:
-    /*  var trueEnemyObject {
-        Enemy1  = new enemyObject(1, 'orcThief', 333,222, game);
-        Enemy1path = new pathfinder(Enemy1.myX, Enemy1.myY, player_x, player_y);
-    }*/
-
 
 /////// Misc
     roof_layer.bringToTop();
     player_entity.body.onBeginContact.add(blockHit, this);
     game.camera.follow(player_entity);
   //game.camera.deadzone = new Phaser.Rectangle(300, 300, 50, 50);
+
+
+    Enemy1  = new enemyObject(1, 'orcThief', 333,222, game);
 
 }//>
 
@@ -246,7 +230,7 @@ function player_direction(){
             flip = true;
         }
     }
-}//>
+}
 
 function update()
 {
@@ -259,76 +243,17 @@ function update()
     player_y = this.math.snapToFloor(Math.floor(player_entity.position.y), 32) / 32;
 
     player_direction();
-
-    ////////////////////////////
-    // The enemy TANK code for reference
-    ////////////////////////////
-
-    //Enemy2.update();
-
-    //var ii = new pathfinder(5,5,player_x,player_y);
-    //ii.go();
-
-    /*for (var i = 0; i < enemies.length; i++)
-    {
-        if (enemies[i].alive)
-        {
-            enemiesAlive++;
-            game.physics.arcade.collide(tank, enemies[i].tank);
-            game.physics.arcade.overlap(bullets, enemies[i].tank, bulletHitEnemy, null, this);
-            enemies[i].update();
-        }
-    }
-    */
-
-
     Enemy1.update();
-
-    easystar = new EasyStar.js();
-    easystar.setGrid(level);
-    easystar.setAcceptableTiles([0]);
-    easystar.findPath(Enemy1.myX, Enemy1.myY, player_x, player_y, function(path) {
-
-        if (path[1].x < Enemy1.myX && path[1].x < Enemy1.myY) {
-            Enemy1.direction = "NW";
-        }
-        else if (path[1].x == Enemy1.myX && path[1].x < Enemy1.myY) {
-            Enemy1.direction = "N";
-        }
-        else if (path[1].x > Enemy1.myX && path[1].x < Enemy1.myY) {
-            Enemy1.direction = "NE";
-        }
-        else if (path[1].x < Enemy1.myX && path[1].x == Enemy1.myY) {
-            Enemy1.direction = "W";
-        }
-        else if (path[1].x > Enemy1.myX && path[1].x == Enemy1.myY) {
-            Enemy1.direction = "E";
-        }
-        else if (path[1].x > Enemy1.myX && path[1].x > Enemy1.myY) {
-            Enemy1.direction = "SE";
-        }
-        else if (path[1].x == Enemy1.myX && path[1].x > Enemy1.myY) {
-            Enemy1.direction = "S";
-        }
-        else if (path[1].x < Enemy1.myX && path[1].x > Enemy1.myY) {
-            Enemy1.direction = "SW";
-        }
-/*        else {
-            Enemy1.direction = "STOP";
-        }
-        Enemy1.moveEnemy()*/
-    });
-
-    //easystar.setIterationsPerCalculation(500);
-    easystar.calculate();
-
-}//>
+}
 
 function render(){
-     game.debug.text('EDir: ' + Enemy1.direction, 32, 32);
-     //game.debug.text('Enemy Collision: ' + debug3  , 32, 62);
-    // game.debug.text('debug2 ' + debug2  , 32, 92);
-
-}//>
+    game.debug.text('Enemy x: ' + Enemy1.myX + ' Enemy y: ' + Enemy1.myY, 32, 32);
+    //game.debug.text(, 32, 48);
+    game.debug.text('My x: '    + player_x + ' My y: '    + player_y, 32, 64);
+    //game.debug.text(, 32, 80);
+    game.debug.text('Path: ' + debug1, 32, 96);
+    game.debug.text('Direction: ', 32, 112);
+    //game.debug.text(, 32, 128);
+}
 
 
