@@ -253,6 +253,10 @@ function update()
 
     });
     Enemy1.easystar.calculate();
+    // consider more OO: you may need getters and setters
+    // radius and shadow elements may also need to be decoupled.
+    // the way it stands we may need to decouple variables from behaviour - check the books for more details.
+
 }
 
 function render(){
