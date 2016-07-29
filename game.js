@@ -74,18 +74,12 @@ function create() {
     mapData = game.add.tilemap('mapData');
     mapData.addTilesetImage('tiles');
     //TODO: test to see - it might be possible that the rendering of each layer slows the framerate.
-    background_layer = mapData.createLayer('background');
-    background_layer.resizeWorld();
-    background_layer.debug = false;
     floor_layer = mapData.createLayer('floor');
     floor_layer.resizeWorld();
     floor_layer.debug = false;
-    floor_decor = mapData.createLayer('floor_decor');
-    floor_decor.resizeWorld();
-    floor_decor.debug = false;
     wall_layer = mapData.createLayer('wall');
     wall_layer.resizeWorld();
-    wall_layer.debug = debugging;
+    wall_layer.debug = false;
     wall_decor = mapData.createLayer('wall_decor');
     wall_decor.resizeWorld();
     wall_decor.debug = false;
@@ -107,7 +101,7 @@ function create() {
     spaceKey = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
 ////// Player
-    player_entity = sortDepthGroup.create(325,450, 'cleric');
+    player_entity = sortDepthGroup.create(210,210, 'cleric');
     game.physics.p2.enable(player_entity, debugging);
     player_entity.body.setRectangle(31,34);
     player_entity.body.fixedRotation = true;
@@ -178,7 +172,7 @@ function blockHit (body) {
 function player_direction(){
 
     player_entity.body.setZeroVelocity();
-    var speed = 150;
+    var speed = 250;
 
     if (upKey.isDown)
     {
@@ -261,10 +255,11 @@ function update()
 
 function render(){
     game.debug.text('Enemy x: ' + Enemy1.myX + ' Enemy y: ' + Enemy1.myY, 32, 32);
+    game.debug.text('Next Point: ' + debug1, 32, 96);
+
     //game.debug.text(, 32, 48);
     //game.debug.text('My x: '    + player_x + ' My y: '    + player_y, 32, 64);
     //game.debug.text(, 32, 80);
-    game.debug.text('Next Point: ' + debug1, 32, 96);
     //game.debug.text('Direction: ' + debug1, 32, 112);
     //game.debug.text(, 32, 128);
 }
