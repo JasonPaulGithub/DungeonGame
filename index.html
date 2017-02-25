@@ -7,12 +7,14 @@
         <meta charset="UTF-8" />
         <title>Wizardapocolypse!!</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
         <script type="text/javascript" src="lib/phaser.js"></script>
         <script type="text/javascript" src="lib/easystar-0.2.1.min.js"></script>
-        <script type="text/javascript" src="game.js"></script>
-        <script type="text/javascript" src="plugins/phaser-debug.js"></script>
-        <script type="text/javascript" src="plugins/phaser-inspector.min.js"></script>
+        <!--
+                        remember the load order matters:
+        -->
+        <script type="text/javascript" src="content/objects/entity/player/player.js"></script>
+        <script type="text/javascript" src="content/mapData/mapData.js"></script>
+        <script type="text/javascript" src="newGame.js"></script>
 
         <link rel="stylesheet" href="css/style.css">
 
