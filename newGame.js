@@ -66,7 +66,11 @@ function render()
     if (upKey.isDown == true)
     {
         game.add.text(100, 325, 'UP HAS BEEN PRESSED', { font: "15px Arial", fill: "#19de65" });
+
+        //Looks like we can use text object data in variables:
         game.add.text(entityCollection)
+
+        //Let's try using entity-based object data:
 
     }
 }
