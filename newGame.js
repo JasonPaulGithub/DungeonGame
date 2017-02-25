@@ -41,13 +41,17 @@ function create()
 
     //Screen Text
     textCollection.push('GAME STATS\n');
-    textCollection.push(',,";-;",,, -( Entity: ' + entity1.id +' : X: ' + entityCollection[2].xLoc+' Y:'+entityCollection[2].yLoc+' !)');
+    textCollection.push('(ง︡’-‘︠)ง  Entity: ' + entity1.id +' : X: ' + entityCollection[2].xLoc+' Y:'+entityCollection[2].yLoc+'');
     var text = game.add.text(10, 10, textCollection);
     text.font = 'Arial Black';
-    text.fontSize = 15;
-    text.fontWeight = 'bold';
-    text.fill = '#ee0000';
-    text.setShadow(0, 0, 'rgba(200, 200, 200, 0.5)', 0);
+    text.fontSize = 14;
+    //text.fontWeight = 'bold';
+
+    //	Stroke color and thickness
+    text.stroke = '#0000ff';
+    text.strokeThickness = 1;
+    text.fill = '#ffffff';
+
 }
 
 function update()
