@@ -30,15 +30,7 @@ function create(){
     //Create player object from /Player.js
     player = new Player(300,300);
 
-    //Entity Factory
-    function Entity(id,xLoc,yLoc){
-        this.id   = id;
-        this.xLoc = xLoc;
-        this.yLoc = yLoc;
-    }
-    //Construct Entity
-    var entity1 = new Entity('Enemy_1',10,10);
-    entityCollection.push(entity1);
+
 
     //Add Screen Text Here
         textCollection.push('GAME STATS');
@@ -51,10 +43,12 @@ function create(){
 function update()
 {
     //Set up Debug text area
+    //TODO: Put this stuff into its own debug function
     var rect = new Phaser.Rectangle( 0, 0,250,250) ;
     game.debug.geom( rect, 'rgba(0,0,0,0.4)');
     game.debug.text('Player X:'+player.xLoc+' Y:'+player.yLoc,10,30,"#ffffff");
     game.debug.text('');
+    //TODO: Debug enemy object
 }
 
 function render()   //REMINDER: YOU ARE IN THE ~~RENDER~~ SECTION//
