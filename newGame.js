@@ -1,6 +1,8 @@
 var game = new Phaser.Game(1200, 600, Phaser.AUTO, 'phaser-example', {preload: preload,create: create, update: update,render: render});
 var map1 = 'src/map/map1.json';
 var mapData;
+var entityCollection = [[],[]];
+var textCollection = [];
 
 function preload()
 {
@@ -10,26 +12,20 @@ function preload()
     game.load.json('version', map1);
 }
 
-// Designed to hold a collection of interchangable game objects (i.e player, enemies,etc).
-var entityCollection = [[],[]];
-
-//Desinged to collect screen text
-var textCollection = [];
-
-function create(){
+function create()
+{
     game.physics.startSystem(Phaser.Physics.P2JS);
     runMapData();
 
-    //Create player object from /Player.js
     new Player('cleric',300,300);
+    player.game.physics.p2.enable(player, true);
+    player.body.setRectangle(32,35);
+    player.body.fixedRotation = true;
+    player.anchor.setTo(0.5,0.75);
 
-
-    //Add Screen Text Here
-        textCollection.push('GAME STATS');
-    textCollection.push('(ง︡’-‘︠)ง   Entity From Collection: ' + entityCollection[2].id +' : X: ' + entityCollection[2].xLoc+' Y:'+entityCollection[2].yLoc+'\n');
-
-    //Text Settings
-
+    textCollection.push('GAME STATS');
+    textCollection.push('(ง︡’-‘︠)ง   Entity From Collection: ' + entityCollection[2].id +' : X: '
+    + entityCollection[2].xLoc+' Y:'+entityCollection[2].yLoc+'\n');
 }
 
 function update()
@@ -37,16 +33,7 @@ function update()
     debug();
 }
 
-function render()   //REMINDER: YOU ARE IN THE ~~RENDER~~ SECTION//
+function render()
 {
-    if (game.input.keyboard.addKey(Phaser.Keyboard.UP).isDown == true)
-    {
-        player.x+=5;
-        player.y+=5;
-    }
-    if (game.input.keyboard.addKey(Phaser.Keyboard.DOWN).isDown == true)
-    {
-        player.x-=5;
-        player.y-=5;
-    }
+    movePlayer()
 }

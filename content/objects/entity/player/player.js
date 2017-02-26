@@ -1,4 +1,5 @@
 var player;
+var spd = 100;
 
 //Player Factory
 function Player(id,xLoc,yLoc)
@@ -7,9 +8,26 @@ function Player(id,xLoc,yLoc)
     this.xLoc = xLoc;
     this.yLoc = yLoc;
     player = game.add.sprite(this.xLoc, this.yLoc, this.id);
+}
 
-    this.game.physics.p2.enable(player_entity, true);
-    this.body.setRectangle(32,35);
-    this.body.fixedRotation = true;
-    this.anchor.setTo(0.5,0.75);
+function movePlayer()
+{
+    player.body.setZeroVelocity();
+
+    if (game.input.keyboard.addKey(Phaser.Keyboard.UP).isDown == true)
+    {
+        player.body.moveUp(spd);
+    }
+    if (game.input.keyboard.addKey(Phaser.Keyboard.DOWN).isDown == true)
+    {
+        player.body.moveDown(spd);
+    }
+    if (game.input.keyboard.addKey(Phaser.Keyboard.LEFT).isDown == true)
+    {
+        player.body.moveLeft(spd);
+    }
+    if (game.input.keyboard.addKey(Phaser.Keyboard.RIGHT).isDown == true)
+    {
+        player.body.moveRight(spd);
+    }
 }
