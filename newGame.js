@@ -1,18 +1,11 @@
-var game = new Phaser.Game(1200, 600, Phaser.AUTO, 'phaser-example', {
-    preload: preload,
-    create: create,
-    update: update,
-    render: render
-});
-
+var game = new Phaser.Game(1200, 600, Phaser.AUTO, 'phaser-example', {preload: preload,create: create, update: update,render: render});
 var map1 = 'src/map/map1.json';
-var map2 = 'src/map/map2.json';
-
 var mapData;
-var player;
 
-function preload() {
+function preload()
+{
     game.load.spritesheet('tiles', 'src/sprites/tiles.png');
+    game.load.spritesheet('cleric', 'src/sprites/cleric.png', 64, 64);
     game.load.tilemap('mapData', map1, null, Phaser.Tilemap.TILED_JSON);
     game.load.json('version', map1);
 }
@@ -28,8 +21,7 @@ function create(){
     runMapData();
 
     //Create player object from /Player.js
-    player = new Player(300,300);
-
+    new Player('cleric',300,300);
 
 
     //Add Screen Text Here
@@ -55,12 +47,12 @@ function render()   //REMINDER: YOU ARE IN THE ~~RENDER~~ SECTION//
 {
     if (game.input.keyboard.addKey(Phaser.Keyboard.UP).isDown == true)
     {
-        player.xLoc+=5;
-        player.yLoc+=5;
+        player.x+=5;
+        player.x+=5;
     }
     if (game.input.keyboard.addKey(Phaser.Keyboard.DOWN).isDown == true)
     {
-        player.xLoc-=5;
-        player.yLoc-=5;
+        player.x-=5;
+        player.x-=5;
     }
 }
