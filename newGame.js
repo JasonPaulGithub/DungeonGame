@@ -34,13 +34,7 @@ function create(){
 
 function update()
 {
-    //Set up Debug text area
-    //TODO: Put this stuff into its own debug function
-    var rect = new Phaser.Rectangle( 0, 0,250,250) ;
-    game.debug.geom( rect, 'rgba(0,0,0,0.4)');
-    game.debug.text('Player X:'+player.xLoc+' Y:'+player.yLoc,10,30,"#ffffff");
-    game.debug.text('');
-    //TODO: Debug enemy object
+    debug();
 }
 
 function render()   //REMINDER: YOU ARE IN THE ~~RENDER~~ SECTION//
@@ -48,11 +42,11 @@ function render()   //REMINDER: YOU ARE IN THE ~~RENDER~~ SECTION//
     if (game.input.keyboard.addKey(Phaser.Keyboard.UP).isDown == true)
     {
         player.x+=5;
-        player.x+=5;
+        player.y+=5;
     }
     if (game.input.keyboard.addKey(Phaser.Keyboard.DOWN).isDown == true)
     {
         player.x-=5;
-        player.x-=5;
+        player.y-=5;
     }
 }

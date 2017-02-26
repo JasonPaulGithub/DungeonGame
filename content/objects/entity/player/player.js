@@ -8,10 +8,8 @@ function Player(id,xLoc,yLoc)
     this.yLoc = yLoc;
     player = game.add.sprite(this.xLoc, this.yLoc, this.id);
 
+    this.game.physics.p2.enable(player_entity, true);
+    this.body.setRectangle(32,35);
+    this.body.fixedRotation = true;
+    this.anchor.setTo(0.5,0.75);
 }
-
-/*
-game.physics.p2.enable(player_entity, true);
-player_entity.body.setRectangle(32,35);
-player_entity.body.fixedRotation = true;
-player_entity.anchor.setTo(0.5,0.75);*/
