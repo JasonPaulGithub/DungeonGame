@@ -15,6 +15,7 @@ function preload()
 function create()
 {
     game.physics.startSystem(Phaser.Physics.P2JS);
+
     runMapData();
 
     new Player('cleric',300,300);
@@ -22,6 +23,7 @@ function create()
     player.body.setRectangle(32,35);
     player.body.fixedRotation = true;
     player.anchor.setTo(0.5,0.75);
+    game.camera.follow(player);
 
     textCollection.push('GAME STATS');
     textCollection.push('(ง︡’-‘︠)ง   Entity From Collection: ' + entityCollection[2].id +' : X: '

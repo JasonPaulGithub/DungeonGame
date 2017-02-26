@@ -1,5 +1,5 @@
 var player;
-var spd = 100;
+var spd = 700;
 
 //Player Factory
 function Player(id,xLoc,yLoc)
