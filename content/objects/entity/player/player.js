@@ -2,11 +2,9 @@
 var player;
 
 //Player Factory
-function Player(id, xLoc, yLoc, game) {
-
-    var x = xLoc;
-    var y = yLoc;
-
+function Player(id, x, y, game)
+{
+    this.speed = 10;
     this.game = game;
     this.id = id;
     this.player = game.add.sprite(x, y, id);
@@ -19,34 +17,46 @@ function Player(id, xLoc, yLoc, game) {
 
 Player.prototype.stats = function ()
 {
-    return this.id;
+    var stats = this.id + ' x: ' + this.player.body.x + ' y: ' + this.player.body.y;
+    return stats;
 }
 
-Player.prototype.upKey = function()
+Player.prototype.moveUp = function()
 {
-    this.player.body.x += 10;
-    return 'hi ' + this.player.body.x;
+    this.player.body.y -= this.speed;
 }
 
-/*
-Player.prototype.render = function()
+Player.prototype.moveDown = function()
 {
-    this.body.setZeroVelocity();
+    this.player.body.y += this.speed;
+}
 
-    if (game.input.keyboard.addKey(Phaser.Keyboard.UP).isDown == true)
-    {
-        this.body.moveUp(spd);
+Player.prototype.moveLeft = function()
+{
+    this.player.body.x -= this.speed;
+}
+
+Player.prototype.moveRight = function()
+{
+    this.player.body.x += this.speed;
+}
+
+function movePlayer()
+{
+    if (game.input.keyboard.addKey(Phaser.Keyboard.UP).isDown == true) {
+        game.debug.text('Up key pressed', 100, 175);
+        player.moveUp();
     }
-    if (game.input.keyboard.addKey(Phaser.Keyboard.DOWN).isDown == true)
-    {
-        this.body.moveDown(spd);
+    if (game.input.keyboard.addKey(Phaser.Keyboard.DOWN).isDown == true) {
+        game.debug.text('Down key pressed', 100, 175);
+        player.moveDown();
     }
-    if (game.input.keyboard.addKey(Phaser.Keyboard.LEFT).isDown == true)
-    {
-        this.body.moveLeft(spd);
+    if (game.input.keyboard.addKey(Phaser.Keyboard.LEFT).isDown == true) {
+        game.debug.text('Left key pressed', 100, 200);
+        player.moveLeft();
     }
-    if (game.input.keyboard.addKey(Phaser.Keyboard.RIGHT).isDown == true)
-    {
-        this.body.moveRight(spd);
+    if (game.input.keyboard.addKey(Phaser.Keyboard.RIGHT).isDown == true) {
+        game.debug.text('Right key pressed', 100, 200);
+        player.moveRight();
     }
-}*/
+}

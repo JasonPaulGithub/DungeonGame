@@ -17,10 +17,7 @@ function create()
     game.physics.startSystem(Phaser.Physics.P2JS);
     runMapData();
 
-//    entityCollection.push (new Player('cleric',300,300,game));
     player = new Player('cleric', 300, 300, game);
-    //new Player('cleric',300,310,game);
-
 }
 
 function update()
@@ -31,11 +28,5 @@ function update()
 function render()
 {
     debug();
-
-    if (game.input.keyboard.addKey(Phaser.Keyboard.UP).isDown == true)
-    {
-        game.debug.text('Up key pressed',100,175);
-        game.debug.text(player.id.toString(),100,200);
-        game.debug.text(player.upKey(),100,225);
-    }
+    movePlayer();
 }
