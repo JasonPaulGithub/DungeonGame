@@ -16,7 +16,6 @@ function create()
 {
     game.physics.startSystem(Phaser.Physics.P2JS);
     runMapData();
-
     player = new Player('cleric', 300, 300, game);
 }
 
