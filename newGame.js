@@ -15,27 +15,27 @@ function preload()
 function create()
 {
     game.physics.startSystem(Phaser.Physics.P2JS);
-
     runMapData();
 
-    new Player('cleric',300,300);
-    player.game.physics.p2.enable(player, true);
-    player.body.setRectangle(32,35);
-    player.body.fixedRotation = true;
-    player.anchor.setTo(0.5,0.75);
-    game.camera.follow(player);
+//    entityCollection.push (new Player('cleric',300,300,game));
+    player = new Player('cleric', 300, 300, game);
+    //new Player('cleric',300,310,game);
 
-    textCollection.push('GAME STATS');
-    textCollection.push('(ง︡’-‘︠)ง   Entity From Collection: ' + entityCollection[2].id +' : X: '
-    + entityCollection[2].xLoc+' Y:'+entityCollection[2].yLoc+'\n');
 }
 
 function update()
 {
-    debug();
+
 }
 
 function render()
 {
-    movePlayer()
+    debug();
+
+    if (game.input.keyboard.addKey(Phaser.Keyboard.UP).isDown == true)
+    {
+        game.debug.text('Up key pressed',100,175);
+        game.debug.text(player.id.toString(),100,200);
+        game.debug.text(player.upKey(),100,225);
+    }
 }
