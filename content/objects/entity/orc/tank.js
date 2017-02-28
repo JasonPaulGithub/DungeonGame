@@ -111,8 +111,8 @@ var bullets;
 var fireRate = 100;
 var nextFire = 0;
 
-function create () {
-
+function create ()
+{
     //  Resize our game world to be a 2000 x 2000 square
     game.world.setBounds(-1000, -1000, 2000, 2000);
 

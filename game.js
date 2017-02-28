@@ -35,7 +35,9 @@
  // each random style of generaion needs to consider physics/collision detection/pathfinding
  //
 
- */
+ *//*
+
+*/
 /*
  TODO:
  Carpets: Include a dark fog sprite to mix with the carpet sprites to decorate the dungeon.
@@ -44,10 +46,11 @@
  TODO:
  Take the top beam of the door into the roof layer, darken the screen upon collision, play openDoor.mp3
  load a new map, then brighten the screen.
- //Distant future: Combat system. Skill trees. Classes. Menus. Sound. Projectiles. Magic. A story.
- Lighting. Stats on items.
+ //Distant future: Combat system. Skill trees. Character classes. Screen Menus. Sound. Projectiles. Magic. A Story.
+ Lighting. Weather?. Stats on items.
  //TODO: This: Graphics: Add a drop shadow.
- */
+ *//*
+
 
 var game = new Phaser.Game(600, 600, Phaser.AUTO, 'phaser-example', { preload: preload, create: create, update: update, render: render });
 
@@ -173,20 +176,25 @@ function create() {
 
 
 /////// EasyStar
+    //This code involves the collision detection between the layer and the
+    //easystar library.
+
     var phaserJSON = game.cache.getJSON('version');
     var data = phaserJSON.layers[3].data; //grab the wall layer
     var preArray = [];
     var postArray = [];
     var level =[];
 
-    for (var i=0; i<data.length; i++) {
+    for (var i=0; i < data.length; i++)
+    {
         preArray.push(data[i]);
     }
 
     var dcv = Math.sqrt(data.length);
     var dataLength = data.length;
 
-    for (var x = 0; x < dataLength; x += dcv) {
+    for (var x = 0; x < dataLength; x += dcv)
+    {
         postArray = preArray.slice(0,dcv);
         level.push(postArray);
         preArray.splice(0,dcv);
@@ -197,22 +205,26 @@ function create() {
     easystar.setAcceptableTiles([0]);
     //easystar.enableDiagonals();
 
-    setInterval(function(){
-
-        easystar.findPath(enemy_x, enemy_y, player_x, player_y, function( path ) {
-
-            if (path) {
+    setInterval(function()
+    {
+        easystar.findPath(enemy_x, enemy_y, player_x, player_y, function( path )
+        {
+            if (path)
+            {
                 nextPointX = path[1].x;
                 nextPointY = path[1].y;
             }
 
-            if (path === null || stopPathFinder == true) {
+            if (path === null || stopPathFinder == true)
+            {
                 console.log("Pathfinder: DORMANT");
                 console.log('Pathfinder: ON');
             }
 
-            else {
-                for (var i = 0; i < path.length; i++) {
+            else
+            {
+                for (var i = 0; i < path.length; i++)
+                {
                     //console.log("X: " + path[i].x + " Y: " + path[i].y + " Rx: " + enemy_x + " Ry: " + enemy_y);
 
                     if (nextPointX < enemy_x && nextPointY < enemy_y)
@@ -256,7 +268,6 @@ function create() {
             }
         });
         easystar.calculate();
-
     }, 80);
 
 /////// Misc
@@ -266,7 +277,8 @@ function create() {
     orc.body.onEndContact.add(attackOff,this);
 }
 
-function attackOn(body){
+function attackOn(body)
+{
     if (body == null) {}
     else if (body.sprite == null) {}
     else if (body.sprite.key = 'cleric')
@@ -275,7 +287,8 @@ function attackOn(body){
     }
     else{}
 }
-function attackOff(body){
+function attackOff(body)
+{
     if (body == null) {}
     else if (body.sprite == null) {}
     else if (body.sprite.key = 'cleric')
@@ -285,8 +298,8 @@ function attackOff(body){
     else{}
 }
 
-function animateOrc(x){
-
+function animateOrc(x)
+{
     if (debug1 == 'attack on'){
         orc.animations.play('attack', 20, true);
     }
@@ -387,8 +400,8 @@ function direction(){
     }
 }
 
-function moveEnemy(){
-
+function moveEnemy()
+{
     // Enemy physics:
     // http://phaser.io/examples/v2/p2-physics/contact-material
 
@@ -465,4 +478,4 @@ function render(){
     game.debug.text('Enemy Direction: ' + enemyDirection, 32, 32);
     game.debug.text('Enemy Collision: ' + debug1  , 32, 62);
     game.debug.text('Player Collision: ' + debug2  , 32, 92);
-}
+}*/
