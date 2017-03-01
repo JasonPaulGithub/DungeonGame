@@ -41,11 +41,13 @@ function create()
     var dcv = Math.sqrt(data.length);
     var dataLength = data.length;
 
-    for (var i = 0; i < data.length; i++) {
+    for (var i = 0; i < data.length; i++)
+    {
         preArray.push(data[i]);
     }
 
-    for (var x = 0; x < dataLength; x += dcv) {
+    for (var x = 0; x < dataLength; x += dcv)
+    {
         postArray = preArray.slice(0, dcv);
         level.push(postArray);
         preArray.splice(0, dcv);
@@ -55,18 +57,21 @@ function create()
     easystar.setGrid(level);
     easystar.setAcceptableTiles([0]);
 
-    setInterval(function () {
-        easystar.findPath(1, 1, 2, 2, function (path) {
-            if (path) {
+    setInterval(function ()
+    {
+        easystar.findPath(orcArmy[0].xLoc(), orcArmy[0].yLoc(), player.xLoc(), player.yLoc(), function (path)
+        {
+            if (path)
+            {
                 console.log(path[1].x);
                 console.log(path[1].y);
             }
 
-            if (path === null) {
+            if (path === null)
+            {
                 console.log('Pathfinder: OFF');
-            }
-
-            else {
+            } else
+            {
                 console.log('Pathfinder: CHECK');
             }
         });
