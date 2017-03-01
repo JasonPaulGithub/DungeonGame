@@ -1,8 +1,6 @@
 var game = new Phaser.Game(1200, 600, Phaser.AUTO, 'phaser-example', {preload: preload,create: create, update: update,render: render});
 var map1 = 'src/map/map1.json';
 var mapData;
-var entityCollection = [[],[]];
-var textCollection = [];
 
 function preload()
 {
@@ -22,8 +20,59 @@ function create()
     //Create the orc army!
     for (var i = 4; i <= 12; i++)
     {
-        orc.push(new Orc('orc',400,i*50,game));
+        orcArmy.push(new Orc('orc',400,i*50,game,i));
     }
+
+    setInterval(function ()
+    {
+        console.log('Player Loc:');
+        console.log(player.xLoc() + player.yLoc());
+        console.log('Orc Loc:');
+        console.log(player.xLoc() + player.yLoc());
+
+    }, 5000);
+
+    var phaserJSON = game.cache.getJSON('version');
+    var data = phaserJSON.layers[3].data; //grab the wall layer
+    var preArray = [];
+    var postArray = [];
+    var level = [];
+    var easystar;
+    var dcv = Math.sqrt(data.length);
+    var dataLength = data.length;
+
+    for (var i = 0; i < data.length; i++) {
+        preArray.push(data[i]);
+    }
+
+    for (var x = 0; x < dataLength; x += dcv) {
+        postArray = preArray.slice(0, dcv);
+        level.push(postArray);
+        preArray.splice(0, dcv);
+    }
+
+    easystar = new EasyStar.js();
+    easystar.setGrid(level);
+    easystar.setAcceptableTiles([0]);
+
+    setInterval(function () {
+        easystar.findPath(1, 1, 2, 2, function (path) {
+            if (path) {
+                console.log(path[1].x);
+                console.log(path[1].y);
+            }
+
+            if (path === null) {
+                console.log('Pathfinder: OFF');
+            }
+
+            else {
+                console.log('Pathfinder: CHECK');
+            }
+        });
+        easystar.calculate();
+    }, 1000);
+
 }
 
 function update()

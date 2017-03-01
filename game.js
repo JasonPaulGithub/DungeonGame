@@ -49,7 +49,7 @@
  //Distant future: Combat system. Skill trees. Character classes. Screen Menus. Sound. Projectiles. Magic. A Story.
  Lighting. Weather?. Stats on items.
  //TODO: This: Graphics: Add a drop shadow.
- *//*
+ */
 
 
 var game = new Phaser.Game(600, 600, Phaser.AUTO, 'phaser-example', { preload: preload, create: create, update: update, render: render });
@@ -175,100 +175,7 @@ function create() {
     orc.animations.add('die',    [40,41,42,43,44,45,46,47,48,49],   spd, false);
 
 
-/////// EasyStar
-    //This code involves the collision detection between the layer and the
-    //easystar library.
 
-    var phaserJSON = game.cache.getJSON('version');
-    var data = phaserJSON.layers[3].data; //grab the wall layer
-    var preArray = [];
-    var postArray = [];
-    var level =[];
-
-    for (var i=0; i < data.length; i++)
-    {
-        preArray.push(data[i]);
-    }
-
-    var dcv = Math.sqrt(data.length);
-    var dataLength = data.length;
-
-    for (var x = 0; x < dataLength; x += dcv)
-    {
-        postArray = preArray.slice(0,dcv);
-        level.push(postArray);
-        preArray.splice(0,dcv);
-    }
-
-    var easystar = new EasyStar.js();
-    easystar.setGrid(level);
-    easystar.setAcceptableTiles([0]);
-    //easystar.enableDiagonals();
-
-    setInterval(function()
-    {
-        easystar.findPath(enemy_x, enemy_y, player_x, player_y, function( path )
-        {
-            if (path)
-            {
-                nextPointX = path[1].x;
-                nextPointY = path[1].y;
-            }
-
-            if (path === null || stopPathFinder == true)
-            {
-                console.log("Pathfinder: DORMANT");
-                console.log('Pathfinder: ON');
-            }
-
-            else
-            {
-                for (var i = 0; i < path.length; i++)
-                {
-                    //console.log("X: " + path[i].x + " Y: " + path[i].y + " Rx: " + enemy_x + " Ry: " + enemy_y);
-
-                    if (nextPointX < enemy_x && nextPointY < enemy_y)
-                    {
-                        enemyDirection = "NW";
-                    }
-                    else if (nextPointX == enemy_x && nextPointY < enemy_y)
-                    {
-                        enemyDirection = "N";
-                    }
-                    else if (nextPointX > enemy_x && nextPointY < enemy_y)
-                    {
-                        enemyDirection = "NE";
-                    }
-                    else if (nextPointX < enemy_x && nextPointY == enemy_y)
-                    {
-                        enemyDirection = "W";
-                    }
-                    else if (nextPointX > enemy_x && nextPointY == enemy_y)
-                    {
-                        enemyDirection = "E";
-                    }
-                    else if (nextPointX > enemy_x && nextPointY > enemy_y)
-                    {
-                        enemyDirection = "SE";
-                    }
-                    else if (nextPointX == enemy_x && nextPointY > enemy_y)
-                    {
-                        enemyDirection = "S";
-                    }
-                    else if (nextPointX < enemy_x && nextPointY > enemy_y)
-                    {
-                        enemyDirection = "SW";
-                    }
-                    else
-                    {
-                        enemyDirection = "STOP";
-                    }
-                    moveEnemy();
-                }
-            }
-        });
-        easystar.calculate();
-    }, 80);
 
 /////// Misc
     roof_layer.bringToTop();
@@ -478,4 +385,4 @@ function render(){
     game.debug.text('Enemy Direction: ' + enemyDirection, 32, 32);
     game.debug.text('Enemy Collision: ' + debug1  , 32, 62);
     game.debug.text('Player Collision: ' + debug2  , 32, 92);
-}*/
+}

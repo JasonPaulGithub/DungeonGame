@@ -15,11 +15,18 @@ function Player(id, x, y, game)
     game.camera.follow(this.player);
 }
 
-Player.prototype.stats = function ()
+Player.prototype.xLoc = function ()
 {
-    var stats = this.id + ' x: ' + this.player.body.x + ' y: ' + this.player.body.y;
-    return stats;
+    var val = game.math.snapToFloor(Math.floor(this.player.body.x), 32) / 32;
+    return val;
 }
+
+Player.prototype.yLoc = function ()
+{
+    var val = game.math.snapToFloor(Math.floor(this.player.body.y), 32) / 32;
+    return val;
+}
+
 
 Player.prototype.moveUp = function()
 {
@@ -44,19 +51,19 @@ Player.prototype.moveRight = function()
 function movePlayer()
 {
     if (game.input.keyboard.addKey(Phaser.Keyboard.UP).isDown == true) {
-        game.debug.text('Up key pressed', 100, 175);
+        game.debug.text('Up key pressed', 10, 20);
         player.moveUp();
     }
     if (game.input.keyboard.addKey(Phaser.Keyboard.DOWN).isDown == true) {
-        game.debug.text('Down key pressed', 100, 175);
+        game.debug.text('Down key pressed', 10, 20);
         player.moveDown();
     }
     if (game.input.keyboard.addKey(Phaser.Keyboard.LEFT).isDown == true) {
-        game.debug.text('Left key pressed', 100, 200);
+        game.debug.text('Left key pressed', 10, 40);
         player.moveLeft();
     }
     if (game.input.keyboard.addKey(Phaser.Keyboard.RIGHT).isDown == true) {
-        game.debug.text('Right key pressed', 100, 200);
+        game.debug.text('Right key pressed', 10, 40);
         player.moveRight();
     }
 }
