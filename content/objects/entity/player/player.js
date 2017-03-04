@@ -4,7 +4,7 @@ var player;
 //Player Factory
 function Player(id, x, y, game)
 {
-    this.speed = 10;
+    this.speed = 300;
     this.game = game;
     this.id = id;
     this.player = game.add.sprite(x, y, id);
@@ -31,7 +31,6 @@ Player.prototype.yLoc = function ()
     return val;
 }
 
-
 Player.prototype.moveUp = function()
 {
     this.player.body.velocity.y -= this.speed;
@@ -42,32 +41,33 @@ Player.prototype.moveDown = function()
     this.player.body.velocity.y += this.speed;
 }
 
-Player.prototype.moveLeft = function()
-{
-    this.player.body.velocity.x -= this.speed;
-}
 
-Player.prototype.moveRight = function()
+Player.prototype.runMe = function()
 {
-    this.player.body.velocity.x += this.speed;
-}
 
-function movePlayer()
-{
-    if (game.input.keyboard.addKey(Phaser.Keyboard.UP).isDown == true) {
+    // https://phaser.io/examples/v2/arcade-physics/platformer-basics
+
+    this.player.body.velocity.x = 0;
+    this.player.body.velocity.y = 0;
+
+    if (game.input.keyboard.addKey(Phaser.Keyboard.UP).isDown)
+    {
         game.debug.text('Up key pressed', 10, 20);
-        player.moveUp();
+        this.player.body.velocity.y -= this.speed;
     }
-    if (game.input.keyboard.addKey(Phaser.Keyboard.DOWN).isDown == true) {
+    else if (game.input.keyboard.addKey(Phaser.Keyboard.DOWN).isDown)
+    {
         game.debug.text('Down key pressed', 10, 20);
-        player.moveDown();
+        this.player.body.velocity.y += this.speed;
     }
-    if (game.input.keyboard.addKey(Phaser.Keyboard.LEFT).isDown == true) {
+    else if (game.input.keyboard.addKey(Phaser.Keyboard.LEFT).isDown == true)
+    {
         game.debug.text('Left key pressed', 10, 40);
-        player.moveLeft();
+        this.player.body.velocity.x -= this.speed;
     }
-    if (game.input.keyboard.addKey(Phaser.Keyboard.RIGHT).isDown == true) {
+    else if (game.input.keyboard.addKey(Phaser.Keyboard.RIGHT).isDown == true)
+    {
         game.debug.text('Right key pressed', 10, 40);
-        player.moveRight();
+        this.player.body.velocity.x += this.speed;
     }
 }

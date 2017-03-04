@@ -28,17 +28,18 @@ function create()
         orcArmy.push(new Orc('orc',400,i*50,game,i));
     }
 
-    // Misc
-    roof_layer.bringToTop();
 }
 
 function update()
 {
+    player.runMe();
+
+    // See if its possible to put the orc army into a
+    // seperate group and extract individual array numbers
     game.physics.arcade.collide(group,group);
 }
 
 function render()
 {
     debug();
-    movePlayer();
 }
