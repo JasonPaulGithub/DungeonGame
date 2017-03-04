@@ -10,6 +10,11 @@ function Player(id, x, y, game)
     this.player = game.add.sprite(x, y, id);
 
     game.physics.arcade.enable(this.player);
+
+    this.player.body.bounce.y = 0.2;
+    this.player.body.collideWorldBounds = true;
+    this.player.body.setSize(32,32);
+
     game.camera.follow(this.player);
     group.add(this.player);
 }

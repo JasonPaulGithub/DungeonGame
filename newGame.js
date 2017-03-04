@@ -15,25 +15,26 @@ function preload()
 
 function create()
 {
+    runMapData();
+
     game.physics.startSystem(Phaser.Physics.ARCADE);
     group = game.add.physicsGroup();
 
-    runMapData();
-
     player = new Player('cleric', 300, 300, game);
 
-
-    //Create the orc army!
-/*    for (var i = 4; i <= 12; i++)
+    // Create the orc army!
+    for (var i = 4; i <= 12; i++)
     {
         orcArmy.push(new Orc('orc',400,i*50,game,i));
-    }*/
+    }
 
+    // Misc
+    roof_layer.bringToTop();
 }
 
 function update()
 {
-
+    game.physics.arcade.collide(group,group);
 }
 
 function render()

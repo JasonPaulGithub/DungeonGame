@@ -8,10 +8,15 @@ function Orc(id, x, y, game,li)
     this.id = id;
     this.li = li;
     this.orc = game.add.sprite(x, y, id);
-    this.orc.game.physics.p2.enable(this.orc, true);
-    this.orc.body.setRectangle(32, 35);
-    this.orc.body.fixedRotation = true;
-    this.orc.anchor.setTo(0.5, 0.75);
+
+    game.physics.arcade.enable(this.orc);
+
+    this.orc.body.bounce.y = 0.2;
+    this.orc.body.collideWorldBounds = true;
+    this.orc.body.setSize(32,32);
+
+    group.add(this.orc);
+
 }
 
 Orc.prototype.id = function()
