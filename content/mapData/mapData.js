@@ -30,7 +30,8 @@ function runMapData()
     roof_layer.resizeWorld();
     roof_layer.debug = false;
     mapData.setCollisionBetween(1,2000,true,'wall');
-    game.physics.p2.convertTilemap(mapData, wall_layer);
+    //game.physics.p2.convertTilemap(mapData, wall_layer);
+
     /////// Misc
     roof_layer.bringToTop();
 }

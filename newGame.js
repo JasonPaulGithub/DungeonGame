@@ -8,20 +8,19 @@ function preload()
     game.load.spritesheet('cleric', 'src/sprites/cleric.png', 64, 64);
     game.load.spritesheet('orc', 'src/sprites/orc.png', 64, 64);
     game.load.tilemap('mapData', map1, null, Phaser.Tilemap.TILED_JSON);
-    game.load.json('version', map1); //Note that whatever this is, it is also located in the pathfinding.js class.
+    game.load.json('version', map1);
 }
 
 function create()
 {
-    game.physics.startSystem(Phaser.Physics.P2JS);
     runMapData();
-    player = new Player('cleric', 300, 300, game);
+    //player = new Player('cleric', 300, 300, game);
 
     //Create the orc army!
-    for (var i = 4; i <= 12; i++)
+/*    for (var i = 4; i <= 12; i++)
     {
         orcArmy.push(new Orc('orc',400,i*50,game,i));
-    }
+    }*/
 
 }
 
