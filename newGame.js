@@ -2,6 +2,8 @@ var game = new Phaser.Game(1200, 600, Phaser.AUTO, 'phaser-example', {preload: p
 var map1 = 'src/map/map1.json';
 var mapData;
 
+var group;
+
 function preload()
 {
     game.load.spritesheet('tiles', 'src/sprites/tiles.png');
@@ -13,8 +15,13 @@ function preload()
 
 function create()
 {
+    game.physics.startSystem(Phaser.Physics.ARCADE);
+    group = game.add.physicsGroup();
+
     runMapData();
-    //player = new Player('cleric', 300, 300, game);
+
+    player = new Player('cleric', 300, 300, game);
+
 
     //Create the orc army!
 /*    for (var i = 4; i <= 12; i++)

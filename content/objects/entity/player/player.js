@@ -8,11 +8,10 @@ function Player(id, x, y, game)
     this.game = game;
     this.id = id;
     this.player = game.add.sprite(x, y, id);
-    this.player.game.physics.p2.enable(this.player, true);
-    this.player.body.setRectangle(32, 35);
-    this.player.body.fixedRotation = true;
-    this.player.anchor.setTo(0.5, 0.75);
+
+    game.physics.arcade.enable(this.player);
     game.camera.follow(this.player);
+    group.add(this.player);
 }
 
 Player.prototype.xLoc = function ()
@@ -30,22 +29,22 @@ Player.prototype.yLoc = function ()
 
 Player.prototype.moveUp = function()
 {
-    this.player.body.y -= this.speed;
+    this.player.body.velocity.y -= this.speed;
 }
 
 Player.prototype.moveDown = function()
 {
-    this.player.body.y += this.speed;
+    this.player.body.velocity.y += this.speed;
 }
 
 Player.prototype.moveLeft = function()
 {
-    this.player.body.x -= this.speed;
+    this.player.body.velocity.x -= this.speed;
 }
 
 Player.prototype.moveRight = function()
 {
-    this.player.body.x += this.speed;
+    this.player.body.velocity.x += this.speed;
 }
 
 function movePlayer()
