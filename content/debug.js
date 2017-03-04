@@ -4,7 +4,7 @@ function debug()
     game.debug.geom( rect, 'rgba(0,0,0,0.4)');
     game.debug.text('DEBUG - Game Stats: ',100,100);
 
-    game.debug.text('Player (x:' + player.xLoc()+" y:"+player.yLoc()+")", 100, 125);
+    game.debug.text('Player (x:' + player.xLoc()+" y:"+player.yLoc()+") ", 100, 125);
 
 /*
     //TODO: create a for loop to count and display orcs. [[],[]]
