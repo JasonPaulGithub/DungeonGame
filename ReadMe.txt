@@ -1,6 +1,9 @@
-This project inspired me to get into design patterns. I wanted to create a dungeon crawler game but I kept having trouble with the frameworks.
-Things like which library for gravity to use, collision detection, A* pathfinding algorithums.
-It all had a affect on my game. In the end I decided to move over to a Java based platform, which resulted in the Mario code here in my repo.
+This project inspired me to get into design patterns. I wanted to create a dungeon crawler game but I kept having trouble with the different libraries.
+
+Things like which library for gravity to use, collision detection, A* pathfinding algorithums, etc.
+It all had an effect on my games overall design. 
+
+In the end I decided to move over to a Java based platform, which resulted in the Mario code here in my repo.
 
 In any case, I had a lot of ideas. Ideas I may save for another project.
 
